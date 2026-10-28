@@ -11,22 +11,22 @@ export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 ```
 
 ## 功能文档维护规范及协议
-具体规范及约束请阅读 `docs/feature/RULES.md` 中的说明。
+具体规范及约束请阅读 `docs/rules/FEATURE.md` 中的说明。
 
 ## 需求文档管理规范及协议
-具体规范及约束请阅读 `docs/requirement/RULES.md` 中的说明。
+具体规范及约束请阅读 `docs/rules/REQUIREMENT.md` 中的说明。
 
 ## 日常进度记录规范及协议
-具体规范及约束请阅读 `docs/dailylog/RULES.md` 中的说明。
+具体规范及约束请阅读 `docs/rules/DAILYLOG.md` 中的说明。
 
 ## Git 工作流规范
-具体规范及约束请阅读 `docs/guide/GIT_WORKFLOW.MD` 中的说明。
+具体规范及约束请阅读 `docs/rules/GIT_WORKFLOW.MD` 中的说明。
 
 ## API 接口测试与编排验证规范
-具体规范及约束请阅读 `docs/guide/TEST_GUIDELINE.MD` 中的说明。
+具体规范及约束请阅读 `docs/rules/TEST_GUIDELINE.MD` 中的说明。
 
 ## 问题分析规范
-对系统问题分析，必须遵循 `docs/guide/ANALYSIS_GUIDELINE.MD` 中的规范中的核心要求。
+对系统问题分析，必须遵循 `docs/rules/ANALYSIS_GUIDELINE.MD` 中的规范中的核心要求。
 
 ## OpenCode Endpoint 优先级提示
 
