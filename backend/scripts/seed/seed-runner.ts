@@ -6,7 +6,6 @@ type SeedName =
   | 'builtin-tools'
   | 'default-model-registry'
   | 'system-schedules'
-  | 'docs-heat'
   | 'meeting-monitor'
   | 'agent-roles'
   | 'hr-agent-role-master';
@@ -18,7 +17,6 @@ const ALL_SEEDS: SeedName[] = [
   'builtin-tools',
   'default-model-registry',
   'system-schedules',
-  'docs-heat',
   'meeting-monitor',
   'agent-roles',
   'hr-agent-role-master',
@@ -206,15 +204,6 @@ async function run(): Promise<void> {
         } else {
           const result: any = await runWithLegacyApp((app) => seedSystemSchedules(app));
           console.log(`[seed] system-schedules: total=${result.total}, enabled=${result.enabled}, seeded=${result.seeded.join(',')}`);
-        }
-      }
-
-      if (seed === 'docs-heat') {
-        if (dryRun) {
-          console.log('[seed] docs-heat: dry-run skip (requires Nest context write)');
-        } else {
-          const result: any = await runWithLegacyApp((app) => seedSystemSchedules(app, { only: ['docs-heat'] }));
-          console.log(`[seed] docs-heat: total=${result.total}, enabled=${result.enabled}, seeded=${result.seeded.join(',')}`);
         }
       }
 

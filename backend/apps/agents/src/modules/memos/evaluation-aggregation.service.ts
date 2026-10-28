@@ -6,36 +6,12 @@ import { AgentRun, AgentRunDocument } from '../../schemas/agent-run.schema';
 import { AgentPart, AgentPartDocument } from '../../schemas/agent-part.schema';
 import { AgentMemo, AgentMemoDocument } from '../../schemas/agent-memo.schema';
 import { Agent, AgentDocument } from '@agent/schemas/agent.schema';
-import { OrchestrationTask, OrchestrationTaskDocument } from '../../../../../src/shared/schemas/orchestration-task.schema';
 import { Skill, SkillDocument } from '../../schemas/agent-skill.schema';
 
 interface EvaluationData {
-  taskStats: TaskStatistics;
   skillStats: SkillStatistics;
   toolStats: ToolUsageStat[];
   slaMetrics: SlaMetrics;
-}
-
-interface TaskStatistics {
-  total: number;
-  completed: number;
-  failed: number;
-  pending: number;
-  inProgress: number;
-  completionRate: number;
-  avgCompletedDuration?: number;
-  recentTasks: RecentTask[];
-}
-
-interface RecentTask {
-  id: string;
-  title: string;
-  priority: string;
-  status: string;
-  result?: {
-    summary?: string;
-  };
-  completedAt?: Date;
 }
 
 interface SkillStatistics {
@@ -78,7 +54,6 @@ export class EvaluationAggregationService {
     @InjectModel(AgentPart.name) private readonly partModel: Model<AgentPartDocument>,
     @InjectModel(AgentMemo.name) private readonly memoModel: Model<AgentMemoDocument>,
     @InjectModel(Agent.name) private readonly agentModel: Model<AgentDocument>,
-    @InjectModel(OrchestrationTask.name) private readonly taskModel: Model<OrchestrationTaskDocument>,
     @InjectModel(Skill.name) private readonly skillModel: Model<SkillDocument>,
   ) {}
 
@@ -88,14 +63,13 @@ export class EvaluationAggregationService {
     try {
       const { start, end } = period || this.getCurrentMonth();
 
-      const [taskStats, skillStats, toolStats, slaMetrics] = await Promise.all([
-        this.getTaskStatistics(agentId, start, end),
+      const [skillStats, toolStats, slaMetrics] = await Promise.all([
         this.getSkillStatistics(agentId),
         this.getToolUsageStats(agentId, start, end),
         this.getSlaMetrics(agentId, start, end),
       ]);
 
-      const content = this.buildEvaluationContent({ taskStats, skillStats, toolStats, slaMetrics }, start, end);
+      const content = this.buildEvaluationContent({ skillStats, toolStats, slaMetrics }, start, end);
 
       await this.updateEvaluationMemo(agentId, content, {
         lastAggregatedAt: new Date().toISOString(),
@@ -118,73 +92,6 @@ export class EvaluationAggregationService {
     const start = new Date(now.getFullYear(), now.getMonth(), 1);
     const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
     return { start, end };
-  }
-
-  private async getTaskStatistics(agentId: string, start: Date, end: Date): Promise<TaskStatistics> {
-    const result = await this.taskModel.aggregate([
-      {
-        $match: {
-          'assignment.executorId': agentId,
-          'assignment.executorType': 'agent',
-          createdAt: { $gte: start, $lte: end },
-        },
-      },
-      {
-        $group: {
-          _id: '$status',
-          count: { $sum: 1 },
-          avgDuration: { $avg: { $subtract: ['$completedAt', '$startedAt'] } },
-        },
-      },
-    ]);
-
-    const statsMap = new Map(result.map((r) => [r._id, r]));
-
-    const completed = statsMap.get('completed')?.count || 0;
-    const failed = statsMap.get('failed')?.count || 0;
-    const pending = (statsMap.get('pending')?.count || 0) + (statsMap.get('assigned')?.count || 0);
-    const inProgress =
-      (statsMap.get('in_progress')?.count || 0) +
-      (statsMap.get('blocked')?.count || 0) +
-      (statsMap.get('waiting_human')?.count || 0);
-    const total = completed + failed + pending + inProgress;
-
-    const completedDurations = result.filter((r) => r._id === 'completed' && r.avgDuration);
-    const avgCompletedDuration =
-      completedDurations.length > 0
-        ? Math.round((completedDurations[0].avgDuration || 0) / 1000 / 60)
-        : undefined;
-
-    const recentTasksData = await this.taskModel
-      .find({
-        'assignment.executorId': agentId,
-        'assignment.executorType': 'agent',
-        status: 'completed',
-        createdAt: { $gte: start },
-      })
-      .sort({ completedAt: -1 })
-      .limit(10)
-      .exec();
-
-    const recentTasks: RecentTask[] = recentTasksData.map((task) => ({
-      id: task.id || '',
-      title: task.title,
-      priority: task.priority,
-      status: task.status,
-      result: task.result,
-      completedAt: task.completedAt,
-    }));
-
-    return {
-      total,
-      completed,
-      failed,
-      pending,
-      inProgress,
-      completionRate: total > 0 ? Math.round((completed / total) * 100) : 0,
-      avgCompletedDuration,
-      recentTasks,
-    };
   }
 
   private async getSkillStatistics(agentId: string): Promise<SkillStatistics> {
@@ -299,7 +206,7 @@ export class EvaluationAggregationService {
   }
 
   private buildEvaluationContent(data: EvaluationData, start: Date, end: Date): string {
-    const { taskStats, skillStats, toolStats, slaMetrics } = data;
+    const { skillStats, toolStats, slaMetrics } = data;
 
     const lines: string[] = [];
 
@@ -307,40 +214,6 @@ export class EvaluationAggregationService {
 
     const periodStr = `${start.toLocaleDateString('zh-CN')} ~ ${end.toLocaleDateString('zh-CN')}`;
     lines.push(`**评估周期**：${periodStr}`, '');
-
-    lines.push('## 任务统计', '');
-
-    lines.push('### 任务完成情况', '');
-    lines.push(`- **总任务数**：${taskStats.total}`);
-    lines.push(`- **完成数**：${taskStats.completed}`);
-    lines.push(`- **失败数**：${taskStats.failed}`);
-    lines.push(`- **进行中**：${taskStats.inProgress}`);
-    lines.push(`- **待处理**：${taskStats.pending}`);
-    lines.push(`- **完成率**：${taskStats.completionRate}%`);
-    if (taskStats.avgCompletedDuration) {
-      lines.push(`- **平均完成时间**：${taskStats.avgCompletedDuration} 分钟`);
-    }
-    lines.push('');
-
-    if (taskStats.recentTasks.length > 0) {
-      lines.push('### 最近完成任务', '');
-      lines.push('| 任务 | 优先级 | 完成时间 | 状态 | 结果摘要 |');
-      lines.push('|-----|--------|---------|------|---------|');
-
-      for (const task of taskStats.recentTasks) {
-        const priorityMap: Record<string, string> = {
-          low: '低',
-          medium: '中',
-          high: '高',
-          urgent: '紧急',
-        };
-        const priority = priorityMap[task.priority] || task.priority;
-        const date = task.completedAt ? new Date(task.completedAt).toLocaleDateString('zh-CN') : 'N/A';
-        const summary = task.result?.summary ? this.compact(task.result.summary, 40) : '-';
-        lines.push(`| ${this.compact(task.title, 30)} | ${priority} | ${date} | ${task.status} | ${summary} |`);
-      }
-      lines.push('');
-    }
 
     lines.push('## 技能统计', '');
 
@@ -399,7 +272,7 @@ export class EvaluationAggregationService {
     lines.push(`- version: ${Date.now()}`);
     lines.push(`- lastAggregatedAt: ${new Date().toISOString()}`);
     lines.push(`- period: ${periodStr}`);
-    lines.push(`- sources: [orchestration_tasks, agent.skills, agent_runs, agent_parts]`);
+    lines.push(`- sources: [agent.skills, agent_runs, agent_parts]`);
 
     return lines.join('\n');
   }

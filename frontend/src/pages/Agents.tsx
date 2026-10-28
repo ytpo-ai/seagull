@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { PlusIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { meetingService } from '../services/meetingService';
-import { incubationProjectService, IncubationProject } from '../services/incubationProjectService';
 import type { Agent } from '../types';
 import {
   AgentCard,
@@ -24,38 +22,33 @@ const TIER_FILTER_ALLOWLIST: TierFilter[] = ['all', 'leadership', 'operations', 
 
 type AgentListPersistedFilters = {
   tierFilter?: string;
-  projectIdFilter?: string | null;
 };
 
-const getInitialFilters = (): { tierFilter: TierFilter; projectIdFilter: string | undefined } => {
+const getInitialFilters = (): { tierFilter: TierFilter } => {
   if (typeof window === 'undefined') {
-    return { tierFilter: 'all', projectIdFilter: undefined };
+    return { tierFilter: 'all' };
   }
 
   try {
     const raw = window.localStorage.getItem(AGENTS_FILTER_STORAGE_KEY);
     if (!raw) {
-      return { tierFilter: 'all', projectIdFilter: undefined };
+      return { tierFilter: 'all' };
     }
 
     const parsed = JSON.parse(raw) as AgentListPersistedFilters;
     const tierFilter = TIER_FILTER_ALLOWLIST.includes(parsed.tierFilter as TierFilter)
       ? (parsed.tierFilter as TierFilter)
       : 'all';
-    const projectIdFilter = typeof parsed.projectIdFilter === 'string' && parsed.projectIdFilter.trim()
-      ? parsed.projectIdFilter
-      : undefined;
 
-    return { tierFilter, projectIdFilter };
+    return { tierFilter };
   } catch {
-    return { tierFilter: 'all', projectIdFilter: undefined };
+    return { tierFilter: 'all' };
   }
 };
 
 const Agents: React.FC = () => {
   const navigate = useNavigate();
   const [persistedFilters] = useState(getInitialFilters);
-  const [projectIdFilter, setProjectIdFilter] = useState<string | undefined>(persistedFilters.projectIdFilter);
 
   const {
     agents,
@@ -69,13 +62,7 @@ const Agents: React.FC = () => {
     toggleAgentMutation,
     updateAgentMutation,
     createAgentMutation,
-  } = useAgentListData(projectIdFilter);
-
-  const { data: incubationProjects = [] } = useQuery<IncubationProject[]>(
-    'agents-incubation-projects',
-    () => incubationProjectService.list(),
-    { retry: false, staleTime: 60_000 },
-  );
+  } = useAgentListData();
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -91,14 +78,13 @@ const Agents: React.FC = () => {
 
     const next: AgentListPersistedFilters = {
       tierFilter,
-      projectIdFilter: projectIdFilter || null,
     };
     try {
       window.localStorage.setItem(AGENTS_FILTER_STORAGE_KEY, JSON.stringify(next));
     } catch {
       // Ignore localStorage write failures (e.g. disabled storage, quota exceeded)
     }
-  }, [tierFilter, projectIdFilter]);
+  }, [tierFilter]);
 
   const getAgentId = (agent: Agent | null): string => {
     const withMongoId = agent as (Agent & { _id?: string }) | null;
@@ -194,9 +180,6 @@ const Agents: React.FC = () => {
         tierFilter={tierFilter}
         onTierFilterChange={setTierFilter}
         onOpenCreate={() => setIsCreateModalOpen(true)}
-        projectIdFilter={projectIdFilter}
-        onProjectIdFilterChange={setProjectIdFilter}
-        incubationProjects={incubationProjects}
       />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">

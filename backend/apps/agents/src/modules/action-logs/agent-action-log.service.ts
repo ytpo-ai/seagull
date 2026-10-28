@@ -15,7 +15,7 @@ import {
   AgentActionStatus,
 } from '../../schemas/agent-action-log.schema';
 import { AgentRun, AgentRunDocument } from '../../schemas/agent-run.schema';
-import { OrchestrationPlan, OrchestrationPlanDocument } from '../../../../../src/shared/schemas/orchestration-plan.schema';
+// import { OrchestrationPlan, OrchestrationPlanDocument } from '../../../../../src/shared/schemas/orchestration-plan.schema';
 
 interface RuntimeRunContextSnapshot {
   runId: string;
@@ -91,8 +91,8 @@ export class AgentActionLogService {
     private readonly agentActionLogModel: Model<AgentActionLogDocument>,
     @InjectModel(AgentRun.name)
     private readonly agentRunModel: Model<AgentRunDocument>,
-    @InjectModel(OrchestrationPlan.name)
-    private readonly orchestrationPlanModel: Model<OrchestrationPlanDocument>,
+    // @InjectModel(OrchestrationPlan.name)
+    // private readonly orchestrationPlanModel: Model<OrchestrationPlanDocument>,
     private readonly redisService: RedisService,
     @Inject(MESSAGE_BUS) private readonly messageBus: MessageBus,
   ) {}
@@ -129,76 +129,76 @@ export class AgentActionLogService {
     }
   }
 
-  private async publishAgentActionCompletedEventIfNeeded(
-    input: AgentActionLogInput,
-    status: string,
-    details: Record<string, unknown>,
-  ): Promise<void> {
-    if (input.contextType !== 'orchestration') {
-      return;
-    }
-    if (status !== 'completed' && status !== 'failed') {
-      return;
-    }
+  // private async publishAgentActionCompletedEventIfNeeded(
+  //   input: AgentActionLogInput,
+  //   status: string,
+  //   details: Record<string, unknown>,
+  // ): Promise<void> {
+  //   if (input.contextType !== 'orchestration') {
+  //     return;
+  //   }
+  //   if (status !== 'completed' && status !== 'failed') {
+  //     return;
+  //   }
 
-    const contextPlanId = String(details.planId || input.contextId || '').trim();
-    if (!contextPlanId) {
-      return;
-    }
+  //   const contextPlanId = String(details.planId || input.contextId || '').trim();
+  //   if (!contextPlanId) {
+  //     return;
+  //   }
 
-    const plan = await this.orchestrationPlanModel
-      .findOne({ _id: contextPlanId })
-      .select({ createdBy: 1, title: 1 })
-      .lean<{ createdBy?: string; title?: string }>()
-      .exec();
-    const receiverId = String(plan?.createdBy || '').trim();
-    if (!receiverId) {
-      return;
-    }
+  //   const plan = await this.orchestrationPlanModel
+  //     .findOne({ _id: contextPlanId })
+  //     .select({ createdBy: 1, title: 1 })
+  //     .lean<{ createdBy?: string; title?: string }>()
+  //     .exec();
+  //   const receiverId = String(plan?.createdBy || '').trim();
+  //   if (!receiverId) {
+  //     return;
+  //   }
 
-    const statusLabel = status === 'failed' ? '失败' : '完成';
-    const taskId = String(details.taskId || '').trim();
-    const taskTitle = String(details.taskTitle || '').trim() || String(input.action || '').trim() || '未命名任务';
-    const actionUrl = `/orchestration?planId=${encodeURIComponent(contextPlanId)}${taskId ? `&taskId=${encodeURIComponent(taskId)}` : ''}`;
-    const occurredAt = new Date().toISOString();
+  //   const statusLabel = status === 'failed' ? '失败' : '完成';
+  //   const taskId = String(details.taskId || '').trim();
+  //   const taskTitle = String(details.taskTitle || '').trim() || String(input.action || '').trim() || '未命名任务';
+  //   const actionUrl = `/orchestration?planId=${encodeURIComponent(contextPlanId)}${taskId ? `&taskId=${encodeURIComponent(taskId)}` : ''}`;
+  //   const occurredAt = new Date().toISOString();
 
-    const event = buildMessageCenterEvent({
-      eventType: 'agent.action.completed',
-      source: MESSAGE_CENTER_EVENT_SOURCE_AGENTS,
-      occurredAt,
-      data: {
-        receiverId,
-        messageType: 'orchestration',
-        title: `Agent 执行${statusLabel}`,
-        content: `Agent「${input.agentId}」执行任务「${taskTitle}」${statusLabel}`,
-        actionUrl,
-        bizKey: `agent-action:${contextPlanId}:${input.sourceEventId || occurredAt}`,
-        priority: status === 'failed' ? 'high' : 'low',
-        extra: {
-          agentId: input.agentId,
-          agentName: String(details.agentName || '').trim() || input.agentId,
-          action: input.action,
-          contextType: input.contextType,
-          contextId: input.contextId,
-          planId: contextPlanId,
-          planTitle: String(plan?.title || '').trim() || undefined,
-          taskId,
-          taskTitle,
-          runId: String(details.runId || '').trim() || undefined,
-          sessionId: String(details.sessionId || '').trim() || undefined,
-          durationMs: Number.isFinite(input.durationMs) ? input.durationMs : 0,
-          status,
-        },
-      },
-    });
+  //   const event = buildMessageCenterEvent({
+  //     eventType: 'agent.action.completed',
+  //     source: MESSAGE_CENTER_EVENT_SOURCE_AGENTS,
+  //     occurredAt,
+  //     data: {
+  //       receiverId,
+  //       messageType: 'orchestration',
+  //       title: `Agent 执行${statusLabel}`,
+  //       content: `Agent「${input.agentId}」执行任务「${taskTitle}」${statusLabel}`,
+  //       actionUrl,
+  //       bizKey: `agent-action:${contextPlanId}:${input.sourceEventId || occurredAt}`,
+  //       priority: status === 'failed' ? 'high' : 'low',
+  //       extra: {
+  //         agentId: input.agentId,
+  //         agentName: String(details.agentName || '').trim() || input.agentId,
+  //         action: input.action,
+  //         contextType: input.contextType,
+  //         contextId: input.contextId,
+  //         planId: contextPlanId,
+  //         planTitle: String(plan?.title || '').trim() || undefined,
+  //         taskId,
+  //         taskTitle,
+  //         runId: String(details.runId || '').trim() || undefined,
+  //         sessionId: String(details.sessionId || '').trim() || undefined,
+  //         durationMs: Number.isFinite(input.durationMs) ? input.durationMs : 0,
+  //         status,
+  //       },
+  //     },
+  //   });
 
-    try {
-      await this.messageBus.publish('message-center.events', { payload: event });
-    } catch (error) {
-      const reason = error instanceof Error ? error.message : String(error || 'unknown');
-      this.logger.warn(`Publish agent action message-center event failed: planId=${contextPlanId} reason=${reason}`);
-    }
-  }
+  //   try {
+  //     await this.messageBus.publish('message-center.events', { payload: event });
+  //   } catch (error) {
+  //     const reason = error instanceof Error ? error.message : String(error || 'unknown');
+  //     this.logger.warn(`Publish agent action message-center event failed: planId=${contextPlanId} reason=${reason}`);
+  //   }
+  // }
 
   async recordRuntimeHookEvent(event: RuntimeHookEventInput): Promise<void> {
     const status = this.runtimeStatusMap[event.eventType] || 'unknown';

@@ -11,8 +11,8 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { PromptTemplateRefPicker } from '../components/PromptTemplateRefPicker';
-import { SkillMarketPlatformPanel } from '../components/SkillMarketPanel';
-import { SkillGithubRepoPanel } from '../components/SkillGithubRepoPanel';
+// import { SkillMarketPlatformPanel } from '../components/SkillMarketPanel';
+// import { SkillGithubRepoPanel } from '../components/SkillGithubRepoPanel';
 import { skillService, SkillPagedResponse } from '../services/skillService';
 import { agentService } from '../services/agentService';
 import { PromptTemplateRef, Skill } from '../types';
@@ -580,11 +580,7 @@ const Skills: React.FC = () => {
             loading={createSkillMutation.isLoading}
           />
         </>
-      ) : pageTab === 'market' ? (
-        <SkillMarketPlatformPanel />
-      ) : (
-        <SkillGithubRepoPanel />
-      )}
+      ): <></>}
     </div>
   );
 };

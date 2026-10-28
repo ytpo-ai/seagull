@@ -16,8 +16,8 @@ export class GatewayProxyService {
   private readonly lifeScriptBaseUrl = String(process.env.LIFE_SCRIPT_BASE_URL || 'http://localhost:3101')
     .trim()
     .replace(/\/+$/, '');
-  private readonly engineeringIntelligenceBaseUrl =
-    process.env.ENGINEERING_INTELLIGENCE_SERVICE_URL || 'http://localhost:3004';
+  // private readonly engineeringIntelligenceBaseUrl =
+  //   process.env.ENGINEERING_INTELLIGENCE_SERVICE_URL || 'http://localhost:3004';
   private readonly contextSecret = process.env.INTERNAL_CONTEXT_SECRET || 'internal-context-secret';
   private readonly defaultProxyTimeoutMs = this.parseTimeout(process.env.GATEWAY_PROXY_TIMEOUT_MS, 30000);
   private readonly debugRunTimeoutMs = this.parseTimeout(process.env.GATEWAY_DEBUG_RUN_TIMEOUT_MS, 180000);
@@ -30,12 +30,12 @@ export class GatewayProxyService {
   ) {}
 
   resolveTarget(originalUrl: string): string {
-    if (
-      originalUrl.startsWith('/api/ei') ||
-      originalUrl.startsWith('/api/engineering-intelligence')
-    ) {
-      return this.engineeringIntelligenceBaseUrl;
-    }
+    // if (
+    //   originalUrl.startsWith('/api/ei') ||
+    //   originalUrl.startsWith('/api/engineering-intelligence')
+    // ) {
+    //   return this.engineeringIntelligenceBaseUrl;
+    // }
 
     if (
       originalUrl.startsWith('/api/agents') ||
@@ -65,14 +65,14 @@ export class GatewayProxyService {
     return this.legacyBaseUrl;
   }
 
-  private getSourceService(originalUrl: string): 'agents' | 'legacy' | 'engineering-intelligence' | 'life-script' {
+  private getSourceService(originalUrl: string): 'agents' | 'legacy' | 'life-script' {
     const target = this.resolveTarget(originalUrl);
     if (target === this.agentsBaseUrl) {
       return 'agents';
     }
-    if (target === this.engineeringIntelligenceBaseUrl) {
-      return 'engineering-intelligence';
-    }
+    // if (target === this.engineeringIntelligenceBaseUrl) {
+    //   return 'engineering-intelligence';
+    // }
     if (target === this.lifeScriptBaseUrl) {
       return 'life-script';
     }
@@ -140,7 +140,7 @@ export class GatewayProxyService {
     statusCode: number;
     durationMs: number;
     requestId: string;
-    sourceService: 'agents' | 'legacy' | 'engineering-intelligence' | 'life-script';
+    sourceService: 'agents' | 'legacy' | 'life-script';
     errorMessage?: string;
   }): Promise<void> {
     const { req, userContext, statusCode, durationMs, requestId, sourceService, errorMessage } = params;

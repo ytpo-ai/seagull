@@ -35,12 +35,12 @@ export class SchedulerService implements OnModuleInit, OnModuleDestroy {
   private readonly monitorIntervalMs = Math.max(1000, Number(process.env.SCHEDULER_MESSAGE_MONITOR_INTERVAL_MS || 3000));
   private readonly monitorMaxAttempts = Math.max(1, Number(process.env.SCHEDULER_MESSAGE_MONITOR_MAX_ATTEMPTS || 20));
   private readonly dispatchMaxAttempts = Math.max(1, Number(process.env.SCHEDULER_DISPATCH_MAX_ATTEMPTS || 3));
-  private readonly systemEngineeringStatisticsScheduleName = 'system-engineering-statistics';
-  private readonly systemDocsHeatScheduleName = 'system-docs-heat';
+  // private readonly systemEngineeringStatisticsScheduleName = 'system-engineering-statistics';
+  // private readonly systemDocsHeatScheduleName = 'system-docs-heat';
   private readonly systemScheduleNames = [
     'system-meeting-monitor',
-    'system-engineering-statistics',
-    'system-docs-heat',
+    // 'system-engineering-statistics',
+    // 'system-docs-heat',
     'system-cto-daily-requirement-triage',
     'system-memo-event-flush',
     'system-memo-full-aggregation',
@@ -78,84 +78,6 @@ export class SchedulerService implements OnModuleInit, OnModuleDestroy {
     }
     this.lifecycleMonitorTimers.clear();
     this.scheduleMonitorKeys.clear();
-  }
-
-  async getOrCreateEngineeringStatisticsSchedule(): Promise<Schedule> {
-    const schedule = await this.scheduleModel.findOne({ name: this.systemEngineeringStatisticsScheduleName }).exec();
-    if (!schedule) {
-      throw new NotFoundException('Engineering statistics schedule is unavailable, run seed first');
-    }
-    if (schedule.enabled) {
-      await this.registerSchedule(schedule);
-    }
-    return this.getScheduleById(this.getEntityId(schedule as unknown as Record<string, unknown>));
-  }
-
-  async triggerSystemEngineeringStatistics(payload?: {
-    receiverId?: string;
-    scope?: 'all' | 'docs' | 'frontend' | 'backend';
-    tokenMode?: 'estimate' | 'exact';
-    projectIds?: string[];
-    triggeredBy?: string;
-  }): Promise<{ accepted: boolean; status: string; scheduleId: string }> {
-    const schedule = await this.scheduleModel.findOne({ name: this.systemEngineeringStatisticsScheduleName }).exec();
-    if (!schedule) {
-      throw new NotFoundException('Engineering statistics schedule is unavailable, run seed first');
-    }
-    const scheduleId = this.getEntityId(schedule as unknown as Record<string, unknown>);
-    const basePayload = (schedule.input?.payload || {}) as Record<string, unknown>;
-
-    await this.dispatchSchedule(schedule, 'manual', {
-      inputOverride: {
-        payload: {
-          ...basePayload,
-          ...(payload?.receiverId ? { receiverId: payload.receiverId } : {}),
-          ...(payload?.scope ? { scope: payload.scope } : {}),
-          ...(payload?.tokenMode ? { tokenMode: payload.tokenMode } : {}),
-          ...(Array.isArray(payload?.projectIds) ? { projectIds: payload.projectIds } : {}),
-          triggeredBy: payload?.triggeredBy || 'frontend-trigger',
-        },
-      },
-    });
-
-    return { accepted: true, status: 'triggered', scheduleId };
-  }
-
-  async getOrCreateDocsHeatSchedule(): Promise<Schedule> {
-    const schedule = await this.scheduleModel.findOne({ name: this.systemDocsHeatScheduleName }).exec();
-    if (!schedule) {
-      throw new NotFoundException('Docs heat schedule is unavailable, run seed first');
-    }
-    if (schedule.enabled) {
-      await this.registerSchedule(schedule);
-    }
-    return this.getScheduleById(this.getEntityId(schedule as unknown as Record<string, unknown>));
-  }
-
-  async triggerSystemDocsHeat(payload?: {
-    topN?: number;
-    triggeredBy?: string;
-  }): Promise<{ accepted: boolean; status: string; scheduleId: string }> {
-    const schedule = await this.scheduleModel.findOne({ name: this.systemDocsHeatScheduleName }).exec();
-    if (!schedule) {
-      throw new NotFoundException('Docs heat schedule is unavailable, run seed first');
-    }
-    const scheduleId = this.getEntityId(schedule as unknown as Record<string, unknown>);
-    const basePayload = (schedule.input?.payload || {}) as Record<string, unknown>;
-
-    await this.dispatchSchedule(schedule, 'manual', {
-      inputOverride: {
-        payload: {
-          ...basePayload,
-          ...(Number.isFinite(Number(payload?.topN)) && Number(payload?.topN) > 0
-            ? { topN: Math.floor(Number(payload?.topN)) }
-            : {}),
-          triggeredBy: payload?.triggeredBy || 'frontend-trigger',
-        },
-      },
-    });
-
-    return { accepted: true, status: 'triggered', scheduleId };
   }
 
   async createSchedule(createdBy: string, dto: CreateScheduleDto): Promise<Schedule> {

@@ -54,9 +54,6 @@ resolve_service_name_by_port() {
         3003)
             echo "ws"
             ;;
-        3004)
-            echo "ei"
-            ;;
         3006)
             echo "channel"
             ;;
@@ -109,7 +106,7 @@ if [ -n "$TARGET_PORT" ]; then
 
     if ! service_name=$(resolve_service_name_by_port "$TARGET_PORT"); then
         echo "错误: 不支持的后端服务端口 $TARGET_PORT"
-        echo "支持端口: 3001, 3002, 3003, 3004, 3006, 3100"
+        echo "支持端口: 3001, 3002, 3003, 3006, 3100"
         exit 1
     fi
 
@@ -121,7 +118,6 @@ stop_service_by_port 3001 "legacy"
 stop_service_by_port 3100 "gateway"
 stop_service_by_port 3002 "agents"
 stop_service_by_port 3003 "ws"
-stop_service_by_port 3004 "ei"
 stop_service_by_port 3006 "channel"
 
 echo "所有后端服务已停止"

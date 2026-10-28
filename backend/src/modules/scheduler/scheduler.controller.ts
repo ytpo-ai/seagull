@@ -17,7 +17,6 @@ import { SchedulerService } from './scheduler.service';
 import {
   CreateScheduleDto,
   ScheduleHistoryQueryDto,
-  TriggerSystemEngineeringStatisticsDto,
   UpdateScheduleDto,
 } from './dto';
 
@@ -137,45 +136,6 @@ export class SchedulerController {
   async trigger(@Param('id') scheduleId: string, @Headers('authorization') authHeader: string) {
     await this.getUserFromAuthHeader(authHeader);
     return this.schedulerService.triggerSchedule(scheduleId);
-  }
-
-  @Post('system/engineering-statistics/trigger')
-  async triggerSystemEngineeringStatistics(
-    @Body() dto: TriggerSystemEngineeringStatisticsDto,
-    @Headers('authorization') authHeader: string,
-  ) {
-    const user = await this.getUserFromAuthHeader(authHeader);
-    return this.schedulerService.triggerSystemEngineeringStatistics({
-      receiverId: dto?.receiverId || user.id,
-      scope: dto?.scope,
-      tokenMode: dto?.tokenMode,
-      projectIds: dto?.projectIds,
-      triggeredBy: dto?.triggeredBy || 'frontend-button',
-    });
-  }
-
-  @Get('system/engineering-statistics')
-  async getSystemEngineeringStatisticsSchedule(@Headers('authorization') authHeader: string) {
-    await this.getUserFromAuthHeader(authHeader);
-    return this.schedulerService.getOrCreateEngineeringStatisticsSchedule();
-  }
-
-  @Post('system/docs-heat/trigger')
-  async triggerSystemDocsHeat(
-    @Body() dto: Record<string, any>,
-    @Headers('authorization') authHeader: string,
-  ) {
-    await this.getUserFromAuthHeader(authHeader);
-    return this.schedulerService.triggerSystemDocsHeat({
-      topN: dto?.topN,
-      triggeredBy: dto?.triggeredBy || 'frontend-button',
-    });
-  }
-
-  @Get('system/docs-heat')
-  async getSystemDocsHeatSchedule(@Headers('authorization') authHeader: string) {
-    await this.getUserFromAuthHeader(authHeader);
-    return this.schedulerService.getOrCreateDocsHeatSchedule();
   }
 
   @Get(':id/history')

@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate, Outlet, matchPath } from 'react-router-dom';
+import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import {
   HomeIcon,
   UserGroupIcon,
   Squares2X2Icon,
   CommandLineIcon,
-  FolderIcon,
+  // FolderIcon,
   IdentificationIcon,
   VideoCameraIcon,
-  ChatBubbleLeftRightIcon,
+  // ChatBubbleLeftRightIcon,
   WrenchScrewdriverIcon,
   CpuChipIcon,
   KeyIcon,
   ShieldCheckIcon,
-  CodeBracketIcon,
+  // CodeBracketIcon,
   SparklesIcon,
   BoltIcon,
   DocumentTextIcon,
-  ClipboardDocumentListIcon,
-  PresentationChartLineIcon,
+  // ClipboardDocumentListIcon,
+  // PresentationChartLineIcon,
   BookOpenIcon,
   ClockIcon,
   ChartBarIcon,
@@ -54,8 +54,6 @@ type NavigationGroup = {
 const topLevelNavigation = [
   { name: '仪表板', href: '/', icon: HomeIcon },
   { name: '会议室', href: '/meetings', icon: VideoCameraIcon },
-  { name: '讨论空间', href: '/discussions', icon: ChatBubbleLeftRightIcon },
-  { name: '计划编排', href: '/orchestration', icon: DocumentTextIcon },
 ];
 
 const groupedNavigation: NavigationGroup[] = [
@@ -72,22 +70,22 @@ const groupedNavigation: NavigationGroup[] = [
       { name: 'Memory', href: '/memos', icon: BookOpenIcon },
     ],
   },
-  {
-    name: '研发智能',
-    icon: SparklesIcon,
-    items: [
-      { name: '项目管理', href: '/ei', icon: FolderIcon },
-      { name: '工程统计', href: '/ei/statistics', icon: ChartBarIcon },
-      { name: '需求管理', href: '/ei/requirements', icon: ClipboardDocumentListIcon },
-      { name: '需求看板', href: '/ei/board', icon: PresentationChartLineIcon },
-      { name: 'Opencode', href: '/rd-conversation', icon: CodeBracketIcon },
-    ],
-  },
+  // {
+  //   name: '研发智能',
+  //   icon: SparklesIcon,
+  //   items: [
+  //     { name: '项目管理', href: '/ei', icon: FolderIcon },
+  //     { name: '工程统计', href: '/ei/statistics', icon: ChartBarIcon },
+  //     { name: '需求管理', href: '/ei/requirements', icon: ClipboardDocumentListIcon },
+  //     { name: '需求看板', href: '/ei/board', icon: PresentationChartLineIcon },
+  //     { name: 'Opencode', href: '/rd-conversation', icon: CodeBracketIcon },
+  //   ],
+  // },
   {
     name: '系统管理',
     icon: ShieldCheckIcon,
     items: [
-      { name: 'UI管理', href: '/ui-management', icon: Squares2X2Icon },
+      // { name: 'UI管理', href: '/ui-management', icon: Squares2X2Icon },
       { name: '消息中心', href: '/message-center', icon: BellIcon },
       { name: '定时服务', href: '/scheduler', icon: ClockIcon },
       { name: 'API密钥', href: '/api-keys', icon: KeyIcon },
@@ -104,7 +102,6 @@ const ASSISTANT_BINDING_SKIP_KEY = 'assistant_binding_skip_user_id';
 const Layout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isDiscussionDetailPage = Boolean(matchPath('/discussions/:spaceId', location.pathname));
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [currentEmployee, setCurrentEmployee] = useState<any>(null);
   const [checkingAssistant, setCheckingAssistant] = useState(false);
@@ -749,7 +746,7 @@ const Layout: React.FC = () => {
         </header>
 
         <main className="py-6">
-          <div className={`${isDiscussionDetailPage ? 'mx-auto w-full px-4 sm:px-6 lg:px-8' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Outlet />
           </div>
         </main>

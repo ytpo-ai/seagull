@@ -6,7 +6,6 @@ import type { AgentTestResult } from '../../services/agentService';
 import { agentService } from '../../services/agentService';
 import { apiKeyService } from '../../services/apiKeyService';
 import type { ApiKey } from '../../services/apiKeyService';
-import { incubationProjectService, IncubationProject } from '../../services/incubationProjectService';
 import type { PromptTemplateRef } from '../../types';
 import { ModelTestPanel } from './ModelTestPanel';
 import { useAgentFormSync } from './hooks/useAgentFormSync';
@@ -78,7 +77,6 @@ export const EditAgentModal: React.FC<EditAgentModalProps> = ({
   const [selectedApiKeyId, setSelectedApiKeyId] = useState(agent.apiKeyId || '');
   const [selectedTools, setSelectedTools] = useState<string[]>(agent.tools || []);
   const [name, setName] = useState(agent.name || '');
-  const [projectId, setProjectId] = useState(agent.projectId || '');
   const [roleId, setRoleId] = useState(agent.roleId || '');
   const [tier, setTier] = useState(initialAgentTier);
   const [description, setDescription] = useState(agent.description || '');
@@ -93,11 +91,6 @@ export const EditAgentModal: React.FC<EditAgentModalProps> = ({
   const [streamingResponse, setStreamingResponse] = useState('');
 
   const { data: apiKeys = [] } = useQuery<ApiKey[]>('api-keys', () => apiKeyService.getAllApiKeys());
-  const { data: incubationProjects = [] } = useQuery<IncubationProject[]>(
-    'edit-agent-incubation-projects',
-    () => incubationProjectService.list(),
-    { retry: false, staleTime: 60_000 },
-  );
   const selectableModels = useMemo(
     () => filterAndSortModelsByApiKeys(availableModels, apiKeys),
     [availableModels, apiKeys],
@@ -136,7 +129,6 @@ export const EditAgentModal: React.FC<EditAgentModalProps> = ({
     selectedApiKeyId !== (agent.apiKeyId || '') ||
     !arraysEqual(selectedTools, agent.tools || []) ||
     name.trim() !== (agent.name || '').trim() ||
-    projectId !== (agent.projectId || '') ||
     roleId.trim() !== (agent.roleId || '').trim() ||
     tier !== initialAgentTier ||
     description.trim() !== (agent.description || '').trim() ||
@@ -231,7 +223,6 @@ export const EditAgentModal: React.FC<EditAgentModalProps> = ({
       tools: selectedAllowedTools,
       permissions: nextPermissions,
       name: name.trim(),
-      projectId: projectId || undefined,
       roleId: roleId.trim(),
       tier,
       description: description.trim(),
@@ -565,20 +556,6 @@ export const EditAgentModal: React.FC<EditAgentModalProps> = ({
                 className="block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 placeholder="例如: 智能助手"
               />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">所属项目</label>
-              <select
-                value={projectId}
-                onChange={(e) => setProjectId(e.target.value)}
-                className="block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="">全局（不关联项目）</option>
-                {incubationProjects.map((p) => (
-                  <option key={p._id} value={p._id}>{p.name}</option>
-                ))}
-              </select>
             </div>
 
             <div>

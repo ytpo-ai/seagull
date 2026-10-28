@@ -88,9 +88,6 @@ resolve_service_by_port() {
         3003)
             echo "ws|build:ws|start:prod:ws|$LOG_DIR/ws-app.log"
             ;;
-        3004)
-            echo "ei|build:ei|start:prod:ei|$LOG_DIR/ei-app.log"
-            ;;
         3006)
             echo "channel|build:channel|start:prod:channel|$LOG_DIR/channel-app.log"
             ;;
@@ -125,7 +122,7 @@ if [ -n "$TARGET_PORT" ]; then
 
     if ! service_line=$(resolve_service_by_port "$TARGET_PORT"); then
         echo "错误: 不支持的后端服务端口 $TARGET_PORT"
-        echo "支持端口: 3001, 3002, 3003, 3004, 3006, 3100"
+        echo "支持端口: 3001, 3002, 3003, 3006, 3100"
         exit 1
     fi
 
@@ -141,7 +138,6 @@ start_backend_service "legacy" 3001 "build:legacy" "start:prod:legacy" "$LOG_DIR
 start_backend_service "gateway" 3100 "build:gateway" "start:prod:gateway" "$LOG_DIR/gateway-app.log"
 start_backend_service "agents" 3002 "build:agents" "start:prod:agents" "$LOG_DIR/agents-app.log"
 start_backend_service "ws" 3003 "build:ws" "start:prod:ws" "$LOG_DIR/ws-app.log"
-start_backend_service "ei" 3004 "build:ei" "start:prod:ei" "$LOG_DIR/ei-app.log"
 start_backend_service "channel" 3006 "build:channel" "start:prod:channel" "$LOG_DIR/channel-app.log"
 
 echo "========================================"
@@ -150,5 +146,4 @@ echo "- $LOG_DIR/legacy-app.log"
 echo "- $LOG_DIR/gateway-app.log"
 echo "- $LOG_DIR/agents-app.log"
 echo "- $LOG_DIR/ws-app.log"
-echo "- $LOG_DIR/ei-app.log"
 echo "- $LOG_DIR/channel-app.log"

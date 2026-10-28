@@ -1,30 +1,21 @@
 import { INestApplicationContext } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CronJob } from 'cron';
+// import { CronJob } from 'cron';
 import { Schedule, ScheduleDocument } from '../../src/shared/schemas/schedule.schema';
 
 type SystemSeedName =
   | 'meeting-monitor'
-  | 'engineering-statistics'
-  | 'docs-heat'
-  | 'cto-daily-requirement-triage'
   | 'memo-event-flush'
   | 'memo-full-aggregation';
 
 const SYSTEM_SEED_ORDER: SystemSeedName[] = [
   'meeting-monitor',
-  'engineering-statistics',
-  'docs-heat',
-  'cto-daily-requirement-triage',
   'memo-event-flush',
   'memo-full-aggregation',
 ];
 
 const systemMeetingMonitorScheduleName = 'system-meeting-monitor';
-const systemEngineeringStatisticsScheduleName = 'system-engineering-statistics';
-const systemDocsHeatScheduleName = 'system-docs-heat';
-const systemCtoDailyRequirementTriageScheduleName = 'system-cto-daily-requirement-triage';
 const systemMemoEventFlushScheduleName = 'system-memo-event-flush';
 const systemMemoFullAggregationScheduleName = 'system-memo-full-aggregation';
 
@@ -43,21 +34,7 @@ export async function seedSystemSchedules(
       if (schedule) created.push(schedule);
       continue;
     }
-    if (seed === 'engineering-statistics') {
-      const schedule = await ensureEngineeringStatisticsSchedule(scheduleModel);
-      if (schedule) created.push(schedule);
-      continue;
-    }
-    if (seed === 'docs-heat') {
-      const schedule = await ensureDocsHeatSchedule(scheduleModel);
-      if (schedule) created.push(schedule);
-      continue;
-    }
-    if (seed === 'cto-daily-requirement-triage') {
-      const schedule = await ensureCtoDailyRequirementTriageSchedule(scheduleModel);
-      if (schedule) created.push(schedule);
-      continue;
-    }
+  
     if (seed === 'memo-event-flush') {
       const schedule = await ensureMemoEventFlushSchedule(scheduleModel);
       if (schedule) created.push(schedule);
@@ -76,52 +53,6 @@ export async function seedSystemSchedules(
   };
 }
 
-async function ensureDocsHeatSchedule(
-  scheduleModel: Model<ScheduleDocument>,
-): Promise<ScheduleDocument | null> {
-  const cronExpression = String(process.env.DOCS_HEAT_CRON || '0 */2 * * *').trim();
-  const timezone = String(process.env.DOCS_HEAT_TIMEZONE || 'Asia/Shanghai').trim() || 'Asia/Shanghai';
-  const targetAgentId = String(process.env.DOCS_HEAT_AGENT_ID || 'meeting-assistant').trim();
-
-  return upsertScheduleByName(scheduleModel, systemDocsHeatScheduleName, {
-    name: systemDocsHeatScheduleName,
-    description: '系统内置：定时触发文档热度统计',
-    schedule: {
-      type: 'cron',
-      expression: cronExpression,
-      timezone,
-    },
-    target: {
-      executorType: 'agent',
-      executorId: targetAgentId,
-    },
-    input: {
-      prompt: '系统内置计划：触发文档热度统计，刷新 docs 热度排行。',
-      payload: {
-        topN: 20,
-        triggeredBy: 'system-schedule',
-      },
-    },
-    message: {
-      eventType: 'schedule.docs-heat',
-      title: '系统文档热度统计',
-    },
-    enabled: true,
-    status: 'idle',
-    nextRunAt: computeNextRunAt({
-      type: 'cron',
-      expression: cronExpression,
-      timezone,
-    }),
-    stats: {
-      totalRuns: 0,
-      successRuns: 0,
-      failedRuns: 0,
-      skippedRuns: 0,
-    },
-    createdBy: 'system',
-  });
-}
 
 async function ensureMeetingMonitorSchedule(
   scheduleModel: Model<ScheduleDocument>,
@@ -151,54 +82,6 @@ async function ensureMeetingMonitorSchedule(
     enabled: true,
     status: 'idle',
     nextRunAt: new Date(Date.now() + intervalMs),
-    stats: {
-      totalRuns: 0,
-      successRuns: 0,
-      failedRuns: 0,
-      skippedRuns: 0,
-    },
-    createdBy: 'system',
-  });
-}
-
-async function ensureEngineeringStatisticsSchedule(
-  scheduleModel: Model<ScheduleDocument>,
-): Promise<ScheduleDocument | null> {
-  const cronExpression = String(process.env.ENGINEERING_STATISTICS_CRON || '0 9 * * *').trim();
-  const timezone = String(process.env.ENGINEERING_STATISTICS_TIMEZONE || 'Asia/Shanghai').trim() || 'Asia/Shanghai';
-  const targetAgentId = String(process.env.ENGINEERING_STATISTICS_AGENT_ID || 'meeting-assistant').trim();
-
-  return upsertScheduleByName(scheduleModel, systemEngineeringStatisticsScheduleName, {
-    name: systemEngineeringStatisticsScheduleName,
-    description: '系统内置：定时触发工程统计',
-    schedule: {
-      type: 'cron',
-      expression: cronExpression,
-      timezone,
-    },
-    target: {
-      executorType: 'agent',
-      executorId: targetAgentId,
-    },
-    input: {
-      prompt: '系统内置计划：执行工程统计工具，生成统计快照并通知消息中心。',
-      payload: {
-        scope: 'all',
-        tokenMode: 'estimate',
-        triggeredBy: 'system-schedule',
-      },
-    },
-    message: {
-      eventType: 'schedule.engineering-statistics',
-      title: '系统工程统计',
-    },
-    enabled: true,
-    status: 'idle',
-    nextRunAt: computeNextRunAt({
-      type: 'cron',
-      expression: cronExpression,
-      timezone,
-    }),
     stats: {
       totalRuns: 0,
       successRuns: 0,
@@ -240,48 +123,6 @@ async function ensureMemoEventFlushSchedule(
     enabled: String(process.env.MEMO_EVENT_FLUSH_SCHEDULE_ENABLED || 'true').toLowerCase() !== 'false',
     status: 'idle',
     nextRunAt: new Date(Date.now() + intervalMs),
-    stats: {
-      totalRuns: 0,
-      successRuns: 0,
-      failedRuns: 0,
-      skippedRuns: 0,
-    },
-    createdBy: 'system',
-  });
-}
-
-async function ensureCtoDailyRequirementTriageSchedule(
-  scheduleModel: Model<ScheduleDocument>,
-): Promise<ScheduleDocument | null> {
-  const cronExpression = '0 10 * * *';
-  const timezone = 'Asia/Shanghai';
-  const targetAgentId = 'executive-lead';
-
-  return upsertScheduleByName(scheduleModel, systemCtoDailyRequirementTriageScheduleName, {
-    name: systemCtoDailyRequirementTriageScheduleName,
-    description: '系统内置：CTO 每日整理项目需求并分发给研发 Agent',
-    schedule: {
-      type: 'cron',
-      expression: cronExpression,
-      timezone,
-    },
-    target: {
-      executorType: 'agent',
-      executorId: targetAgentId,
-      executorName: 'CTO Agent',
-    },
-    input: buildCtoDailyRequirementTriageInput(),
-    message: {
-      eventType: 'schedule.cto-daily-triage',
-      title: 'CTO 每日需求分诊',
-    },
-    enabled: true,
-    status: 'idle',
-    nextRunAt: computeNextRunAt({
-      type: 'cron',
-      expression: cronExpression,
-      timezone,
-    }),
     stats: {
       totalRuns: 0,
       successRuns: 0,
@@ -354,25 +195,6 @@ async function upsertScheduleByName(
   return new scheduleModel(payload).save();
 }
 
-function buildCtoDailyRequirementTriageInput(): { prompt: string; payload: Record<string, unknown> } {
-  return {
-    prompt: [
-      '你是 CTO Agent，请执行每日研发需求治理例行任务。',
-      '步骤1：通过 requirement MCP 工具读取 todo/blocked 需求并按优先级整理当日待办。',
-      '步骤2：为可执行需求补充分配负责人，必要时更新到 assigned。',
-      '步骤3：对需要启动开发的需求创建或更新编排计划，并分发给研发 Agent（fullstack-engineer/devops-engineer/technical-architect）。',
-      '步骤4：输出结构化日报，包含需求总数、分发结果、阻塞项和下一步建议。',
-      '若需求信息不足，请先通过 requirement.comment 记录澄清问题，再暂缓分发。',
-    ].join('\n'),
-    payload: {
-      workflow: 'cto_daily_requirement_triage',
-      triggeredBy: 'system-schedule',
-      runAt: '10:00',
-      timezone: 'Asia/Shanghai',
-    },
-  };
-}
-
 function buildMeetingMonitorInput(): { prompt: string; payload: Record<string, unknown> } {
   return {
     prompt: [
@@ -396,26 +218,26 @@ function buildMeetingMonitorInput(): { prompt: string; payload: Record<string, u
   };
 }
 
-function computeNextRunAt(
-  schedule: { type: 'cron' | 'interval'; expression?: string; intervalMs?: number; timezone?: string },
-  baseTime = new Date(),
-): Date | undefined {
-  if (schedule.type === 'interval') {
-    if (!schedule.intervalMs) return undefined;
-    return new Date(baseTime.getTime() + schedule.intervalMs);
-  }
-  if (!schedule.expression) return undefined;
-  try {
-    const job = new CronJob(schedule.expression, () => undefined, null, false, schedule.timezone || 'Asia/Shanghai');
-    const next = job.nextDate();
-    if (next && typeof next === 'object' && 'toJSDate' in (next as object)) {
-      return (next as { toJSDate: () => Date }).toJSDate();
-    }
-    return new Date(String(next));
-  } catch {
-    return undefined;
-  }
-}
+// function computeNextRunAt(
+//   schedule: { type: 'cron' | 'interval'; expression?: string; intervalMs?: number; timezone?: string },
+//   baseTime = new Date(),
+// ): Date | undefined {
+//   if (schedule.type === 'interval') {
+//     if (!schedule.intervalMs) return undefined;
+//     return new Date(baseTime.getTime() + schedule.intervalMs);
+//   }
+//   if (!schedule.expression) return undefined;
+//   try {
+//     const job = new CronJob(schedule.expression, () => undefined, null, false, schedule.timezone || 'Asia/Shanghai');
+//     const next = job.nextDate();
+//     if (next && typeof next === 'object' && 'toJSDate' in (next as object)) {
+//       return (next as { toJSDate: () => Date }).toJSDate();
+//     }
+//     return new Date(String(next));
+//   } catch {
+//     return undefined;
+//   }
+// }
 
 function getEntityId(entity: Record<string, unknown>): string {
   if (typeof entity.id === 'string') {

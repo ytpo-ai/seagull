@@ -8,13 +8,13 @@ import { MeetingModule } from './modules/meetings/meeting.module';
 import { EmployeeModule } from './modules/employees/employee.module';
 import { InvitationModule } from './modules/invitations/invitation.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { OrchestrationModule } from './modules/orchestration/orchestration.module';
+// import { OrchestrationModule } from './modules/orchestration/orchestration.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { AgentClientModule } from './modules/agents-client/agent-client.module';
 import { OperationLogModule } from './modules/operation-logs/operation-log.module';
 import { MessagesModule } from './modules/messages/messages.module';
 import { MessageCenterModule } from './modules/message-center/message-center.module';
-import { DiscussionModule } from './modules/discussions/discussion.module';
+// import { DiscussionModule } from './modules/discussions/discussion.module';
 import { InfraModule } from '@libs/infra';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
@@ -48,7 +48,7 @@ import jwtConfig from './config/jwt.config';
     OperationLogModule,
     MessagesModule,
     MessageCenterModule,
-    DiscussionModule,
+    // DiscussionModule,
     AgentClientModule,
     HRModule,
     ApiKeysModule,
@@ -56,7 +56,7 @@ import jwtConfig from './config/jwt.config';
     EmployeeModule,
     InvitationModule,
     AuthModule,
-    OrchestrationModule,
+    // OrchestrationModule,
     SchedulerModule,
   ],
 })

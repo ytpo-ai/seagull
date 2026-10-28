@@ -41,15 +41,6 @@
         "tsConfigPath": "apps/ws/tsconfig.app.json"
       }
     },
-    "ei": {
-      "type": "application",
-      "root": "apps/ei",
-      "entryFile": "main",
-      "sourceRoot": "apps/ei/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/ei/tsconfig.app.json"
-      }
-    },
     "channel": {
       "type": "application",
       "root": "apps/channel",

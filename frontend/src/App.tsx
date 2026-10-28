@@ -11,17 +11,6 @@ import ApiKeys from './pages/ApiKeys';
 import EmployeeManagement from './pages/EmployeeManagement';
 import HRManagement from './pages/HRManagement';
 import Meetings from './pages/Meetings';
-import RdConversation from './pages/RdConversation';
-import AgentTaskRunner from './pages/AgentTaskRunner';
-import ProjectManagement from './pages/ProjectManagement';
-import EngineeringStatistics from './pages/EngineeringStatistics';
-import EngineeringRequirements from './pages/EngineeringRequirements';
-import EngineeringRequirementDetail from './pages/EngineeringRequirementDetail';
-import EngineeringBoard from './pages/EngineeringBoard';
-import IncubationProjectDetail from './pages/IncubationProjectDetail';
-import DataDashboard from './pages/DataDashboard';
-import Orchestration from './pages/Orchestration';
-import PlanDetail from './pages/PlanDetail';
 import Scheduler from './pages/Scheduler';
 import Skills from './pages/Skills';
 import OperationLogs from './pages/OperationLogs';
@@ -29,9 +18,6 @@ import Memos from './pages/Memos';
 import MessageCenter from './pages/MessageCenter';
 import PromptRegistry from './pages/PromptRegistry';
 import PromptRegistryDetail from './pages/PromptRegistryDetail';
-import UiManagement from './pages/UiManagement';
-import Discussions from './pages/Discussions';
-import DiscussionDetail from './pages/DiscussionDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { authService } from './services/authService';
@@ -94,12 +80,6 @@ function App() {
             <Route path="/roles" element={<ProtectedRoute><HRManagement /></ProtectedRoute>} />
             <Route path="/governance" element={<ProtectedRoute><Navigate to="/" replace /></ProtectedRoute>} />
             <Route path="/meetings" element={<ProtectedRoute><Meetings /></ProtectedRoute>} />
-            <Route path="/rd-conversation" element={<ProtectedRoute><RdConversation /></ProtectedRoute>} />
-            <Route path="/discussions" element={<ProtectedRoute><Discussions /></ProtectedRoute>} />
-            <Route path="/discussions/:spaceId" element={<ProtectedRoute><DiscussionDetail /></ProtectedRoute>} />
-            <Route path="/agent-task-runner" element={<ProtectedRoute><AgentTaskRunner /></ProtectedRoute>} />
-            <Route path="/orchestration" element={<ProtectedRoute><Orchestration /></ProtectedRoute>} />
-            <Route path="/orchestration/plans/:id" element={<ProtectedRoute><PlanDetail /></ProtectedRoute>} />
             <Route path="/scheduler" element={<ProtectedRoute><Scheduler /></ProtectedRoute>} />
             <Route path="/prompt-registry" element={<ProtectedRoute><PromptRegistry /></ProtectedRoute>} />
             <Route path="/prompt-registry/templates/:templateId" element={<ProtectedRoute><PromptRegistryDetail /></ProtectedRoute>} />
@@ -107,16 +87,8 @@ function App() {
             <Route path="/operation-logs" element={<ProtectedRoute><OperationLogs /></ProtectedRoute>} />
             <Route path="/memos" element={<ProtectedRoute><Memos /></ProtectedRoute>} />
             <Route path="/message-center" element={<ProtectedRoute><MessageCenter /></ProtectedRoute>} />
-            <Route path="/ui-management" element={<ProtectedRoute><UiManagement /></ProtectedRoute>} />
             <Route path="/engineering-intelligence" element={<Navigate to="/ei" replace />} />
             <Route path="/engineering-intelligence/*" element={<Navigate to="/ei" replace />} />
-            <Route path="/ei" element={<ProtectedRoute><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/ei/incubation/:id" element={<ProtectedRoute><IncubationProjectDetail /></ProtectedRoute>} />
-            <Route path="/ei/incubation/:id/data" element={<ProtectedRoute><DataDashboard /></ProtectedRoute>} />
-            <Route path="/ei/statistics" element={<ProtectedRoute><EngineeringStatistics /></ProtectedRoute>} />
-            <Route path="/ei/requirements" element={<ProtectedRoute><EngineeringRequirements /></ProtectedRoute>} />
-            <Route path="/ei/requirements/:requirementId" element={<ProtectedRoute><EngineeringRequirementDetail /></ProtectedRoute>} />
-            <Route path="/ei/board" element={<ProtectedRoute><EngineeringBoard /></ProtectedRoute>} />
           </Route>
         </Routes>
       </Router>
