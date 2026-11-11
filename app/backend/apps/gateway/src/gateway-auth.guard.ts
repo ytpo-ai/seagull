@@ -21,14 +21,6 @@ type PublicRouteRule = {
   method?: string;
 };
 
-type LifeScriptJwtPayload = {
-  employeeId: string;
-  email?: string;
-  role?: string;
-  iat?: number;
-  exp: number;
-};
-
 /** Project API Key 前缀标识 */
 const PROJECT_API_KEY_PREFIX = 'sk-proj-';
 
@@ -42,7 +34,6 @@ const PUBLIC_PATHS = new Set([
 ]);
 
 const PUBLIC_ROUTE_RULES: PublicRouteRule[] = [
-  { path: '/api/life-script/auth/exchange' },
   { path: '/api/life-script/upload' },
   { path: '/api/life-script/submissions', method: 'POST' },
 ];
@@ -73,17 +64,12 @@ export class GatewayAuthGuard implements CanActivate {
       throw new UnauthorizedException('Missing Bearer token');
     }
 
-    // 模式 1: Project API Key 认证（sk-proj- 前缀）
+    // Project API Key 认证（sk-proj- 前缀）
     if (token.startsWith(PROJECT_API_KEY_PREFIX)) {
       return this.authenticateByProjectApiKey(req, token);
     }
 
-    // 模式 2: LifeScript JWT 认证
-    if (path.startsWith('/api/life-script')) {
-      return this.authenticateLifeScriptToken(req, token);
-    }
-
-    // 模式 3: 员工 JWT 认证
+    // 员工 JWT 认证
     return this.authenticateByEmployeeJwt(req, token);
   }
 
@@ -190,28 +176,5 @@ export class GatewayAuthGuard implements CanActivate {
     }
 
     return queryToken;
-  }
-
-  private authenticateLifeScriptToken(req: any, token: string): boolean {
-    const secret = process.env.LS_JWT_SECRET;
-    if (!secret) {
-      throw new UnauthorizedException('LS_JWT_SECRET not configured');
-    }
-
-    const payload = verifyEmployeeToken(token, secret) as LifeScriptJwtPayload | null;
-    if (!payload?.employeeId) {
-      throw new UnauthorizedException('Invalid or expired LifeScript token');
-    }
-
-    const userContext: GatewayUserContext = {
-      employeeId: payload.employeeId,
-      email: payload.email || '',
-      role: String(payload.role || ''),
-      issuedAt: payload.iat || Date.now(),
-      expiresAt: payload.exp,
-    };
-
-    req.userContext = userContext;
-    return true;
   }
 }

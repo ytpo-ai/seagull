@@ -132,17 +132,21 @@ export class AgentService {
     return this.agentModel.findOne({ name }).exec();
   }
 
-  async getAllAgents(filters?: { projectId?: string }): Promise<Agent[]> {
+  async getAllAgents(filters?: { projectId?: string; agentIds?: string[] }): Promise<Agent[]> {
     const query: Record<string, any> = {};
-    if (filters?.projectId !== undefined) {
+    if (filters?.agentIds?.length) {
+      query.id = { $in: filters.agentIds };
+    } else if (filters?.projectId !== undefined) {
       query.projectId = filters.projectId || { $in: [null, '', undefined] };
     }
     return this.agentModel.find(query).exec();
   }
 
-  async getActiveAgents(filters?: { projectId?: string }): Promise<Agent[]> {
+  async getActiveAgents(filters?: { projectId?: string; agentIds?: string[] }): Promise<Agent[]> {
     const query: Record<string, any> = { isActive: true };
-    if (filters?.projectId !== undefined) {
+    if (filters?.agentIds?.length) {
+      query.id = { $in: filters.agentIds };
+    } else if (filters?.projectId !== undefined) {
       query.projectId = filters.projectId || { $in: [null, '', undefined] };
     }
     return this.agentModel.find(query).exec();

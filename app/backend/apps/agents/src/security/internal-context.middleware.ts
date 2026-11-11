@@ -49,6 +49,18 @@ export class InternalContextMiddleware implements NestMiddleware {
     }
 
     req.userContext = decodeUserContext(encodedContext);
+
+    // 解码 Gateway 转发的 Project API Key 上下文
+    const projectApiKeyHeader = req.headers['x-project-api-key-context'] as string | undefined;
+    if (projectApiKeyHeader) {
+      try {
+        const decoded = Buffer.from(projectApiKeyHeader, 'base64url').toString('utf8');
+        req.projectApiKeyContext = JSON.parse(decoded);
+      } catch {
+        // 解析失败不阻塞请求，降级处理
+      }
+    }
+
     next();
   }
 }

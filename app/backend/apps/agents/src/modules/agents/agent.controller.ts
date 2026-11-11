@@ -102,14 +102,52 @@ export class AgentController {
   }
 
   @Get()
-  async getAllAgents(@Query('projectId') projectId?: string) {
+  async getAllAgents(
+    @Query('projectId') projectId?: string,
+    @Req() req?: Request & { projectApiKeyContext?: { projectId?: string; allowedAgentIds?: string[] } },
+  ) {
+    const projectApiKeyContext = req?.projectApiKeyContext;
+    // Project API Key: 优先使用 allowedAgentIds 过滤
+    if (projectApiKeyContext?.allowedAgentIds?.length) {
+      const agents = await this.agentService.getAllAgents({
+        agentIds: projectApiKeyContext.allowedAgentIds,
+      });
+      return agents.map((agent) => this.normalizeAgent(agent));
+    }
+    // Project API Key (全部项目Agent): 按 projectId 过滤
+    if (projectApiKeyContext?.projectId) {
+      const agents = await this.agentService.getAllAgents({
+        projectId: projectApiKeyContext.projectId,
+      });
+      return agents.map((agent) => this.normalizeAgent(agent));
+    }
+    // 兼容旧方式: projectId query param
     const filters = projectId !== undefined ? { projectId } : undefined;
     const agents = await this.agentService.getAllAgents(filters);
     return agents.map((agent) => this.normalizeAgent(agent));
   }
 
   @Get('active')
-  async getActiveAgents(@Query('projectId') projectId?: string) {
+  async getActiveAgents(
+    @Query('projectId') projectId?: string,
+    @Req() req?: Request & { projectApiKeyContext?: { projectId?: string; allowedAgentIds?: string[] } },
+  ) {
+    const projectApiKeyContext = req?.projectApiKeyContext;
+    // Project API Key: 优先使用 allowedAgentIds 过滤
+    if (projectApiKeyContext?.allowedAgentIds?.length) {
+      const agents = await this.agentService.getActiveAgents({
+        agentIds: projectApiKeyContext.allowedAgentIds,
+      });
+      return agents.map((agent) => this.normalizeAgent(agent));
+    }
+    // Project API Key (全部项目Agent): 按 projectId 过滤
+    if (projectApiKeyContext?.projectId) {
+      const agents = await this.agentService.getActiveAgents({
+        projectId: projectApiKeyContext.projectId,
+      });
+      return agents.map((agent) => this.normalizeAgent(agent));
+    }
+    // 兼容旧方式: projectId query param
     const filters = projectId !== undefined ? { projectId } : undefined;
     const agents = await this.agentService.getActiveAgents(filters);
     return agents.map((agent) => this.normalizeAgent(agent));

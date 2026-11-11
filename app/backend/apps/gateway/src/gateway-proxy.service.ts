@@ -58,10 +58,6 @@ export class GatewayProxyService {
       return this.lifeScriptBaseUrl;
     }
 
-    if (originalUrl.startsWith('/api/auth/issue-redirect-token')) {
-      return this.lifeScriptBaseUrl;
-    }
-
     return this.legacyBaseUrl;
   }
 
