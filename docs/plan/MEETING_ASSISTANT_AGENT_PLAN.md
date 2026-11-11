@@ -14,7 +14,7 @@
 
 ### 1. 修改 SchedulerService
 
-在 `backend/src/modules/orchestration/scheduler/scheduler.service.ts` 中：
+在 `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` 中：
 
 1. 添加 `ensureMeetingMonitorSchedule()` 方法，在启动时创建内置定时计划
 2. 添加 `executeMeetingMonitor()` 方法，处理会议检查逻辑

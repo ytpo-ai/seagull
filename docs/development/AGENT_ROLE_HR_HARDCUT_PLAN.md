@@ -8,21 +8,21 @@
 ## 实施内容
 
 1. legacy HR 新增角色主数据管理能力。
-   - 新增 `AgentRole` schema：`backend/src/shared/schemas/agent-role.schema.ts`。
-   - HR 模块注入角色模型：`backend/src/modules/hr/hr.module.ts`。
+   - 新增 `AgentRole` schema：`app/backend/src/shared/schemas/agent-role.schema.ts`。
+   - HR 模块注入角色模型：`app/backend/src/modules/hr/hr.module.ts`。
    - 新增接口：
      - `GET /roles`
      - `GET /roles/:id`
      - `POST /roles`
      - `PUT /roles/:id`
      - `DELETE /roles/:id`
-   - 业务实现：`backend/src/modules/roles/roles.service.ts`、`backend/src/modules/roles/roles.controller.ts`。
+   - 业务实现：`app/backend/src/modules/roles/roles.service.ts`、`app/backend/src/modules/roles/roles.controller.ts`。
 
 2. Agent 侧硬切换到 `roleId`。
-   - Agent schema 将 `role` 替换为 `roleId` 且必填：`backend/src/shared/schemas/agent.schema.ts`。
-   - 共享类型同步：`backend/src/shared/types.ts`、`frontend/src/types/index.ts`。
-   - Agent 创建/更新流程强制校验 `roleId` 并调用 legacy HR 校验角色存在与激活状态：`backend/apps/agents/src/modules/agents/agent.service.ts`。
-   - 新增跨服务角色查询代理接口：`GET /agents/roles`、`GET /agents/roles/:id`：`backend/apps/agents/src/modules/agents/agent.controller.ts`。
+   - Agent schema 将 `role` 替换为 `roleId` 且必填：`app/backend/src/shared/schemas/agent.schema.ts`。
+   - 共享类型同步：`app/backend/src/shared/types.ts`、`frontend/src/types/index.ts`。
+   - Agent 创建/更新流程强制校验 `roleId` 并调用 legacy HR 校验角色存在与激活状态：`app/backend/apps/agents/src/modules/agents/agent.service.ts`。
+   - 新增跨服务角色查询代理接口：`GET /agents/roles`、`GET /agents/roles/:id`：`app/backend/apps/agents/src/modules/agents/agent.controller.ts`。
 
 3. 前端角色管理与 Agent 绑定改造。
    - HR 页面新增角色管理（增删改查）：`frontend/src/pages/HRManagement.tsx`。
@@ -31,9 +31,9 @@
    - Agent 服务新增角色查询：`frontend/src/services/agentService.ts`。
 
 4. 相关兼容调整。
-   - 会议模块去除 `agent.role` 依赖，改为按名称识别系统模型管理 Agent：`backend/src/modules/meetings/meeting.service.ts`。
-   - 人类专属助理创建改为传 `roleId`：`backend/src/modules/employees/employee.service.ts`。
-   - Memo identity 聚合的角色输出改为 `roleId`：`backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`。
+   - 会议模块去除 `agent.role` 依赖，改为按名称识别系统模型管理 Agent：`app/backend/src/modules/meetings/meeting.service.ts`。
+   - 人类专属助理创建改为传 `roleId`：`app/backend/src/modules/employees/employee.service.ts`。
+   - Memo identity 聚合的角色输出改为 `roleId`：`app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`。
 
 5. 文档更新。
    - 计划文档：`docs/plan/AGENT_ROLE_HR_HARDCUT_PLAN.md`。
@@ -42,8 +42,8 @@
 
 ## 验证
 
-- `backend/` 执行 `npm run build`（legacy）通过。
-- `backend/` 执行 `npm run build:agents` 通过。
+- `app/backend/` 执行 `npm run build`（legacy）通过。
+- `app/backend/` 执行 `npm run build:agents` 通过。
 - `frontend/` 执行 `npm run build` 通过。
 
 ## 风险与说明

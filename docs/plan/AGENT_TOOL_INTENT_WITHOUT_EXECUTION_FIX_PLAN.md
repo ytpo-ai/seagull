@@ -11,7 +11,7 @@ Agent 在收到工具执行指令时，连续多轮输出自然语言描述（�
 ## 执行步骤
 
 ### Step 1: 强化 `toolInjectionInstruction` prompt 模板
-- 文件：`backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts`
+- 文件：`app/backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts`
 - 添加负面示例、格式锚定、"没有 `<tool_call>` 标签 = 没有调用"的明确规则
 - 影响：所有 agent 的 toolset system prompt
 
@@ -25,7 +25,7 @@ Agent 在收到工具执行指令时，连续多轮输出自然语言描述（�
 - 将 after-step hook 注入的修正指令纳入 prompt registry 管理，支持热更新
 
 ### Step 4: 实现 After-Step Hook 工具意图检测
-- 文件：`backend/apps/agents/src/modules/agents/hooks/agent-after-step-evaluation.hook.ts`
+- 文件：`app/backend/apps/agents/src/modules/agents/hooks/agent-after-step-evaluation.hook.ts`
 - 检测：response 包含工具意图语言但无 `<tool_call>` 标签
 - 匹配时：`retryRequested: true` + 修正指令
 - 重试上限：最多 2 次，超过后 accept + warn 日志

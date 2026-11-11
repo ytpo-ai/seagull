@@ -18,8 +18,8 @@
 
 ## 3. 关键影响点
 
-- 后端：`backend/apps/agents` Runtime session 创建与模型快照逻辑。
-- 后端：`backend/src/modules/rd-management` 查询/创建 session 与 events 聚合接口。
+- 后端：`app/backend/apps/agents` Runtime session 创建与模型快照逻辑。
+- 后端：`app/backend/src/modules/rd-management` 查询/创建 session 与 events 聚合接口。
 - 前端：研发会话页面 Agent 模型展示、新建 session 交互、events 数据刷新策略。
 - 测试：session 创建后模型字段、events 同步展示、回归路径稳定性。
 - 文档：feature/dailylog/API 相关变更说明。

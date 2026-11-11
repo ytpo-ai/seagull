@@ -23,21 +23,21 @@
 
 | 文件 | 改动类型 | 说明 |
 |------|---------|------|
-| `backend/.env.example` | 新增配置 | 新增 `PLANNER_SESSION_ISOLATION_MODE` |
-| `backend/src/shared/schemas/orchestration-plan.schema.ts` | Schema 扩展 | `OrchestrationGenerationState` 新增 `plannerSessionIds` 字段 |
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | 核心改造 | `ensurePlannerSession` / `advanceOnce` / `archivePlannerSessionIfNeeded` / `stopGeneration` |
+| `app/backend/.env.example` | 新增配置 | 新增 `PLANNER_SESSION_ISOLATION_MODE` |
+| `app/backend/src/shared/schemas/orchestration-plan.schema.ts` | Schema 扩展 | `OrchestrationGenerationState` 新增 `plannerSessionIds` 字段 |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | 核心改造 | `ensurePlannerSession` / `advanceOnce` / `archivePlannerSessionIfNeeded` / `stopGeneration` |
 
 ## 执行步骤
 
 ### 步骤 1: 新增环境变量
 
-- **文件**: `backend/.env.example`
+- **文件**: `app/backend/.env.example`
 - **内容**: 新增 `PLANNER_SESSION_ISOLATION_MODE=shared`，注释说明可选值 `shared | isolated`
 - **影响**: 配置层
 
 ### 步骤 2: 扩展 OrchestrationGenerationState 数据模型
 
-- **文件**: `backend/src/shared/schemas/orchestration-plan.schema.ts`
+- **文件**: `app/backend/src/shared/schemas/orchestration-plan.schema.ts`
 - **改动**:
   - `OrchestrationGenerationState` 接口新增可选字段:
     ```typescript
@@ -49,7 +49,7 @@
 
 ### 步骤 3: 改造 ensurePlannerSession() — 核心分叉
 
-- **文件**: `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
+- **文件**: `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
 - **改动**:
   - 注入 `ConfigService`，读取 `PLANNER_SESSION_ISOLATION_MODE`
   - 新增私有属性 `get isIsolatedSessionMode(): boolean`
@@ -62,7 +62,7 @@
 
 ### 步骤 4: 改造 advanceOnce() 中的 session 传递
 
-- **文件**: `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
+- **文件**: `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
 - **改动**:
   - 在 `advanceOnce()` 中调用 `ensurePlannerSession()` 时传入目标 phase
   - `shared` 模式: 行为不变，所有 phase 拿到同一个 session ID
@@ -71,21 +71,21 @@
 
 ### 步骤 5: 改造 archivePlannerSessionIfNeeded()
 
-- **文件**: `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
+- **文件**: `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
 - **改动**:
   - `shared` 模式: 归档 `state.plannerSessionId`（不变）
   - `isolated` 模式: 遍历 `state.plannerSessionIds` 所有值，逐一归档
 
 ### 步骤 6: 改造 stopGeneration()
 
-- **文件**: `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
+- **文件**: `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
 - **改动**:
   - `shared` 模式: 清理 `plannerSessionId`（不变）
   - `isolated` 模式: 清理 `plannerSessionIds` 中所有 session，全部归档
 
 ### 步骤 7: 改造 resolveGenerationState()
 
-- **文件**: `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
+- **文件**: `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
 - **改动**: 在 state 解析中增加 `plannerSessionIds` 字段的透传
 
 ## 关键设计决策

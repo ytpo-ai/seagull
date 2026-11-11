@@ -26,7 +26,7 @@
 
 ### 现有基础
 
-- Agent schema 已有 `projectId` 字段（`backend/apps/agents/src/schemas/agent.schema.ts:117-119`），为空表示全局 agent
+- Agent schema 已有 `projectId` 字段（`app/backend/apps/agents/src/schemas/agent.schema.ts:117-119`），为空表示全局 agent
 - 后端 `GET /agents` 和 `GET /agents/active` API 已支持 `?projectId=xxx` 查询参数（`agent.controller.ts:104-116`）
 - 前端 `agentService.getAgents()` 已支持传入 `{ projectId }` 参数（`agentService.ts:328-331`）
 - Plan、Task、Run schema 均已有 `projectId` 字段且从 plan 级联继承

@@ -118,6 +118,6 @@
 
 ## 阶段结果
 
-- `backend/**/*.ts` 中 `organizationId` 已无命中
+- `app/backend/**/*.ts` 中 `organizationId` 已无命中
 - 受影响模块已按阶段全部完成清理
 - 已验证构建通过，后续可按需执行 lint/typecheck 与接口冒烟

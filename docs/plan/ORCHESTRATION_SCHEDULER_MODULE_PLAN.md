@@ -43,21 +43,21 @@
 
 ### 后端新增
 
-- `backend/src/shared/schemas/orchestration-schedule.schema.ts`
-- `backend/src/modules/orchestration/scheduler/scheduler.module.ts`
-- `backend/src/modules/orchestration/scheduler/scheduler.controller.ts`
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`
-- `backend/src/modules/orchestration/scheduler/scheduler-dispatcher.service.ts`
-- `backend/src/modules/orchestration/scheduler/dto/index.ts`
-- `backend/src/modules/orchestration/scheduler/dto/*.dto.ts`
+- `app/backend/src/shared/schemas/orchestration-schedule.schema.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.module.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.controller.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler-dispatcher.service.ts`
+- `app/backend/src/modules/orchestration/scheduler/dto/index.ts`
+- `app/backend/src/modules/orchestration/scheduler/dto/*.dto.ts`
 
 ### 后端修改
 
-- `backend/src/shared/schemas/orchestration-task.schema.ts`
-- `backend/src/modules/orchestration/orchestration.module.ts`
-- `backend/src/modules/orchestration/orchestration.service.ts`
-- `backend/src/modules/orchestration/orchestration.controller.ts`
-- `backend/src/app.module.ts`
+- `app/backend/src/shared/schemas/orchestration-task.schema.ts`
+- `app/backend/src/modules/orchestration/orchestration.module.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.controller.ts`
+- `app/backend/src/app.module.ts`
 
 ### 前端新增
 

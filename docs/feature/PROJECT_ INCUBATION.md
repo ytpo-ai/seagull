@@ -105,27 +105,27 @@
 
 ### 后端代码
 
-- `backend/apps/ei/src/schemas/incubation-project.schema.ts`
-- `backend/apps/ei/src/dto/incubation-project.dto.ts`
-- `backend/apps/ei/src/services/incubation-projects.service.ts`
-- `backend/apps/ei/src/services/incubation-project-aggregation.service.ts`
-- `backend/apps/ei/src/controllers/incubation-projects.controller.ts`
-- `backend/apps/agents/src/schemas/agent.schema.ts`
-- `backend/src/shared/schemas/orchestration-plan.schema.ts`
-- `backend/src/shared/schemas/orchestration-run.schema.ts`
-- `backend/src/shared/schemas/orchestration-task.schema.ts`
-- `backend/src/shared/schemas/schedule.schema.ts`
-- `backend/src/shared/schemas/meeting.schema.ts`
-- `backend/apps/ei/src/schemas/ei-requirement.schema.ts`
-- `backend/apps/ei/src/schemas/ei-data-source.schema.ts`
-- `backend/apps/ei/src/schemas/ei-data-record.schema.ts`
-- `backend/apps/ei/src/controllers/data-sources.controller.ts`
-- `backend/apps/ei/src/controllers/data-records.controller.ts`
-- `backend/apps/ei/src/services/ei-data-sources.service.ts`
-- `backend/apps/ei/src/services/ei-data-records.service.ts`
-- `backend/apps/agents/src/modules/tools/builtin/data-collection-tool-handler.service.ts`
-- `backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
-- `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
+- `app/backend/apps/ei/src/schemas/incubation-project.schema.ts`
+- `app/backend/apps/ei/src/dto/incubation-project.dto.ts`
+- `app/backend/apps/ei/src/services/incubation-projects.service.ts`
+- `app/backend/apps/ei/src/services/incubation-project-aggregation.service.ts`
+- `app/backend/apps/ei/src/controllers/incubation-projects.controller.ts`
+- `app/backend/apps/agents/src/schemas/agent.schema.ts`
+- `app/backend/src/shared/schemas/orchestration-plan.schema.ts`
+- `app/backend/src/shared/schemas/orchestration-run.schema.ts`
+- `app/backend/src/shared/schemas/orchestration-task.schema.ts`
+- `app/backend/src/shared/schemas/schedule.schema.ts`
+- `app/backend/src/shared/schemas/meeting.schema.ts`
+- `app/backend/apps/ei/src/schemas/ei-requirement.schema.ts`
+- `app/backend/apps/ei/src/schemas/ei-data-source.schema.ts`
+- `app/backend/apps/ei/src/schemas/ei-data-record.schema.ts`
+- `app/backend/apps/ei/src/controllers/data-sources.controller.ts`
+- `app/backend/apps/ei/src/controllers/data-records.controller.ts`
+- `app/backend/apps/ei/src/services/ei-data-sources.service.ts`
+- `app/backend/apps/ei/src/services/ei-data-records.service.ts`
+- `app/backend/apps/agents/src/modules/tools/builtin/data-collection-tool-handler.service.ts`
+- `app/backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
+- `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
 
 ### 前端代码
 

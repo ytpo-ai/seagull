@@ -23,8 +23,8 @@
 
 ## 关键影响点
 
-- 后端会议模块：`backend/src/modules/meetings/meeting.service.ts`
-- Agents runtime 持久化：`backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+- 后端会议模块：`app/backend/src/modules/meetings/meeting.service.ts`
+- Agents runtime 持久化：`app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 
 ## 风险与依赖
 

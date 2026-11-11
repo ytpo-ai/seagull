@@ -15,7 +15,7 @@
 
 ## 关键影响点
 
-- 后端（agents）：`backend/apps/agents/src/modules/tools/*`
+- 后端（agents）：`app/backend/apps/agents/src/modules/tools/*`
 - 后端（legacy 接口调用）：`/inner-messages/direct`
 - 文档：`docs/feature/AGENT_TOOL.md`、`docs/api/agents-api.md`、`docs/dailylog/day/2026-03-17.md`
 

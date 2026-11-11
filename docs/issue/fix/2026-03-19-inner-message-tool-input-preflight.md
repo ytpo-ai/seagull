@@ -20,8 +20,8 @@
 - 直接原因：运行时仅在工具执行失败后才给模型补充修复提示，缺少“执行前”的 schema 预检。
 - 深层原因：AgentExecutorService 重构后工具详情读取从静态上下文迁移为按需注入，但未补齐 preflight 校验环节。
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-  - `backend/apps/agents/src/modules/agents/agent-executor.helpers.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts`
 
 ## 4. 修复动作
 

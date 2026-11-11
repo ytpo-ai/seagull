@@ -5,7 +5,7 @@
 
 ## 背景
 
-`backend/src/modules/meetings/meeting.service.ts` 当前 **2313 行（77KB）**，包含 **78 个方法**，承担了会议 CRUD、参与者管理、消息收发、Agent 响应编排、Agent 状态管理、意图检测、@提及解析、会议总结、SSE 事件流等 **14 个功能域**，严重违反单一职责原则。
+`app/backend/src/modules/meetings/meeting.service.ts` 当前 **2313 行（77KB）**，包含 **78 个方法**，承担了会议 CRUD、参与者管理、消息收发、Agent 响应编排、Agent 状态管理、意图检测、@提及解析、会议总结、SSE 事件流等 **14 个功能域**，严重违反单一职责原则。
 
 核心问题：
 - 单文件过大，阅读和定位困难
@@ -27,7 +27,7 @@
 ### 目标目录结构
 
 ```
-backend/src/modules/meetings/
+app/backend/src/modules/meetings/
 ├── services/
 │   ├── meeting-event.service.ts             # [底层共享] SSE 事件发布与订阅
 │   ├── meeting-agent-state.service.ts       # Agent thinking/idle 状态管理 (Redis)

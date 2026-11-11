@@ -20,7 +20,7 @@
 - 直接原因：同步请求地址缺少全局前缀 `/api`，实际请求打到 `/ei/sync-batches`，而 EI 服务路由实际为 `/api/ei/sync-batches`。
 - 深层原因：`RuntimeEiSyncService` 的 `ENGINEERING_INTELLIGENCE_SERVICE_URL` 默认值与内部拼接逻辑未与其他内部客户端保持一致（其他模块默认带 `/api`）。
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/runtime/runtime-ei-sync.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-ei-sync.service.ts`
 
 ## 4. 修复动作
 

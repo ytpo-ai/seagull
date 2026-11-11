@@ -48,13 +48,13 @@
 
 ## 关键文件
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
-- `backend/src/shared/schemas/orchestration-task.schema.ts`
-- `backend/src/modules/orchestration/dto/index.ts`
-- `backend/src/modules/orchestration/planner.service.ts`
-- `backend/src/modules/orchestration/orchestration.service.ts`
-- `backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/src/shared/schemas/orchestration-task.schema.ts`
+- `app/backend/src/modules/orchestration/dto/index.ts`
+- `app/backend/src/modules/orchestration/planner.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 ## 验证结果
 

@@ -87,7 +87,7 @@
 
 - 前端在 `研发智能` 分组下新增二级菜单 `工程统计`。
 - 页面支持一键触发统计计划执行：覆盖 `docs`、`frontend`、`backend` 维度。
-- `backend` 维度细化为 `backend/src` + `backend/apps/<app>` 各子应用独立统计行。
+- `backend` 维度细化为 `app/backend/src` + `app/backend/apps/<app>` 各子应用独立统计行。
 - 统计结果按“项目明细 + 汇总”返回，并落库到 `ei_project_statistics_snapshots`。
 - 快照状态机：`running/success/failed`，支持查询 latest/detail/history。
 - 统计能力对外暴露为 Agent MCP 工具：`builtin.sys-mg.mcp.rd-intelligence.engineering-statistics-run`。
@@ -262,7 +262,7 @@ GET ranking -> Redis 有值 -> 返回
 
 ### 1.12 消息中心联动（本轮新增）
 
-- 消息中心能力归属 legacy 主 backend（`backend/src/modules/message-center`），不落在 EI 独立服务中。
+- 消息中心能力归属 legacy 主 backend（`app/backend/src/modules/message-center`），不落在 EI 独立服务中。
 - EI 仅负责在统计完成后通过 Hook 调用 legacy：`POST /api/message-center/hooks/engineering-statistics`。
 - 前端消息入口位于主站 Header 右上角，支持最近消息抽屉与完整消息中心页。
 
@@ -332,28 +332,28 @@ GET ranking -> Redis 有值 -> 返回
 
 | 路径 | 功能 |
 |------|------|
-| `backend/apps/ei/src/` | EI 服务主模块（同步接收、分析计算、查询接口） |
-| `backend/apps/agents/src/modules/runtime/` | Runtime 事件事实来源与同步触发链路 |
-| `backend/apps/agents/src/modules/tools/` | 工程统计 MCP 工具定义与执行入口 |
-| `backend/src/modules/orchestration/` | 需求关联编排、回写与任务验证逻辑 |
-| `backend/apps/ei/src/app.module.ts` | EI 应用装配入口（controllers/providers 直接在 AppModule 注册） |
-| `backend/apps/ei/src/services/repositories.service.ts` | 仓库管理 + 文档树/内容/历史 + 摘要分析 |
-| `backend/apps/ei/src/services/requirements.service.ts` | 需求 CRUD、状态流转、GitHub Issue 同步 |
-| `backend/apps/ei/src/services/statistics.service.ts` | 工程统计快照扫描、汇总计算、消息中心事件发布 |
-| `backend/apps/ei/src/services/opencode-sync.service.ts` | OpenCode 运行批次同步、事件写入与签名校验 |
-| `backend/apps/ei/src/services/ei-github-client.service.ts` | GitHub API 共享基础设施（branch fallback / 请求封装） |
-| `backend/apps/ei/src/controllers/` | EI 控制器目录（含 `tasks/projects/opencode/repositories/opencode-sync/statistics/requirements`） |
-| `backend/apps/ei/src/services/` | EI 服务目录（含 `management` 核心服务与资源服务、OpenCode 客户端服务） |
-| `backend/apps/ei/src/dto/` | EI DTO 目录（需求、统计、管理与聚合导出） |
-| `backend/src/shared/schemas/ei-project.schema.ts` | `ei_projects` 集合模型（同步来源、OpenCode 项目标识） |
+| `app/backend/apps/ei/src/` | EI 服务主模块（同步接收、分析计算、查询接口） |
+| `app/backend/apps/agents/src/modules/runtime/` | Runtime 事件事实来源与同步触发链路 |
+| `app/backend/apps/agents/src/modules/tools/` | 工程统计 MCP 工具定义与执行入口 |
+| `app/backend/src/modules/orchestration/` | 需求关联编排、回写与任务验证逻辑 |
+| `app/backend/apps/ei/src/app.module.ts` | EI 应用装配入口（controllers/providers 直接在 AppModule 注册） |
+| `app/backend/apps/ei/src/services/repositories.service.ts` | 仓库管理 + 文档树/内容/历史 + 摘要分析 |
+| `app/backend/apps/ei/src/services/requirements.service.ts` | 需求 CRUD、状态流转、GitHub Issue 同步 |
+| `app/backend/apps/ei/src/services/statistics.service.ts` | 工程统计快照扫描、汇总计算、消息中心事件发布 |
+| `app/backend/apps/ei/src/services/opencode-sync.service.ts` | OpenCode 运行批次同步、事件写入与签名校验 |
+| `app/backend/apps/ei/src/services/ei-github-client.service.ts` | GitHub API 共享基础设施（branch fallback / 请求封装） |
+| `app/backend/apps/ei/src/controllers/` | EI 控制器目录（含 `tasks/projects/opencode/repositories/opencode-sync/statistics/requirements`） |
+| `app/backend/apps/ei/src/services/` | EI 服务目录（含 `management` 核心服务与资源服务、OpenCode 客户端服务） |
+| `app/backend/apps/ei/src/dto/` | EI DTO 目录（需求、统计、管理与聚合导出） |
+| `app/backend/src/shared/schemas/ei-project.schema.ts` | `ei_projects` 集合模型（同步来源、OpenCode 项目标识） |
 
 ### 前端入口（规划影响）
 
 | 路径 | 功能 |
 |------|------|
 | `frontend/src/pages/` | 主前端中的工程智能页面与分析展示入口 |
-| `backend/apps/ei/src/schemas/ei-doc-commit-fact.schema.ts` | 文档 commit 事实表模型（docs-heat） |
-| `backend/apps/ei/src/schemas/ei-app-config.schema.ts` | EI 通用配置表模型 |
-| `backend/apps/ei/src/services/docs-heat.service.ts` | 文档热度统计核心服务 |
-| `backend/apps/ei/src/controllers/docs-heat.controller.ts` | 文档热度 API 控制器 |
-| `backend/apps/ei/src/controllers/config.controller.ts` | EI 通用配置 API 控制器 |
+| `app/backend/apps/ei/src/schemas/ei-doc-commit-fact.schema.ts` | 文档 commit 事实表模型（docs-heat） |
+| `app/backend/apps/ei/src/schemas/ei-app-config.schema.ts` | EI 通用配置表模型 |
+| `app/backend/apps/ei/src/services/docs-heat.service.ts` | 文档热度统计核心服务 |
+| `app/backend/apps/ei/src/controllers/docs-heat.controller.ts` | 文档热度 API 控制器 |
+| `app/backend/apps/ei/src/controllers/config.controller.ts` | EI 通用配置 API 控制器 |

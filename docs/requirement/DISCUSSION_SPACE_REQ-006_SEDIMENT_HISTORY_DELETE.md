@@ -43,7 +43,7 @@
 
 ### 影响范围
 
-- **后端**：`backend/src/modules/discussions/discussion.controller.ts`、`backend/src/modules/discussions/services/discussion-sediment.service.ts`、`backend/src/modules/discussions/discussion.types.ts`
+- **后端**：`app/backend/src/modules/discussions/discussion.controller.ts`、`app/backend/src/modules/discussions/services/discussion-sediment.service.ts`、`app/backend/src/modules/discussions/discussion.types.ts`
 - **前端**：`frontend/src/components/discussion/SedimentPanel.tsx`
 - **前端服务**：`frontend/src/services/discussionService.ts`
 - **数据库**：`discussion_spaces.sedimentHistory` 子文档字段扩展（软删除元数据）

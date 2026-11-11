@@ -84,10 +84,10 @@
 
 ## 7. 影响文件
 
-1. `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-2. `backend/apps/agents/src/modules/agents/agent.module.ts`
-3. `backend/apps/agents/src/modules/agents/executor-engines/*`
-4. `backend/apps/agents/src/modules/agents/agent-executor.service.spec.ts`
+1. `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+2. `app/backend/apps/agents/src/modules/agents/agent.module.ts`
+3. `app/backend/apps/agents/src/modules/agents/executor-engines/*`
+4. `app/backend/apps/agents/src/modules/agents/agent-executor.service.spec.ts`
 
 ## 8. 风险与规避
 
@@ -100,7 +100,7 @@
 
 ## 9. 验证方案
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

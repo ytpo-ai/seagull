@@ -59,48 +59,48 @@
 
 ### 3.1 Schema 层
 
-- 更新：`backend/apps/agents/src/schemas/agent-memo.schema.ts`
+- 更新：`app/backend/apps/agents/src/schemas/agent-memo.schema.ts`
   - 枚举与字段重构为新模型
   - 索引调整为新查询路径（含 `payload.topic`）
-- 新增：`backend/apps/agents/src/schemas/agent-memo-version.schema.ts`
+- 新增：`app/backend/apps/agents/src/schemas/agent-memo-version.schema.ts`
   - 版本快照模型与唯一索引
 
 ### 3.2 Memo 模块
 
-- 更新：`backend/apps/agents/src/modules/memos/memo.module.ts`
+- 更新：`app/backend/apps/agents/src/modules/memos/memo.module.ts`
   - 注册 `AgentMemoVersion` model
   - 注入并导出 `MemoEventBusService`
-- 新增：`backend/apps/agents/src/modules/memos/memo-event-bus.service.ts`
+- 新增：`app/backend/apps/agents/src/modules/memos/memo-event-bus.service.ts`
   - 事件发布/订阅能力
-- 更新：`backend/apps/agents/src/modules/memos/memo.service.ts`
+- 更新：`app/backend/apps/agents/src/modules/memos/memo.service.ts`
   - create/update/delete 适配新 schema
   - 自动版本快照逻辑
   - Redis 缓存 key 与按需检索
   - 刷新队列入队/消费能力
   - 聚合状态增加 refresh 队列指标
-- 更新：`backend/apps/agents/src/modules/memos/memo.controller.ts`
+- 更新：`app/backend/apps/agents/src/modules/memos/memo.controller.ts`
   - 入参适配新模型
   - 新增 `GET /api/memos/:id/versions`
-- 更新：`backend/apps/agents/src/modules/memos/memo-aggregation.service.ts`
+- 更新：`app/backend/apps/agents/src/modules/memos/memo-aggregation.service.ts`
   - 增加 Event Bus 监听
   - 先消费刷新队列，再消费事件聚合队列
-- 更新：`backend/apps/agents/src/modules/memos/memo-doc-sync.service.ts`
+- 更新：`app/backend/apps/agents/src/modules/memos/memo-doc-sync.service.ts`
   - 落盘路径改为 `memoKind` 维度
   - 文档元信息输出改为 `version/payload`
 
 ### 3.3 触发方改动
 
-- 更新：`backend/apps/agents/src/modules/agents/agent.service.ts`
+- 更新：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
   - `updateAgent` 后发布 `agent.updated`
   - 任务完成后发布 `task.completed`
-- 更新：`backend/apps/agents/src/modules/skills/skill.service.ts`
+- 更新：`app/backend/apps/agents/src/modules/skills/skill.service.ts`
   - skill 绑定变更后发布 `agent.skill_changed`
-- 更新：`backend/apps/agents/src/modules/skills/skill.module.ts`
+- 更新：`app/backend/apps/agents/src/modules/skills/skill.module.ts`
   - 引入 `MemoModule` 以注入事件总线
 
 ### 3.4 工具适配
 
-- 更新：`backend/apps/agents/src/modules/tools/tool.service.ts`
+- 更新：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - `memo_mcp_search/memo_mcp_append` 参数适配新 `memoType` 和 `payload`
 
 ## 4. 文档与计划同步

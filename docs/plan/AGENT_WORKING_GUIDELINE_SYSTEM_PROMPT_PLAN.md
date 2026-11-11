@@ -15,9 +15,9 @@
 
 ## 3. 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts`
-- 后端：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-- 测试：`backend/apps/agents/src/modules/agents/agent-executor.service.spec.ts`
+- 后端：`app/backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts`
+- 后端：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+- 测试：`app/backend/apps/agents/src/modules/agents/agent-executor.service.spec.ts`
 
 ## 4. 风险与依赖
 

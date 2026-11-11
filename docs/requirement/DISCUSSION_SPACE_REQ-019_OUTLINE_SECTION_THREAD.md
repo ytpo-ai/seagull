@@ -28,6 +28,6 @@
 
 ## 3. 影响范围
 
-- 后端：`backend/src/shared/schemas/discussion-thread.schema.ts`
-- 后端：`backend/src/modules/discussions/services/discussion-thread.service.ts`
-- 后端：`backend/src/modules/discussions/discussion.controller.ts`
+- 后端：`app/backend/src/shared/schemas/discussion-thread.schema.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-thread.service.ts`
+- 后端：`app/backend/src/modules/discussions/discussion.controller.ts`

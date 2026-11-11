@@ -6,7 +6,7 @@
 
 ## 2. 结论速览
 
-- `backend/apps/agents` 中，prompt 注入上下文主要分为 4 类：
+- `app/backend/apps/agents` 中，prompt 注入上下文主要分为 4 类：
   1. Agent 级系统提示词：`agent.systemPrompt`。
   2. 工具级提示词：`tool.prompt`（按已授权工具注入 system 消息）。
   3. 用户任务提示词：`taskPrompt`（取最近 user 内容，主要给 OpenCode）。
@@ -22,11 +22,11 @@
 
 | Prompt 类型 | 来源 | 写入点 | 是否进入 LLM `messages` | 是否持久化到 Runtime | 主要代码位置 |
 |---|---|---|---|---|---|
-| `systemPrompt` | Agent 配置字段 | `buildMessages()` 首条 system 消息 | 是 | 是（session system messages） | `backend/apps/agents/src/modules/agents/agent.service.ts:1144` |
-| `tool.prompt` | Tool 配置/内置目录 | `buildToolPromptMessages()` -> system 消息追加 | 是 | 是（session system messages） | `backend/apps/agents/src/modules/agents/agent.service.ts:1203`, `backend/apps/agents/src/modules/agents/agent.service.ts:1265` |
-| `taskPrompt` | 最近 user 消息（无则 description/title） | OpenCode 执行入参 | 否（不走 messages 队列） | 间接（run.userContent） | `backend/apps/agents/src/modules/agents/agent.service.ts:821`, `backend/apps/agents/src/modules/opencode/opencode-execution.service.ts:30`, `backend/apps/agents/src/modules/opencode/opencode.adapter.ts:41` |
-| `orchestration create prompt` | 会议/用户指令 | orchestration tool payload `prompt` | 否 | 否（由编排服务侧处理） | `backend/apps/agents/src/modules/agents/agent-orchestration-intent.service.ts:80`（历史项，文件已于 2026-03-19 删除）, `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:216` |
-| `orchestration update prompt` | 用户更新计划入参 | orchestration API payload `sourcePrompt` | 否 | 否（由编排服务侧处理） | `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:294`, `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:299` |
+| `systemPrompt` | Agent 配置字段 | `buildMessages()` 首条 system 消息 | 是 | 是（session system messages） | `app/backend/apps/agents/src/modules/agents/agent.service.ts:1144` |
+| `tool.prompt` | Tool 配置/内置目录 | `buildToolPromptMessages()` -> system 消息追加 | 是 | 是（session system messages） | `app/backend/apps/agents/src/modules/agents/agent.service.ts:1203`, `app/backend/apps/agents/src/modules/agents/agent.service.ts:1265` |
+| `taskPrompt` | 最近 user 消息（无则 description/title） | OpenCode 执行入参 | 否（不走 messages 队列） | 间接（run.userContent） | `app/backend/apps/agents/src/modules/agents/agent.service.ts:821`, `app/backend/apps/agents/src/modules/opencode/opencode-execution.service.ts:30`, `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts:41` |
+| `orchestration create prompt` | 会议/用户指令 | orchestration tool payload `prompt` | 否 | 否（由编排服务侧处理） | `app/backend/apps/agents/src/modules/agents/agent-orchestration-intent.service.ts:80`（历史项，文件已于 2026-03-19 删除）, `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:216` |
+| `orchestration update prompt` | 用户更新计划入参 | orchestration API payload `sourcePrompt` | 否 | 否（由编排服务侧处理） | `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:294`, `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:299` |
 
 ## 4. 调用链图
 
@@ -121,9 +121,9 @@ sequenceDiagram
 
 关键位置：
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts:224`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1144`
-- `backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:67`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:224`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1144`
+- `app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:67`
 
 ### 5.2 工具提示词（tool.prompt）注入
 
@@ -134,10 +134,10 @@ sequenceDiagram
 
 关键位置：
 
-- `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts:91`
-- `backend/apps/agents/src/modules/tools/tool.service.ts:481`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1203`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1265`
+- `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts:91`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts:481`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1203`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1265`
 
 ### 5.3 OpenCode 的 taskPrompt 填充
 
@@ -147,10 +147,10 @@ sequenceDiagram
 
 关键位置：
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts:821`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1028`
-- `backend/apps/agents/src/modules/opencode/opencode-execution.service.ts:30`
-- `backend/apps/agents/src/modules/opencode/opencode.adapter.ts:41`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:821`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1028`
+- `app/backend/apps/agents/src/modules/opencode/opencode-execution.service.ts:30`
+- `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts:41`
 
 ### 5.4 编排场景 prompt 透传
 
@@ -161,10 +161,10 @@ sequenceDiagram
 
 关键位置：
 
-- `backend/apps/agents/src/modules/agents/agent-orchestration-intent.service.ts:80`（历史项，文件已于 2026-03-19 删除）
-- `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:192`
-- `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:216`
-- `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:299`
+- `app/backend/apps/agents/src/modules/agents/agent-orchestration-intent.service.ts:80`（历史项，文件已于 2026-03-19 删除）
+- `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:192`
+- `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:216`
+- `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:299`
 
 ## 6. Runtime 持久化视角（排查“到底注入了什么”）
 
@@ -172,11 +172,11 @@ sequenceDiagram
 
 1. **System Prompt 注入是否生效**
    - 查看 runtime session 中追加的 system 消息（来源标记 `source=buildMessages`）。
-   - 关键入口：`backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:67`。
+   - 关键入口：`app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:67`。
 
 2. **用户 Prompt（taskPrompt/userContent）是否生效**
    - 查看 run 的 `userContent`（来自 `resolveLatestUserContent`）。
-   - 关键入口：`backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:105`。
+   - 关键入口：`app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:105`。
 
 ## 7. 常见误区
 
@@ -197,7 +197,7 @@ sequenceDiagram
 
 ### 8.1 场景与角色枚举
 
-定义位置：`backend/src/modules/prompt-registry/prompt-resolver.constants.ts`
+定义位置：`app/backend/src/modules/prompt-registry/prompt-resolver.constants.ts`
 
 | scene | role | 用途 | 调用位置 |
 |---|---|---|---|
@@ -263,16 +263,16 @@ sequenceDiagram
 
 ## 9. 代码索引（快速跳转）
 
-- `backend/apps/agents/src/modules/agents/agent.controller.ts:160`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:748`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1133`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1203`
-- `backend/apps/agents/src/modules/agents/agent.service.ts:1757`
-- `backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:54`
-- `backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:98`
-- `backend/apps/agents/src/modules/opencode/opencode-execution.service.ts:26`
-- `backend/apps/agents/src/modules/opencode/opencode.adapter.ts:38`
-- `backend/apps/agents/src/modules/agents/agent-orchestration-intent.service.ts:73`（历史项，文件已于 2026-03-19 删除）
-- `backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:175`
-- `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts:88`
-- `backend/apps/agents/src/modules/tools/tool.service.ts:445`
+- `app/backend/apps/agents/src/modules/agents/agent.controller.ts:160`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:748`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1133`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1203`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:1757`
+- `app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:54`
+- `app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts:98`
+- `app/backend/apps/agents/src/modules/opencode/opencode-execution.service.ts:26`
+- `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts:38`
+- `app/backend/apps/agents/src/modules/agents/agent-orchestration-intent.service.ts:73`（历史项，文件已于 2026-03-19 删除）
+- `app/backend/apps/agents/src/modules/tools/orchestration-tool-handler.service.ts:175`
+- `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts:88`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts:445`

@@ -30,9 +30,9 @@
 ## Impact
 
 - Backend
-  - `backend/src/modules/orchestration/orchestration.controller.ts`
-  - `backend/src/modules/orchestration/orchestration.service.ts`
-  - `backend/src/shared/schemas/orchestration-plan.schema.ts`
+  - `app/backend/src/modules/orchestration/orchestration.controller.ts`
+  - `app/backend/src/modules/orchestration/orchestration.service.ts`
+  - `app/backend/src/shared/schemas/orchestration-plan.schema.ts`
 - Frontend
   - `frontend/src/services/orchestrationService.ts`
   - `frontend/src/pages/Orchestration.tsx`

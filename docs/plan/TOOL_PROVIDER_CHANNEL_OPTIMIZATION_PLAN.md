@@ -67,8 +67,8 @@
 - [ ] **Toolkit.authStrategy 逻辑调整**：根据新 provider 推导
 
 **涉及文件**：
-- `backend/src/shared/schemas/tool.schema.ts`
-- `backend/src/shared/schemas/toolkit.schema.ts`
+- `app/backend/src/shared/schemas/tool.schema.ts`
+- `app/backend/src/shared/schemas/toolkit.schema.ts`
 
 ### 3.2 ToolService 推导逻辑改造
 
@@ -77,7 +77,7 @@
 - [ ] **改造 toolkitId 生成逻辑**：`provider.namespace` 保持不变，但需兼容新的 executionChannel
 
 **涉及文件**：
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
 
 ### 3.3 执行链路标记
 
@@ -85,8 +85,8 @@
 - [ ] **历史查询兼容**：stats/history 返回兼容旧字段或新增字段
 
 **涉及文件**：
-- `backend/src/shared/schemas/toolExecution.schema.ts`
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/src/shared/schemas/toolExecution.schema.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
 
 ### 3.4 API 兼容层
 
@@ -95,7 +95,7 @@
 - [ ] **前端筛选升级**：支持按 `executionChannel` 筛
 
 **涉及文件**：
-- `backend/apps/agents/src/modules/tools/tool.controller.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.controller.ts`
 - `frontend/src/services/toolService.ts`（如有）
 
 ### 3.5 数据迁移

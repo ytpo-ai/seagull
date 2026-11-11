@@ -12,8 +12,8 @@
 - Agent 选择 API Key 过滤 `isActive && !isDeprecated`
 
 ## 3. 关键改动
-- `backend/src/shared/schemas/apiKey.schema.ts`
-- `backend/src/modules/api-keys/api-key.service.ts`
+- `app/backend/src/shared/schemas/apiKey.schema.ts`
+- `app/backend/src/modules/api-keys/api-key.service.ts`
 - `frontend/src/services/apiKeyService.ts`
 - `frontend/src/pages/ApiKeys.tsx`
 - `frontend/src/pages/Agents.tsx`

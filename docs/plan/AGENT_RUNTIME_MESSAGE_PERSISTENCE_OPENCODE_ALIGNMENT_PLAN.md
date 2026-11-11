@@ -24,7 +24,7 @@ OpenCode 的做法是"每个 ReAct step 一条独立 assistant message + 多个 
 
 ### P1: AgentMessage schema 补字段
 
-文件：`backend/apps/agents/src/schemas/agent-message.schema.ts`
+文件：`app/backend/apps/agents/src/schemas/agent-message.schema.ts`
 
 新增字段：
 
@@ -42,7 +42,7 @@ OpenCode 的做法是"每个 ReAct step 一条独立 assistant message + 多个 
 
 ### P2: AgentPart type 枚举扩展
 
-文件：`backend/apps/agents/src/schemas/agent-part.schema.ts`
+文件：`app/backend/apps/agents/src/schemas/agent-part.schema.ts`
 
 当前枚举：`text | reasoning | tool_call | tool_result | system_event`
 
@@ -55,7 +55,7 @@ OpenCode 的做法是"每个 ReAct step 一条独立 assistant message + 多个 
 
 ### P3: AgentSession.messages[] 改为引用式
 
-文件：`backend/apps/agents/src/schemas/agent-session.schema.ts`
+文件：`app/backend/apps/agents/src/schemas/agent-session.schema.ts`
 
 将 `messages[]` 从嵌入完整内容改为只存引用 ID：
 
@@ -79,7 +79,7 @@ messageIds: string[]   // 只存 message ID 列表
 
 ### P4: model service 扩展返回值
 
-文件：`backend/apps/agents/src/modules/models/model.service.ts`
+文件：`app/backend/apps/agents/src/modules/models/model.service.ts`
 
 当前 `chat()` 返回 `string`，改为返回：
 
@@ -157,7 +157,7 @@ tokens: {
 
 ### P5: `executeWithToolCalling` 每轮落 message + parts
 
-文件：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+文件：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
 
 改造 `executeWithToolCalling` 方法（当前 L912-L1261）：
 
@@ -184,14 +184,14 @@ tokens: {
 
 ### P6: RuntimeOrchestrator 调整
 
-文件：`backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+文件：`app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
 
 - `completeRun` 不再负责创建 assistant message（已在每轮创建），只更新 run status
 - `startRun` 中创建的 user message 需返回 `userMessageId`，供后续 assistant message 设置 `parentMessageId`（当前已有此行为）
 
 ### P7: RuntimePersistence 新增批量写入方法
 
-文件：`backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+文件：`app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 
 新增方法：
 
@@ -213,9 +213,9 @@ async appendMessageIdToSession(sessionId: string, messageId: string): Promise<vo
 ### P8: opencode 事件流解析增强
 
 文件：
-- `backend/apps/agents/src/modules/opencode/opencode-execution.service.ts`
-- `backend/apps/agents/src/modules/agents/executor-engines/opencode-agent-executor.engine.ts`
-- `backend/apps/agents/src/modules/agents/executor-engines/opencode-streaming-agent-executor.engine.ts`
+- `app/backend/apps/agents/src/modules/opencode/opencode-execution.service.ts`
+- `app/backend/apps/agents/src/modules/agents/executor-engines/opencode-agent-executor.engine.ts`
+- `app/backend/apps/agents/src/modules/agents/executor-engines/opencode-streaming-agent-executor.engine.ts`
 
 改造内容：
 - 从 OpenCode 事件流中提取 step/tool/reasoning 事件（不只是 `llm.delta`）
@@ -246,7 +246,7 @@ async appendMessageIdToSession(sessionId: string, messageId: string): Promise<vo
 
 ### P10: 新增 API 端点
 
-文件：`backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+文件：`app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
 
 新增或调整端点：
 - `GET /runtime/sessions/:sessionId/messages` — 分页查询 session 下的 messages（基于 messageIds 引用）

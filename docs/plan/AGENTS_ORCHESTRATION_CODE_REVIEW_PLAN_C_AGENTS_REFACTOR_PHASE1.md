@@ -14,9 +14,9 @@
 
 ### 范围
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
-- `backend/apps/agents/src/modules/memos/memo.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/memos/memo.service.ts`
 - 对应 handler/service、模块依赖注入、单元测试
 
 ### 非目标
@@ -145,10 +145,10 @@
 
 | 问题 | 解决动作 | 核心文件 |
 |---|---|---|
-| N-1 | 拆分 tool 领域逻辑 + 移除残留实现 | `backend/apps/agents/src/modules/tools/tool.service.ts` |
-| N-2 | 提升 AgentExecutionService 承载度 | `backend/apps/agents/src/modules/agents/agent.service.ts` |
-| N-3 | memo 任务历史逻辑继续下沉 | `backend/apps/agents/src/modules/memos/memo.service.ts` |
-| N-5 | detailed/streaming 流程模板化 | `backend/apps/agents/src/modules/agents/agent.service.ts` |
+| N-1 | 拆分 tool 领域逻辑 + 移除残留实现 | `app/backend/apps/agents/src/modules/tools/tool.service.ts` |
+| N-2 | 提升 AgentExecutionService 承载度 | `app/backend/apps/agents/src/modules/agents/agent.service.ts` |
+| N-3 | memo 任务历史逻辑继续下沉 | `app/backend/apps/agents/src/modules/memos/memo.service.ts` |
+| N-5 | detailed/streaming 流程模板化 | `app/backend/apps/agents/src/modules/agents/agent.service.ts` |
 
 ## 8. 验收标准（量化）
 
@@ -159,7 +159,7 @@
 
 ## 9. 验证命令
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

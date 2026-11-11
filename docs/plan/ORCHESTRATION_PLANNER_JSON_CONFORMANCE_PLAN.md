@@ -180,7 +180,7 @@ LLM 将 identity prompt 视为最高优先级指令，将 planner prompt 视为�
 
 ### 改动 1: 修复 scenarioType 判定 — 补传 planId
 
-**文件**: `backend/src/modules/orchestration/planner.service.ts`
+**文件**: `app/backend/src/modules/orchestration/planner.service.ts`
 
 `generateNextTask()` 和 `planByAgent()` 调用 `executeTask()` 时，`collaborationContext` 缺少 `planId`，
 导致 `agent-executor.service.ts:1735-1740` 的 scenarioType 判定逻辑落到了 `'chat'`。
@@ -189,7 +189,7 @@ LLM 将 identity prompt 视为最高优先级指令，将 planner prompt 视为�
 
 ### 改动 2: Collaboration Context Builder 注入 JSON-only 约束
 
-**文件**: `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts`
 
 在 orchestration 分支中，检测 `collaborationContext.format === 'json'`，
 在 system message **末尾**追加 JSON-only 强制输出指令。

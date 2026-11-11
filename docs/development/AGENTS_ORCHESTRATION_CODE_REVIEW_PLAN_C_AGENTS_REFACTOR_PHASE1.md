@@ -17,27 +17,27 @@
 ### 2.1 Tools 模块拆分（P0-P1）
 
 - 新增 `InternalApiClient`：统一内部 HTTP 调用、签名头、错误摘要与超时配置。
-  - 文件：`backend/apps/agents/src/modules/tools/internal-api-client.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts`
 - 新增 `ToolGovernanceService`：抽离工具治理逻辑（限流、熔断、超时、重试、幂等 key）。
-  - 文件：`backend/apps/agents/src/modules/tools/tool-governance.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/tools/tool-governance.service.ts`
 - `ToolService` 改造为编排层：
   - 内部 API 调用改为委托 `InternalApiClient`
   - 治理逻辑改为委托 `ToolGovernanceService`
   - 移除 `INTERNAL_CONTEXT_SECRET` 硬编码 fallback（未配置时显式报错）
-  - 文件：`backend/apps/agents/src/modules/tools/tool.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
 - 模块注入更新：
-  - 文件：`backend/apps/agents/src/modules/tools/tool.module.ts`
+  - 文件：`app/backend/apps/agents/src/modules/tools/tool.module.ts`
 
 ### 2.2 Memos 模块拆分（P1）
 
 - 新增 `MemoTaskTodoService`：承接 todo 状态归一化、读写聚合、内容渲染。
-  - 文件：`backend/apps/agents/src/modules/memos/memo-task-todo.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/memo-task-todo.service.ts`
 - 新增 `MemoTaskHistoryService`：承接 history 状态归一化、timeline 去重、内容渲染。
-  - 文件：`backend/apps/agents/src/modules/memos/memo-task-history.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/memo-task-history.service.ts`
 - `MemoService` 保留主流程编排，todo/history 细节下沉至两个子服务。
-  - 文件：`backend/apps/agents/src/modules/memos/memo.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/memo.service.ts`
 - 模块注入更新：
-  - 文件：`backend/apps/agents/src/modules/memos/memo.module.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/memo.module.ts`
 
 ### 2.3 Agents 模块执行公共流程抽取（P0 起步）
 
@@ -45,11 +45,11 @@
   - runtime agentId 解析
   - model config 构建
   - runtime session system message 追加
-  - 文件：`backend/apps/agents/src/modules/agents/agent-execution.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/agents/agent-execution.service.ts`
 - `AgentService` 的 `executeTaskDetailed`/`executeTaskWithStreaming` 已改为复用上述公共能力。
-  - 文件：`backend/apps/agents/src/modules/agents/agent.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - 模块注入更新：
-  - 文件：`backend/apps/agents/src/modules/agents/agent.module.ts`
+  - 文件：`app/backend/apps/agents/src/modules/agents/agent.module.ts`
 
 ## 3. 测试与验证
 
@@ -76,8 +76,8 @@
 ### 5.1 Tools 继续解耦
 
 - `builtinTools` 大数组与实现 ID 列表已外提到独立目录文件：
-  - `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
-  - `backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
+  - `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
+  - `app/backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
 - 工具分发在 Phase1 基础上继续细分 handler：
   - `OrchestrationToolHandler` / `RequirementToolHandler` / `RepoToolHandler`（已接入）
   - `ModelToolHandler` / `SkillToolHandler` / `AuditToolHandler` / `MeetingToolHandler`（新增接入）

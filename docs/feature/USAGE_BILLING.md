@@ -28,13 +28,13 @@
 ## 4. 相关代码文件
 
 - 后端：
-  - `backend/apps/agents/src/modules/models/model-pricing.service.ts`
-  - `backend/apps/agents/src/modules/models/model.service.ts`
-  - `backend/apps/agents/src/modules/usage/usage.module.ts`
-  - `backend/apps/agents/src/modules/usage/usage.controller.ts`
-  - `backend/apps/agents/src/modules/usage/usage-aggregation.service.ts`
-  - `backend/apps/agents/src/schemas/model-registry.schema.ts`
-  - `backend/apps/agents/src/schemas/usage-daily-snapshot.schema.ts`
+  - `app/backend/apps/agents/src/modules/models/model-pricing.service.ts`
+  - `app/backend/apps/agents/src/modules/models/model.service.ts`
+  - `app/backend/apps/agents/src/modules/usage/usage.module.ts`
+  - `app/backend/apps/agents/src/modules/usage/usage.controller.ts`
+  - `app/backend/apps/agents/src/modules/usage/usage-aggregation.service.ts`
+  - `app/backend/apps/agents/src/schemas/model-registry.schema.ts`
+  - `app/backend/apps/agents/src/schemas/usage-daily-snapshot.schema.ts`
 - 前端：
   - `frontend/src/pages/Usage.tsx`
   - `frontend/src/services/usageService.ts`

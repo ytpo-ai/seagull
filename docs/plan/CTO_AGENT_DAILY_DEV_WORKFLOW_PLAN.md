@@ -98,7 +98,7 @@
 - **不要求会议上下文**（与编排工具区分）
 
 **涉及文件**：
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
 
 ### 步骤 2：编排任务关联需求（Gap 2）
 
@@ -116,9 +116,9 @@ requirementId?: Types.ObjectId;
 - 任务完成回调中：若任务关联需求且计划下所有任务完成，自动触发需求状态流转
 
 **涉及文件**：
-- `backend/src/shared/schemas/orchestration-task.schema.ts`
-- `backend/src/modules/orchestration/orchestration.service.ts`
-- `backend/src/modules/orchestration/planner.service.ts`
+- `app/backend/src/shared/schemas/orchestration-task.schema.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/src/modules/orchestration/planner.service.ts`
 
 ### 步骤 3：放宽编排 MCP 工具的会议上下文约束（Gap 4）
 
@@ -136,8 +136,8 @@ requirementId?: Types.ObjectId;
 - 调度器触发时注入 autonomous 上下文
 
 **涉及文件**：
-- `backend/apps/agents/src/modules/tools/tool.service.ts`（上下文断言）
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`（调度触发上下文）
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`（上下文断言）
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`（调度触发上下文）
 
 ### 步骤 4：CTO 角色编排权限适配（Gap 3）
 
@@ -148,8 +148,8 @@ requirementId?: Types.ObjectId;
 - 确认编排执行链路中 `runTaskForAgent` 使用目标 Agent 身份启动 OpenCode session，而非发起者身份
 
 **涉及文件**：
-- `backend/src/modules/orchestration/orchestration.service.ts`（任务执行入口）
-- `backend/apps/agents/src/modules/agents/agent.service.ts`（OpenCode 角色门禁确认）
+- `app/backend/src/modules/orchestration/orchestration.service.ts`（任务执行入口）
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`（OpenCode 角色门禁确认）
 
 ### 步骤 5：GitHub Issue 生命周期同步（Gap 5）
 
@@ -168,7 +168,7 @@ if (newStatus === 'done' && requirement.github?.issueNumber) {
 - 错误处理：GitHub API 失败不阻塞状态流转，记录 `syncError` 供后续补偿
 
 **涉及文件**：
-- `backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts`
+- `app/backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts`
 
 ### 步骤 6：代码级完成验证门禁（Gap 6）
 
@@ -184,8 +184,8 @@ if (newStatus === 'done' && requirement.github?.issueNumber) {
 - 验证数据来源于 OpenCode session events（通过 EI 同步数据或 Runtime events）
 
 **涉及文件**：
-- `backend/src/modules/orchestration/orchestration.service.ts`（验证逻辑）
-- `backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts`（提供验证数据查询）
+- `app/backend/src/modules/orchestration/orchestration.service.ts`（验证逻辑）
+- `app/backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts`（提供验证数据查询）
 
 ### 步骤 7：CTO Agent 工作流编排 Prompt 与调度
 

@@ -20,13 +20,13 @@
 - 直接原因：后端 `reassignTask` 在 `executorType !== 'unassigned'` 时强制要求 `executorId`，导致“切类型但未选人”的中间态请求被拒绝。
 - 深层原因：后端接口语义与前端交互模式不一致。前端是“先改类型，再选执行者”的分步提交，后端按“单次提交必须完整 assignment”进行校验。
 - 相关模块/文件：
-  - `backend/src/modules/orchestration/orchestration.service.ts`
+  - `app/backend/src/modules/orchestration/orchestration.service.ts`
 
 ## 4. 修复动作
 
 - 修复方案：允许 `reassign` 接口接收“仅切换分配类型”的中间态请求；仅当 `executorType + executorId` 同时完整时才进入已分配状态。
 - 代码改动点：
-  - `backend/src/modules/orchestration/orchestration.service.ts`
+  - `app/backend/src/modules/orchestration/orchestration.service.ts`
     - 移除对 `executorId` 的强制 400 校验。
     - 新增 `executorId` 归一化（空字符串归并为 `undefined`）。
     - 状态计算改为：`agent/employee + executorId` 才置 `assigned`，其余置 `pending`。

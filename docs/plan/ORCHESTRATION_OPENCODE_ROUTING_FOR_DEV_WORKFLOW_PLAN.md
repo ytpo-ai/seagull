@@ -74,7 +74,7 @@ executeTaskNode (orchestration-execution-engine.service.ts:57)
 
 **目标**：让 `review` 类型任务也能路由到 opencode。
 
-**文件**：`backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts`
+**文件**：`app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts`
 
 **改动位置**：第 1028-1045 行，`resolveRuntimeChannelHint` 方法
 
@@ -237,7 +237,7 @@ const OPENCODE_ALLOWED_ROLE_CODES = new Set([
 
 ### Step 1: 应用代码改动
 
-1. 打开文件 `backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts`
+1. 打开文件 `app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts`
 2. 找到 `resolveRuntimeChannelHint` 方法（约第 1028 行）
 3. 按照 2.1 节的目标代码替换该方法
 4. 保存文件
@@ -252,7 +252,7 @@ cd /Users/van/Workspace/harbin/backend && bash reload.sh development -p 3001
 等待重启完成后，验证新代码已编译：
 
 ```bash
-grep -c 'OPENCODE_ELIGIBLE_TASK_TYPES' /Users/van/Workspace/harbin/backend/dist/apps/legacy/src/modules/orchestration/services/orchestration-execution-engine.service.js
+grep -c 'OPENCODE_ELIGIBLE_TASK_TYPES' /Users/van/Workspace/harbin/app/backend/dist/apps/legacy/src/modules/orchestration/services/orchestration-execution-engine.service.js
 ```
 
 期望返回 `1`（或大于 0），表示新代码已编译生效。
@@ -583,7 +583,7 @@ stepGoal=<本步骤目标>
 
 | 文件 | 改动类型 | 说明 |
 |---|---|---|
-| `backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | 代码修改 | `resolveRuntimeChannelHint` 方法扩展 review 支持 |
+| `app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | 代码修改 | `resolveRuntimeChannelHint` 方法扩展 review 支持 |
 | 计划 Prompt | 配置变更 | 增加"执行引擎约束"段落 |
 
 ---

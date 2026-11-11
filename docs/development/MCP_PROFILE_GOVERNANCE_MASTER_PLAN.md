@@ -27,7 +27,7 @@
 
 - `frontend/src/pages/Agents.tsx`
 - `frontend/src/services/agentService.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - `docs/api/agents-api.md`
 
 ## 实现细节迁移说明

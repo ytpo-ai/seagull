@@ -3,7 +3,7 @@
 ## 基础信息
 
 - 服务地址：`ws://localhost:3003/ws`
-- 实现位置：`backend/apps/ws/src/main.ts`
+- 实现位置：`app/backend/apps/ws/src/main.ts`
 - 作用：订阅 Redis channel，向前端推送实时事件
 
 ## 客户端消息协议

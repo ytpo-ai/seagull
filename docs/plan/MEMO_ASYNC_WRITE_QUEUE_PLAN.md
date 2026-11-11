@@ -19,11 +19,11 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/memos/*`
-- 后端：`backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
-- 后端：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-- 后端：`backend/apps/agents/src/modules/tools/tool.service.ts`
-- 后端：`backend/apps/agents/src/modules/memos/memo.controller.ts`
+- 后端：`app/backend/apps/agents/src/modules/memos/*`
+- 后端：`app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/memos/memo.controller.ts`
 
 ## 风险与应对
 

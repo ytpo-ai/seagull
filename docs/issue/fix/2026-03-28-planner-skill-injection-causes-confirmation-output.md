@@ -134,11 +134,11 @@ Plan.strategy.skillActivation
 
 | 文件 | 变更 |
 |------|------|
-| `backend/src/shared/schemas/orchestration-plan.schema.ts` | `strategy` 新增 `skillActivation` 子字段（Mongoose raw schema + TypeScript 类型）；新增 `SkillActivationMode` 类型导出 |
-| `backend/src/modules/orchestration/planner.service.ts` | `generateNextTask`、`executePreTask`、`executePostTask` 三个方法的 `collaborationContext` 中透传 `plan.strategy.skillActivation` |
-| `backend/apps/agents/src/modules/agents/context/context-strategy.service.ts` | `shouldActivateSkillContent` 新增 `skillActivation` 识别逻辑：`precise` 白名单过滤（预留）；`standard` 跳过 planning 强制激活 |
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | `ensurePlannerSession` 的 `collaborationContext` 同步透传 `skillActivation` |
-| `backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | 技能索引引导语和方法论前缀措辞优化（用户先行修改） |
+| `app/backend/src/shared/schemas/orchestration-plan.schema.ts` | `strategy` 新增 `skillActivation` 子字段（Mongoose raw schema + TypeScript 类型）；新增 `SkillActivationMode` 类型导出 |
+| `app/backend/src/modules/orchestration/planner.service.ts` | `generateNextTask`、`executePreTask`、`executePostTask` 三个方法的 `collaborationContext` 中透传 `plan.strategy.skillActivation` |
+| `app/backend/apps/agents/src/modules/agents/context/context-strategy.service.ts` | `shouldActivateSkillContent` 新增 `skillActivation` 识别逻辑：`precise` 白名单过滤（预留）；`standard` 跳过 planning 强制激活 |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | `ensurePlannerSession` 的 `collaborationContext` 同步透传 `skillActivation` |
+| `app/backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | 技能索引引导语和方法论前缀措辞优化（用户先行修改） |
 
 ---
 
@@ -219,11 +219,11 @@ Planner 作为纯 JSON 输出角色，其 system messages 越多，LLM 越容易
 
 | 文件 | 职责 |
 |------|------|
-| `backend/src/shared/schemas/orchestration-plan.schema.ts` | Plan schema，`strategy.skillActivation` 定义 |
-| `backend/src/modules/orchestration/planner.service.ts` | Planner 核心：prompt 构建、LLM 调用、`skillActivation` 透传 |
-| `backend/apps/agents/src/modules/agents/context/context-strategy.service.ts` | Skill 激活策略：`shouldActivateSkillContent`，`skillActivation` 模式识别 |
-| `backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | 技能索引 + 方法论注入，措辞控制 |
-| `backend/apps/agents/src/modules/agents/context/identity-context.builder.ts` | Identity 注入，fingerprint delta 机制 |
-| `backend/apps/agents/src/modules/agents/context/context-fingerprint.service.ts` | Fingerprint 增量更新机制 |
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | 四阶段调度器，`ensurePlannerSession` |
-| `backend/src/modules/orchestration/services/orchestration-context.service.ts` | Pre/Post task context 构建，`buildPreTaskContext` |
+| `app/backend/src/shared/schemas/orchestration-plan.schema.ts` | Plan schema，`strategy.skillActivation` 定义 |
+| `app/backend/src/modules/orchestration/planner.service.ts` | Planner 核心：prompt 构建、LLM 调用、`skillActivation` 透传 |
+| `app/backend/apps/agents/src/modules/agents/context/context-strategy.service.ts` | Skill 激活策略：`shouldActivateSkillContent`，`skillActivation` 模式识别 |
+| `app/backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | 技能索引 + 方法论注入，措辞控制 |
+| `app/backend/apps/agents/src/modules/agents/context/identity-context.builder.ts` | Identity 注入，fingerprint delta 机制 |
+| `app/backend/apps/agents/src/modules/agents/context/context-fingerprint.service.ts` | Fingerprint 增量更新机制 |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | 四阶段调度器，`ensurePlannerSession` |
+| `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` | Pre/Post task context 构建，`buildPreTaskContext` |

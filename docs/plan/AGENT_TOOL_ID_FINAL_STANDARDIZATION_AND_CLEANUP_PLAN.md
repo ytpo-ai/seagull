@@ -11,8 +11,8 @@
 
 ## 范围
 
-- 后端：`backend/apps/agents/src/modules/tools/**`
-- 种子脚本：`backend/scripts/seed/builtin-tool-seed.ts`
+- 后端：`app/backend/apps/agents/src/modules/tools/**`
+- 种子脚本：`app/backend/scripts/seed/builtin-tool-seed.ts`
 - 计划文档：`docs/plan/**`
 
 ## 执行计划
@@ -94,6 +94,6 @@
 
 ### 数据清理策略
 
-- `backend/scripts/seed/builtin-tool-seed.ts` 保留并扩展 `TOOL_IDS_TO_PURGE_ON_SYNC`，用于清理历史旧 ID 与中间过渡 ID。
+- `app/backend/scripts/seed/builtin-tool-seed.ts` 保留并扩展 `TOOL_IDS_TO_PURGE_ON_SYNC`，用于清理历史旧 ID 与中间过渡 ID。
 - 本轮不做映射兼容层，按“新 ID 直切 + 存量数据后续清空/清理”的策略执行。
 - 在确认线上/历史库虚拟占位工具已清空后，移除 `VIRTUAL_TOOL_IDS` 常量及其 sync 删除逻辑，统一由 `TOOL_IDS_TO_PURGE_ON_SYNC` 负责清理入口。

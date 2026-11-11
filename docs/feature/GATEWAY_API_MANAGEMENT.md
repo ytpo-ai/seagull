@@ -13,9 +13,9 @@
 
 ## 3. 相关代码文件
 - 后端代码：
-  - `backend/src/shared/schemas/apiKey.schema.ts`
-  - `backend/src/modules/api-keys/api-key.service.ts`
-  - `backend/src/modules/api-keys/api-key.controller.ts`
+  - `app/backend/src/shared/schemas/apiKey.schema.ts`
+  - `app/backend/src/modules/api-keys/api-key.service.ts`
+  - `app/backend/src/modules/api-keys/api-key.controller.ts`
 - 前端代码：
   - `frontend/src/services/apiKeyService.ts`
   - `frontend/src/pages/ApiKeys.tsx`

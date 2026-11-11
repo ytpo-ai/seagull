@@ -8,7 +8,7 @@
 
 ## 2. 执行步骤
 
-1. 梳理 SDK 使用点：盘点 `backend/apps/agents` 与 `backend/src/modules/rd-management` 中所有 SDK 入口和调用路径。
+1. 梳理 SDK 使用点：盘点 `app/backend/apps/agents` 与 `app/backend/src/modules/rd-management` 中所有 SDK 入口和调用路径。
 2. 设计统一 API 访问层：封装 baseUrl 归一化、Basic Auth、超时、响应解包、错误映射和脱敏日志。
 3. 替换 Runtime OpenCode 适配器：将 `OpenCodeAdapter` 的 `createSession/promptSession/subscribeEvents` 改为直连 HTTP。
 4. 替换 RD 管理 OpenCode 服务：移除 SDK 初始化与 client 分支逻辑，统一走 HTTP 接口并保留回退能力（按 endpoint 切换）。

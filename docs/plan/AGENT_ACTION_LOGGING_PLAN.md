@@ -47,8 +47,8 @@
 7. 运行构建验证并补充 API/功能文档。
 
 ### Impacts
-- `backend/apps/agents` runtime 模块（hook dispatch）
-- `backend/src` agent-action-logs 模块（内部写入、幂等）
+- `app/backend/apps/agents` runtime 模块（hook dispatch）
+- `app/backend/src` agent-action-logs 模块（内部写入、幂等）
 - `frontend` Agent 详情日志筛选/展示
 
 ### Risks/Dependencies
@@ -57,7 +57,7 @@
 
 ## Phase 4 (Migrate Agent Action Logs to apps/agents)
 ### Goal
-将 `agent-action-logs` 的 schema / service / API 从 legacy backend 迁移到 `backend/apps/agents`，移除 runtime 到 legacy(3001) 的主动同步依赖。
+将 `agent-action-logs` 的 schema / service / API 从 legacy backend 迁移到 `app/backend/apps/agents`，移除 runtime 到 legacy(3001) 的主动同步依赖。
 
 ### Steps
 1. 在 `apps/agents` 新增 `agent-action-log` schema（集合 `agent_action_logs`），保留 `sourceEventId` 唯一幂等索引。
@@ -68,8 +68,8 @@
 6. 更新功能/API/日常记录文档，标注迁移后的能力归属与兼容说明。
 
 ### Impacts
-- `backend/apps/agents`：新增 action-log 模块与 schema；runtime 日志同步链路改为本地调用。
-- `backend/src`：legacy `agent-action-logs` 进入兼容/下线阶段（按后续灰度安排）。
+- `app/backend/apps/agents`：新增 action-log 模块与 schema；runtime 日志同步链路改为本地调用。
+- `app/backend/src`：legacy `agent-action-logs` 进入兼容/下线阶段（按后续灰度安排）。
 - MongoDB：`agent_action_logs` 索引需与既有线上约束保持一致。
 
 ### Risks/Dependencies

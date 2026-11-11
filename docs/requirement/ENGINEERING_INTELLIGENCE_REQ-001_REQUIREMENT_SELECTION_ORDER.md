@@ -38,7 +38,7 @@ CTO 需求分发流程中，Planner 通过 `requirement.list(status=todo)` 获�
 
 ### 影响范围
 
-- **后端**：`backend/apps/ei/src/dto/requirement.dto.ts`、`backend/apps/ei/src/services/requirements.service.ts`、`backend/apps/ei/src/controllers/requirements.controller.ts`、`backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts`、`backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`。
+- **后端**：`app/backend/apps/ei/src/dto/requirement.dto.ts`、`app/backend/apps/ei/src/services/requirements.service.ts`、`app/backend/apps/ei/src/controllers/requirements.controller.ts`、`app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts`、`app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`。
 - **前端**：无。
 - **数据库**：无。
 - **API**：`GET /ei/requirements` 查询参数与返回语义扩展。

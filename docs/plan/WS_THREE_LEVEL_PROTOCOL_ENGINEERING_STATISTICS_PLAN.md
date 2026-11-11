@@ -49,7 +49,7 @@
 
 ## 4. 影响点
 
-- 后端：`backend/libs/infra`、`backend/apps/ws`、`backend/src/modules/message-center`
+- 后端：`app/backend/libs/infra`、`app/backend/apps/ws`、`app/backend/src/modules/message-center`
 - 前端：`frontend/src/components/Layout.tsx`
 - 协议兼容：会议既有 `meeting:*` 通道保持不变
 

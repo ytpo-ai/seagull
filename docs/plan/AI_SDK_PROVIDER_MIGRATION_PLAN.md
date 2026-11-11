@@ -26,16 +26,16 @@
 
 ## 本轮补充：V1 Provider 目录归档
 
-1. 新建 `backend/libs/models/src/v1/`，归档旧 Provider 实现。
+1. 新建 `app/backend/libs/models/src/v1/`，归档旧 Provider 实现。
 2. 将 `base-provider.ts`、`openai-provider.ts`、`anthropic-provider.ts`、`google-provider.ts`、`moonshot-provider.ts` 迁移到 `v1/`。
 3. 更新 `index.ts` 导出路径，保持 `@libs/models` 外部导入 API 不变。
 4. 执行 `build:agents` 验证目录重构不影响运行。
 
 ## 关键影响点
 
-- 后端：`backend/libs/models/src/aiv2-provider.ts`、`backend/apps/agents/src/modules/models/model.service.ts`
-- 兼容层：`backend/libs/models/src/*-provider.ts`（保留）
-- 依赖：`backend/package.json`、`backend/pnpm-lock.yaml`
+- 后端：`app/backend/libs/models/src/aiv2-provider.ts`、`app/backend/apps/agents/src/modules/models/model.service.ts`
+- 兼容层：`app/backend/libs/models/src/*-provider.ts`（保留）
+- 依赖：`app/backend/package.json`、`app/backend/pnpm-lock.yaml`
 - 运行配置：新增 V2 灰度开关 + API Key 环境变量兼容（OPENAI/ANTHROPIC/GOOGLE/MOONSHOT）
 - 测试/构建：`backend` 编译链路（agents app）
 

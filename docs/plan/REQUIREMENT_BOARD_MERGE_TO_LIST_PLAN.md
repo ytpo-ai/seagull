@@ -16,11 +16,11 @@
 
 ## 3. 关键影响点
 
-- 工具目录与元数据：`backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
-- 工具执行分发：`backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
-- requirement 处理器：`backend/apps/agents/src/modules/tools/builtin/requirement-tool-handler.service.ts`
-- 工具 ID 常量：`backend/apps/agents/src/modules/agents/agent.constants.ts`
-- seed 映射：`backend/scripts/seed/mcp-profile.ts`
+- 工具目录与元数据：`app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
+- 工具执行分发：`app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
+- requirement 处理器：`app/backend/apps/agents/src/modules/tools/builtin/requirement-tool-handler.service.ts`
+- 工具 ID 常量：`app/backend/apps/agents/src/modules/agents/agent.constants.ts`
+- seed 映射：`app/backend/scripts/seed/mcp-profile.ts`
 - 功能文档：`docs/feature/ENGINEERING_INTELLIGENCE.md`
 
 ## 4. 风险与依赖

@@ -17,8 +17,8 @@
 
 ## 关键影响点
 
-- 后端：`backend/libs/models`（AIV2 provider 适配与模型路由）
-- 后端：`backend/apps/agents`（模型调用与 runtime 输出一致性）
+- 后端：`app/backend/libs/models`（AIV2 provider 适配与模型路由）
+- 后端：`app/backend/apps/agents`（模型调用与 runtime 输出一致性）
 - 配置：API Key provider=`alibaba` 的读取与默认策略
 - 测试：providers 与 agents 相关构建/回归
 - 文档：`docs/feature`、`docs/api`（如存在外部接口变更）

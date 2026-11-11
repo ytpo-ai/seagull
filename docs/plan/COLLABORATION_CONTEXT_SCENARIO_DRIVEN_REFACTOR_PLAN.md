@@ -36,10 +36,10 @@
 **目标**：将 `Record<string, unknown>` 替换为 discriminated union，用 `scenarioMode` 做判别字段。
 
 **改动范围**：
-- `backend/libs/contracts/src/` — 新增 `collaboration-context.types.ts`
-- `backend/apps/agents/src/modules/agents/agent.types.ts` — `AgentContext.collaborationContext` 类型更新
-- `backend/apps/agents/src/schemas/agent-session.schema.ts` — `collaborationContext` 类型更新
-- `backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` — 同步更新
+- `app/backend/libs/contracts/src/` — 新增 `collaboration-context.types.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.types.ts` — `AgentContext.collaborationContext` 类型更新
+- `app/backend/apps/agents/src/schemas/agent-session.schema.ts` — `collaborationContext` 类型更新
+- `app/backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` — 同步更新
 
 **类型设计**：
 
@@ -114,13 +114,13 @@ type CollaborationContext =
 **目标**：统一所有 `collaborationContext` 的构建入口，消除手动拼字段。
 
 **改动范围**：
-- `backend/apps/agents/src/modules/agents/context/` — 新增 `collaboration-context.factory.ts`
-- `backend/src/modules/orchestration/planner.service.ts` — 4 处构建点改为调用工厂
-- `backend/src/modules/orchestration/services/orchestration-context.service.ts` — `buildOrchestrationCollaborationContext()` 改为调用工厂
-- `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` — `ensurePlannerSession()` 改为调用工厂
-- `backend/src/modules/orchestration/services/plan-management.service.ts` — replan session 改为调用工厂
-- `backend/src/modules/meetings/services/meeting-orchestration.service.ts` — `buildMeetingTeamContext()` 改为调用工厂
-- `backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` — `processMessage()` 改为调用工厂
+- `app/backend/apps/agents/src/modules/agents/context/` — 新增 `collaboration-context.factory.ts`
+- `app/backend/src/modules/orchestration/planner.service.ts` — 4 处构建点改为调用工厂
+- `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` — `buildOrchestrationCollaborationContext()` 改为调用工厂
+- `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` — `ensurePlannerSession()` 改为调用工厂
+- `app/backend/src/modules/orchestration/services/plan-management.service.ts` — replan session 改为调用工厂
+- `app/backend/src/modules/meetings/services/meeting-orchestration.service.ts` — `buildMeetingTeamContext()` 改为调用工厂
+- `app/backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` — `processMessage()` 改为调用工厂
 
 **工厂接口设计**：
 
@@ -171,13 +171,13 @@ class CollaborationContextFactory {
 **目标**：在 API 级别强制 JSON 输出，与 prompt 层形成双重保障。
 
 **改动范围**：
-- `backend/libs/models/src/v1/base-provider.ts` — `options` 类型增加 `responseFormat`
-- `backend/libs/models/src/v1/openai-provider.ts` — `chatWithMeta()` 和 `streamingChat()` 透传 `response_format`
-- `backend/libs/models/src/v1/moonshot-provider.ts` — 同样支持（OpenAI 兼容接口）
-- `backend/libs/models/src/aiv2-provider.ts` — `buildCallOptions()` 透传
-- `backend/apps/agents/src/modules/models/model.service.ts` — `chat()` 和 `streamingChat()` 透传 `responseFormat`
-- `backend/apps/agents/src/modules/agents/agent-executor.service.ts` — 从 `collaborationContext.responseDirective` 推导 `responseFormat`
-- `backend/apps/agents/src/modules/agents/executor-engines/native-streaming-agent-executor.engine.ts` — 透传
+- `app/backend/libs/models/src/v1/base-provider.ts` — `options` 类型增加 `responseFormat`
+- `app/backend/libs/models/src/v1/openai-provider.ts` — `chatWithMeta()` 和 `streamingChat()` 透传 `response_format`
+- `app/backend/libs/models/src/v1/moonshot-provider.ts` — 同样支持（OpenAI 兼容接口）
+- `app/backend/libs/models/src/aiv2-provider.ts` — `buildCallOptions()` 透传
+- `app/backend/apps/agents/src/modules/models/model.service.ts` — `chat()` 和 `streamingChat()` 透传 `responseFormat`
+- `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` — 从 `collaborationContext.responseDirective` 推导 `responseFormat`
+- `app/backend/apps/agents/src/modules/agents/executor-engines/native-streaming-agent-executor.engine.ts` — 透传
 
 **responseDirective → response_format 映射**：
 
@@ -233,10 +233,10 @@ class CollaborationContextFactory {
 **目标**：`scenarioType` 直接从 `collaborationContext.scenarioMode` 读取，不再靠字段存在性猜测。
 
 **改动范围**：
-- `backend/apps/agents/src/modules/agents/agent-executor.service.ts` L1737-1742 — scenarioType 推导逻辑
-- `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` — 新增 inner-message 分支
-- `backend/apps/agents/src/modules/agents/agent-executor.helpers.ts` L20-28 — `isMeetingLikeTask()` 补充 collaborationContext 检查
-- `backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts` — `ScenarioType` 扩展为 4 值
+- `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` L1737-1742 — scenarioType 推导逻辑
+- `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` — 新增 inner-message 分支
+- `app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts` L20-28 — `isMeetingLikeTask()` 补充 collaborationContext 检查
+- `app/backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts` — `ScenarioType` 扩展为 4 值
 
 **scenarioType 推导规则**：
 ```typescript

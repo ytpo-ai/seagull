@@ -21,11 +21,11 @@
 
 | 文件 | 改动说明 |
 |------|----------|
-| `backend/src/modules/auth/auth.controller.ts` | 新增 `POST /api/auth/issue-redirect-token` 接口 |
-| `backend/src/modules/auth/auth.service.ts` | 新增 redirect-token 签发逻辑（30s TTL、`redirect:rate:*` 限流、`redirect:life-script:*` 存储） |
-| `backend/apps/gateway/src/gateway-auth.guard.ts` | 对 `/api/life-script/*` 非白名单请求使用 `LS_JWT_SECRET` 校验并注入 `userContext` |
-| `backend/.env.example` | 补充 `LS_JWT_SECRET` 和 redirect-token 相关可配置项 |
-| `backend/src/modules/auth/auth.service.spec.ts` | 新增 redirect-token 签发成功/限流/员工不存在用例 |
+| `app/backend/src/modules/auth/auth.controller.ts` | 新增 `POST /api/auth/issue-redirect-token` 接口 |
+| `app/backend/src/modules/auth/auth.service.ts` | 新增 redirect-token 签发逻辑（30s TTL、`redirect:rate:*` 限流、`redirect:life-script:*` 存储） |
+| `app/backend/apps/gateway/src/gateway-auth.guard.ts` | 对 `/api/life-script/*` 非白名单请求使用 `LS_JWT_SECRET` 校验并注入 `userContext` |
+| `app/backend/.env.example` | 补充 `LS_JWT_SECRET` 和 redirect-token 相关可配置项 |
+| `app/backend/src/modules/auth/auth.service.spec.ts` | 新增 redirect-token 签发成功/限流/员工不存在用例 |
 
 ### 前端
 

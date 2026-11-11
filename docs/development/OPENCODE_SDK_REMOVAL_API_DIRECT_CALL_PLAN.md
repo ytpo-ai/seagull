@@ -10,7 +10,7 @@
 
 ### 2.1 Agents Runtime 侧
 
-- 重构 `backend/apps/agents/src/modules/opencode/opencode.adapter.ts`：
+- 重构 `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts`：
   - `createSession` 改为 `POST /session`（支持 `directory` 参数）
   - `promptSession` 改为 `POST /session/:id/message`
   - `subscribeEvents` 改为 `GET /event`（SSE）并在适配层解析 `event/data` 帧
@@ -18,7 +18,7 @@
 
 ### 2.2 RD 管理侧
 
-- 重构 `backend/src/modules/rd-management/opencode.service.ts`：
+- 重构 `app/backend/src/modules/rd-management/opencode.service.ts`：
   - 删除 SDK 初始化、动态导入和 endpoint client 缓存分支
   - 新增统一 HTTP 请求封装（baseUrl、Basic Auth、超时、错误日志）
   - 会话/项目/上下文/事件/健康检查接口统一走 API
@@ -26,8 +26,8 @@
 
 ### 2.3 依赖清理
 
-- `backend/package.json` 移除 `@opencode-ai/sdk`。
-- 同步更新 lockfile（`backend/pnpm-lock.yaml`）。
+- `app/backend/package.json` 移除 `@opencode-ai/sdk`。
+- 同步更新 lockfile（`app/backend/pnpm-lock.yaml`）。
 
 ## 3. 验证结果
 

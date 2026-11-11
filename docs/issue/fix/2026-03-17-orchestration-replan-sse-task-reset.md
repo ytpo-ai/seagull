@@ -20,7 +20,7 @@
 - 直接原因：重排后端逻辑仍是“规划完成后一次性覆盖”，不是 `drafting + task.generated` 的流式回灌模型。
 - 深层原因：创建计划链路已升级为 SSE 异步流式，但重排链路没有同步迁移到同一状态机与事件模型。
 - 相关模块/文件：
-  - `backend/src/modules/orchestration/orchestration.service.ts`
+  - `app/backend/src/modules/orchestration/orchestration.service.ts`
   - `frontend/src/pages/PlanDetail.tsx`
 
 ## 4. 修复动作

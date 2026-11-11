@@ -14,7 +14,7 @@
 
 ### 2) 建立 agents map（MCP 元信息）
 
-- 新增文件：`backend/src/modules/agents/agent-mcp.map.ts`
+- 新增文件：`app/backend/src/modules/agents/agent-mcp.map.ts`
 - 定义 `AgentMapProfile`：
   - `role`
   - `tools`
@@ -37,8 +37,8 @@
   - 对未暴露单体详情请求返回 `NotFoundException`，避免泄露。
 
 涉及文件：
-- `backend/src/modules/agents/agent.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 ### 4) MCP API 路由扩展
 
@@ -49,8 +49,8 @@
 - 支持 query 参数 `includeHidden=true|false`。
 
 涉及文件：
-- `backend/src/modules/agents/agent.controller.ts`
-- `backend/apps/agents/src/modules/agents/agent.controller.ts`
+- `app/backend/src/modules/agents/agent.controller.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.controller.ts`
 
 ### 5) 文档更新
 
@@ -62,7 +62,7 @@
 - 构建验证通过：
   - `npm run build:agents`
   - `npm run build`
-- 新增 MCP 单测文件：`backend/src/modules/agents/agent.service.spec.ts`
+- 新增 MCP 单测文件：`app/backend/src/modules/agents/agent.service.spec.ts`
 - 现状说明：仓库当前 Jest 对 TypeScript 测试文件缺少 transform 配置，导致该 spec 暂无法直接执行；不影响本次功能编译与接口可用性。
 
 ## 安全与兼容策略
@@ -87,30 +87,30 @@
 
 1. 新增内置工具 `agents_mcp_list`
    - 注册位置：
-     - `backend/src/modules/tools/tool.service.ts`
-     - `backend/apps/agents/src/modules/tools/tool.service.ts`
+     - `app/backend/src/modules/tools/tool.service.ts`
+     - `app/backend/apps/agents/src/modules/tools/tool.service.ts`
    - 功能：读取 agent 列表并按 MCP 暴露规则返回 `id/name/type/role/capabilitySet`。
 
 2. 工具模块增加 Agent Schema 注入
    - 使工具服务可直接读取 agent 数据：
-     - `backend/src/modules/tools/tool.module.ts`
-     - `backend/apps/agents/src/modules/tools/tool.module.ts`
+     - `app/backend/src/modules/tools/tool.module.ts`
+     - `app/backend/apps/agents/src/modules/tools/tool.module.ts`
 
 3. CEO/CTO 默认可用该工具
    - 在 map 中为 `ai-executive`、`ai-technical` 增加 `agents_mcp_list`：
-     - `backend/src/modules/agents/agent-mcp.map.ts`
+     - `app/backend/src/modules/agents/agent-mcp.map.ts`
    - 运行时工具白名单由 `agent.tools + map.tools` 合并，兼容历史数据。
 
 4. 对话行为约束
    - 当可用工具包含 `agents_mcp_list` 时，追加系统提示：
      - 询问 agent 列表时优先调用该工具。
    - 实现位置：
-     - `backend/src/modules/agents/agent.service.ts`
-     - `backend/apps/agents/src/modules/agents/agent.service.ts`
+     - `app/backend/src/modules/agents/agent.service.ts`
+     - `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 5. 核心角色初始化配置更新
    - CEO/CTO 默认工具集改为内置真实 tool id，并包含 `agents_mcp_list`：
-     - `backend/src/modules/organization/organization.service.ts`
+     - `app/backend/src/modules/organization/organization.service.ts`
 
 ### 验证
 
@@ -127,7 +127,7 @@
 
 ### 实现
 
-1. 新增 schema：`backend/src/shared/schemas/agent-profile.schema.ts`
+1. 新增 schema：`app/backend/src/shared/schemas/agent-profile.schema.ts`
    - 字段：`agentType`（唯一）、`role`、`tools[]`、`capabilities[]`、`exposed`、`description`
 
 2. AgentService 改造（legacy + agents app）
@@ -146,7 +146,7 @@
      - `PUT /agents/mcp/profiles/:agentType`
 
 5. 运行时硬编码移除
-   - 删除文件：`backend/src/modules/agents/agent-mcp.map.ts`
+   - 删除文件：`app/backend/src/modules/agents/agent-mcp.map.ts`
 
 ### 验证
 
@@ -165,8 +165,8 @@
 
 1. 数据模型扩展
    - `Agent` 增加 `role?: string`：
-     - `backend/src/shared/schemas/agent.schema.ts`
-     - `backend/src/shared/types.ts`
+     - `app/backend/src/shared/schemas/agent.schema.ts`
+     - `app/backend/src/shared/types.ts`
      - `frontend/src/types/index.ts`
 
 2. Agent 更新逻辑增强（legacy + agents app）

@@ -17,7 +17,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/skills/*`（module/controller/service/new loader）
+- 后端：`app/backend/apps/agents/src/modules/skills/*`（module/controller/service/new loader）
 - 前端：`frontend/src/services/skillService.ts`、`frontend/src/pages/Skills.tsx`
 - 配置文档：`docs/skill/*.md`
 - 文档：`docs/guide/SKILL_LOAD.md`、`docs/feature/AGENT_SKILL.md`、`docs/api/agents-api.md`、`docs/dailylog/day/*.md`

@@ -19,7 +19,7 @@
 
 - 前端：`frontend/src/pages/Tools.tsx`
 - 前端：`frontend/src/services/toolService.ts`
-- 后端（如需）：`backend/apps/agents/src/modules/tools/tool.service.ts`
+- 后端（如需）：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
 - 文档：`docs/feature/AGENT_TOOL.md`
 
 ## 4. 风险与依赖

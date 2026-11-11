@@ -47,16 +47,16 @@ engineering-requirement-tool-handler.createRequirement():
 ### 3.2 直接原因
 
 1. **`ProjectBinding` 接口缺少 `localProjectId` 字段**
-   - 文件：`backend/libs/contracts/src/collaboration-context.types.ts:33-36`
+   - 文件：`app/backend/libs/contracts/src/collaboration-context.types.ts:33-36`
    - `resolveProjectBinding()` 返回了 `localProjectId`，但 `ProjectBinding` 类型只有 `localPath` 和 `opencodeProjectPath`，导致该字段在传入 `collaborationContext` 时丢失
 
 2. **`collaborationContext.projectId` 传的是 IncubationProject `_id`**
-   - 文件：`backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts:88`
+   - 文件：`app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts:88`
    - `planProjectId` 来源于 `plan.projectId`，而 `plan.projectId` 继承自 `agent.projectId`
    - `agent.projectId` 存储的是 **IncubationProject** 的 `_id`（前端 Agent 配置下拉使用 incubationProjectService.list()）
 
 3. **`createRequirement` 的 fallback 链无法取到正确的 local RdProject ID**
-   - 文件：`backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts:206-207`
+   - 文件：`app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts:206-207`
    - fallback 链：`params.localProjectId → params.projectId → executionContext.projectId → collaborationContext.projectId`
    - 所有 fallback 都指向 IncubationProject `_id`，没有任何路径能获取到 local RdProject `_id`
 
@@ -70,13 +70,13 @@ engineering-requirement-tool-handler.createRequirement():
 
 | 模块 | 文件 | 关键行 |
 |---|---|---|
-| ProjectBinding 类型 | `backend/libs/contracts/src/collaboration-context.types.ts` | 33-36 |
-| Orchestration 执行引擎 | `backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | 82-89, 905-986 |
-| Agent Requirement 工具 | `backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts` | 206-207 |
+| ProjectBinding 类型 | `app/backend/libs/contracts/src/collaboration-context.types.ts` | 33-36 |
+| Orchestration 执行引擎 | `app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | 82-89, 905-986 |
+| Agent Requirement 工具 | `app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts` | 206-207 |
 | 前端需求列表 | `frontend/src/pages/EngineeringRequirements.tsx` | 90-100, 457 |
-| ToolExecutionContext 类型 | `backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` | 22 |
-| Agent Schema | `backend/apps/agents/src/schemas/agent.schema.ts` | 118-119 |
-| Plan 管理 | `backend/src/modules/orchestration/planner.service.ts` | 64-116 |
+| ToolExecutionContext 类型 | `app/backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` | 22 |
+| Agent Schema | `app/backend/apps/agents/src/schemas/agent.schema.ts` | 118-119 |
+| Plan 管理 | `app/backend/src/modules/orchestration/planner.service.ts` | 64-116 |
 
 ## 4. 修复方案
 
@@ -88,7 +88,7 @@ engineering-requirement-tool-handler.createRequirement():
 
 #### 改动 1：`ProjectBinding` 接口添加 `localProjectId`
 
-文件：`backend/libs/contracts/src/collaboration-context.types.ts`
+文件：`app/backend/libs/contracts/src/collaboration-context.types.ts`
 
 ```typescript
 export interface ProjectBinding {
@@ -100,13 +100,13 @@ export interface ProjectBinding {
 
 #### 改动 2：`ToolExecutionContext` 注释更正
 
-文件：`backend/apps/agents/src/modules/tools/tool-execution-context.type.ts`
+文件：`app/backend/apps/agents/src/modules/tools/tool-execution-context.type.ts`
 
 `projectId` 字段的 JSDoc 注释应明确说明这是 plan 级别的项目 ID（可能是 IncubationProject ID），不等同于 ei_projects 中的 local project ID。
 
 #### 改动 3：`createRequirement` 优先使用 `projectBinding.localProjectId`
 
-文件：`backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts`
+文件：`app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts`
 
 在 `localProjectId` 的 fallback 链中，**优先读取 `collaborationContext.projectBinding.localProjectId`**：
 

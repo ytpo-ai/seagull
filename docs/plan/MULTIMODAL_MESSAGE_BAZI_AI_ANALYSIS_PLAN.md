@@ -159,7 +159,7 @@ Agent 的 `systemPrompt` 将 `bazi-data-generator` skill（`workspace/life_scrip
 
 #### 5b：life_script 后端新增 AI 分析截图服务 + API
 
-**影响**：`workspace/life_script/backend/src/modules/submission/`
+**影响**：`workspace/life_script/app/backend/src/modules/submission/`
 
 新增接口：
 
@@ -305,14 +305,14 @@ harbin Agent schema 已有 `projectId` 字段关联孵化项目，Agent API 已�
 
 | 文件 | 改动 |
 |------|------|
-| `workspace/life_script/backend/src/modules/submission/bazi-analysis.service.ts` | 新增 `getAvailableAgents()` 方法，代理调用 `GET /agents/active?projectId=<LIFE_SCRIPT_PROJECT_ID>` |
-| `workspace/life_script/backend/src/modules/submission/admin-submission.controller.ts` | 新增 `GET /admin/agents` 端点 |
+| `workspace/life_script/app/backend/src/modules/submission/bazi-analysis.service.ts` | 新增 `getAvailableAgents()` 方法，代理调用 `GET /agents/active?projectId=<LIFE_SCRIPT_PROJECT_ID>` |
+| `workspace/life_script/app/backend/src/modules/submission/admin-submission.controller.ts` | 新增 `GET /admin/agents` 端点 |
 
 新增环境变量 `LIFE_SCRIPT_PROJECT_ID`，标识 life_script 在孵化项目系统中的项目 ID。
 
 ### 步骤 8：BaziAnalysisService 接受动态 agentId 参数
 
-**影响文件**：`workspace/life_script/backend/src/modules/submission/bazi-analysis.service.ts`
+**影响文件**：`workspace/life_script/app/backend/src/modules/submission/bazi-analysis.service.ts`
 
 修改 `analyzeScreenshot(submissionId, agentId?)` 方法签名：
 - 传入 `agentId` → 使用传入值
@@ -325,8 +325,8 @@ harbin Agent schema 已有 `projectId` 字段关联孵化项目，Agent API 已�
 
 | 文件 | 改动 |
 |------|------|
-| `workspace/life_script/backend/src/modules/submission/admin-submission.controller.ts` | 接口接受 body `{ agentId?: string }` |
-| `workspace/life_script/backend/src/modules/submission/dto/` | 新增 `AnalyzeScreenshotDto` |
+| `workspace/life_script/app/backend/src/modules/submission/admin-submission.controller.ts` | 接口接受 body `{ agentId?: string }` |
+| `workspace/life_script/app/backend/src/modules/submission/dto/` | 新增 `AnalyzeScreenshotDto` |
 
 ### 步骤 10：admin 前端新增 Agent 选择下拉框
 
@@ -343,7 +343,7 @@ harbin Agent schema 已有 `projectId` 字段关联孵化项目，Agent API 已�
 
 | 文件 | 改动 |
 |------|------|
-| `workspace/life_script/backend/.env.example` | 新增 `LIFE_SCRIPT_PROJECT_ID`，标记 `BAZI_ANALYSIS_AGENT_ID` 为可选 |
+| `workspace/life_script/app/backend/.env.example` | 新增 `LIFE_SCRIPT_PROJECT_ID`，标记 `BAZI_ANALYSIS_AGENT_ID` 为可选 |
 
 ### 关键影响点
 

@@ -11,8 +11,8 @@
 
 ### 2.1 In Scope
 
-- legacy backend（`backend/src/modules/hr`）新增角色模型与管理 API。
-- agents service（`backend/apps/agents`）接入角色查询接口，并在创建/更新时强制校验 `roleId`。
+- legacy backend（`app/backend/src/modules/hr`）新增角色模型与管理 API。
+- agents service（`app/backend/apps/agents`）接入角色查询接口，并在创建/更新时强制校验 `roleId`。
 - 前端：
   - `HRManagement` 新增角色管理能力。
   - `Agents` 创建/编辑移除旧角色自由输入，改为必选角色。

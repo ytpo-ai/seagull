@@ -82,7 +82,7 @@
 
 ## 8. 验证命令
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

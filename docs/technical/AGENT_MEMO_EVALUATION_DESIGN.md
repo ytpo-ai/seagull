@@ -80,7 +80,7 @@
 ## 5. EvaluationAggregationService 设计
 
 ```typescript
-// backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts
+// app/backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts
 
 @Injectable()
 export class EvaluationAggregationService {
@@ -170,7 +170,7 @@ export class EvaluationAggregationService {
 ## 6. 事件触发对接
 
 ```typescript
-// backend/apps/agents/src/modules/memos/memo-aggregation.service.ts
+// app/backend/apps/agents/src/modules/memos/memo-aggregation.service.ts
 
 @Injectable()
 export class MemoAggregationService implements OnModuleInit, OnModuleDestroy {
@@ -214,7 +214,7 @@ export class MemoAggregationService implements OnModuleInit, OnModuleDestroy {
 ### 7.1 MemoKind 枚举
 
 ```typescript
-// backend/apps/agents/src/schemas/agent-memo.schema.ts
+// app/backend/apps/agents/src/schemas/agent-memo.schema.ts
 
 export type MemoKind = 'identity' | 'todo' | 'topic' | 'history' | 'draft' | 'custom' | 'evaluation';
 ```

@@ -22,7 +22,7 @@
 6. 补充单测覆盖 create-agent 与默认 provider/api-key 行为，并同步更新功能/API 文档。
 
 ## Impacts
-- Backend: `backend/apps/agents/src/modules/tools/`, `backend/apps/agents/src/modules/agents/`
+- Backend: `app/backend/apps/agents/src/modules/tools/`, `app/backend/apps/agents/src/modules/agents/`
 - Data model: 复用 `api_keys` 默认 key 选择规则
 - Docs: `docs/feature/AGENT_TOOL.md`, `docs/api/agents-api.md`
 

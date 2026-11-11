@@ -21,12 +21,12 @@
 
 | 文件 | 改动说明 |
 |------|----------|
-| `backend/apps/gateway/src/gateway-proxy.service.ts` | 新增 `/api/life-script/*` 目标路由，转发时剥离 `/api/life-script` 前缀 |
-| `backend/apps/gateway/src/gateway-auth.guard.ts` | 增加 LifeScript 公开路径白名单规则（含方法约束） |
-| `backend/apps/gateway/src/main.ts` | CORS 改为支持 `CORS_ORIGINS` 多 origin 配置 |
-| `backend/.env.example` | 补充 `LIFE_SCRIPT_BASE_URL`、`CORS_ORIGINS` 配置示例 |
-| `backend/apps/gateway/src/gateway-proxy.service.spec.ts` | 新增 life-script 目标路由与 rewrite 用例 |
-| `backend/apps/gateway/src/gateway-auth.guard.spec.ts` | 新增 life-script 白名单和 token 校验用例 |
+| `app/backend/apps/gateway/src/gateway-proxy.service.ts` | 新增 `/api/life-script/*` 目标路由，转发时剥离 `/api/life-script` 前缀 |
+| `app/backend/apps/gateway/src/gateway-auth.guard.ts` | 增加 LifeScript 公开路径白名单规则（含方法约束） |
+| `app/backend/apps/gateway/src/main.ts` | CORS 改为支持 `CORS_ORIGINS` 多 origin 配置 |
+| `app/backend/.env.example` | 补充 `LIFE_SCRIPT_BASE_URL`、`CORS_ORIGINS` 配置示例 |
+| `app/backend/apps/gateway/src/gateway-proxy.service.spec.ts` | 新增 life-script 目标路由与 rewrite 用例 |
+| `app/backend/apps/gateway/src/gateway-auth.guard.spec.ts` | 新增 life-script 白名单和 token 校验用例 |
 
 ### 前端
 

@@ -29,21 +29,21 @@
 
 | 文件 | 职责 |
 |------|------|
-| `backend/apps/agents/src/modules/agents/context/context-assembler.service.ts` | 中央组装器：运行 builders、去重、合并历史 |
-| `backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts` | Builder 接口 + ContextBuildInput 定义 |
-| `backend/apps/agents/src/modules/agents/context/identity-context.builder.ts` | 注入 guideline + systemPrompt + identity memos |
-| `backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | 注入 skills + tools + tool strategies |
-| `backend/apps/agents/src/modules/agents/context/domain-context.builder.ts` | 注入 domain context |
-| `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` | 注入 meeting/orchestration/chat 协作上下文 |
-| `backend/apps/agents/src/modules/agents/context/task-context.builder.ts` | 注入 task info / meeting execution policy |
-| `backend/apps/agents/src/modules/agents/context/memory-context.builder.ts` | 注入 run summaries + memo 检索结果 |
-| `backend/apps/agents/src/modules/agents/context/context-fingerprint.service.ts` | Redis 缓存指纹，抑制未变化的 block |
-| `backend/apps/agents/src/modules/agents/context/context-fingerprint.util.ts` | 归一化 + 结构化 context key 构建 |
-| `backend/apps/agents/src/modules/agents/agent-executor.service.ts` | prepareExecution / buildMessages 入口 |
-| `backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts` | appendSystemMessagesToSession 桥接 |
-| `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts` | startRun / session 生命周期 / 消息创建 |
-| `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts` | MongoDB CRUD：session、run、message |
-| `backend/src/modules/meetings/meeting.service.ts` | 会议响应上下文构建（双源注入的源头之一） |
+| `app/backend/apps/agents/src/modules/agents/context/context-assembler.service.ts` | 中央组装器：运行 builders、去重、合并历史 |
+| `app/backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts` | Builder 接口 + ContextBuildInput 定义 |
+| `app/backend/apps/agents/src/modules/agents/context/identity-context.builder.ts` | 注入 guideline + systemPrompt + identity memos |
+| `app/backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | 注入 skills + tools + tool strategies |
+| `app/backend/apps/agents/src/modules/agents/context/domain-context.builder.ts` | 注入 domain context |
+| `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` | 注入 meeting/orchestration/chat 协作上下文 |
+| `app/backend/apps/agents/src/modules/agents/context/task-context.builder.ts` | 注入 task info / meeting execution policy |
+| `app/backend/apps/agents/src/modules/agents/context/memory-context.builder.ts` | 注入 run summaries + memo 检索结果 |
+| `app/backend/apps/agents/src/modules/agents/context/context-fingerprint.service.ts` | Redis 缓存指纹，抑制未变化的 block |
+| `app/backend/apps/agents/src/modules/agents/context/context-fingerprint.util.ts` | 归一化 + 结构化 context key 构建 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` | prepareExecution / buildMessages 入口 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts` | appendSystemMessagesToSession 桥接 |
+| `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts` | startRun / session 生命周期 / 消息创建 |
+| `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts` | MongoDB CRUD：session、run、message |
+| `app/backend/src/modules/meetings/meeting.service.ts` | 会议响应上下文构建（双源注入的源头之一） |
 
 ## 设计原则
 

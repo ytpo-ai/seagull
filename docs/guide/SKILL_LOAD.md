@@ -20,20 +20,20 @@
 
 | # | 文件 | 用途 |
 |---|------|------|
-| 1 | `/Users/van/Workspace/harbin/backend/apps/agents/src/schemas/agent-skill.schema.ts` | Skill 数据模型定义 (Mongoose Schema) |
-| 2 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/skills/skill.service.ts` | Skill 核心业务逻辑服务 (725行) |
-| 3 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/skills/skill.controller.ts` | Skill REST API 控制器 |
-| 4 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/skills/skill-doc-loader.service.ts` | Skill 文档加载服务（扫描 docs/skill 并解析 frontmatter + content） |
-| 5 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/skills/skill.module.ts` | Skill 模块注册 |
-| 6 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/skills/skill.service.spec.ts` | 单测 |
-| 7 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/agents/agent.service.ts` | Agent 服务 -- 含 skill 加载/注入 prompt 的核心逻辑 |
-| 8 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts` | Agent 运行时执行服务 (不含 skill 逻辑) |
-| 9 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/tools/skill-tool-handler.service.ts` | MCP 工具侧 skill 操作 handler |
-| 10 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/tools/tool.service.ts` | 工具分发 -- 含 skill-master 工具路由 |
-| 11 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts` | 身份聚合 -- 含 skill 矩阵输出 |
-| 12 | `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts` | 评估聚合 -- 含 skill proficiency 统计 |
-| 13 | `/Users/van/Workspace/harbin/backend/src/shared/schemas/agent.schema.ts` | Agent 模型 -- skills 字段定义 (line 72) |
-| 14 | `/Users/van/Workspace/harbin/backend/scripts/migrate-skill-content-to-db.ts` | 数据迁移脚本: 从磁盘 .md 文件迁入 DB |
+| 1 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/schemas/agent-skill.schema.ts` | Skill 数据模型定义 (Mongoose Schema) |
+| 2 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/skills/skill.service.ts` | Skill 核心业务逻辑服务 (725行) |
+| 3 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/skills/skill.controller.ts` | Skill REST API 控制器 |
+| 4 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/skills/skill-doc-loader.service.ts` | Skill 文档加载服务（扫描 docs/skill 并解析 frontmatter + content） |
+| 5 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/skills/skill.module.ts` | Skill 模块注册 |
+| 6 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/skills/skill.service.spec.ts` | 单测 |
+| 7 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/agents/agent.service.ts` | Agent 服务 -- 含 skill 加载/注入 prompt 的核心逻辑 |
+| 8 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts` | Agent 运行时执行服务 (不含 skill 逻辑) |
+| 9 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/tools/skill-tool-handler.service.ts` | MCP 工具侧 skill 操作 handler |
+| 10 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/tools/tool.service.ts` | 工具分发 -- 含 skill-master 工具路由 |
+| 11 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts` | 身份聚合 -- 含 skill 矩阵输出 |
+| 12 | `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts` | 评估聚合 -- 含 skill proficiency 统计 |
+| 13 | `/Users/van/Workspace/harbin/app/backend/src/shared/schemas/agent.schema.ts` | Agent 模型 -- skills 字段定义 (line 72) |
+| 14 | `/Users/van/Workspace/harbin/app/backend/scripts/migrate-skill-content-to-db.ts` | 数据迁移脚本: 从磁盘 .md 文件迁入 DB |
 | 15 | `/Users/van/Workspace/harbin/frontend/src/services/skillService.ts` | 前端 Skill API 服务层 |
 | 16 | `/Users/van/Workspace/harbin/frontend/src/pages/Skills.tsx` | 前端 Skill 管理页面 (1022行) |
 | 17 | `/Users/van/Workspace/harbin/frontend/src/types/index.ts` | 前端 Skill 类型定义 (line 118-143) |
@@ -45,7 +45,7 @@
 
 ## 二、Skill 数据模型 (Schema)
 
-**文件**: `/Users/van/Workspace/harbin/backend/apps/agents/src/schemas/agent-skill.schema.ts` (87行)
+**文件**: `/Users/van/Workspace/harbin/app/backend/apps/agents/src/schemas/agent-skill.schema.ts` (87行)
 
 ```typescript
 // line 6-7: 类型定义
@@ -92,7 +92,7 @@ skills?: string[]; // 已启用的技能ID列表 -- 存储的是 skill UUID 数�
 
 ## 三、skill.service.ts 完整机制
 
-**文件**: `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/skills/skill.service.ts` (725行)
+**文件**: `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/skills/skill.service.ts` (725行)
 
 ### 3.1 三级 Redis 缓存机制
 
@@ -245,7 +245,7 @@ const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(`
 
 ## 四、agent.service.ts 中所有 Skill 引用
 
-**文件**: `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/agents/agent.service.ts` (2471行)
+**文件**: `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/agents/agent.service.ts` (2471行)
 
 ### 4.1 EnabledAgentSkillContext 接口 (line 113-119)
 
@@ -504,7 +504,7 @@ metadata:
 
 ## 七、agent-executor-runtime.service.ts 中的 Skill 逻辑
 
-**文件**: `/Users/van/Workspace/harbin/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts` (157行)
+**文件**: `/Users/van/Workspace/harbin/app/backend/apps/agents/src/modules/agents/agent-executor-runtime.service.ts` (157行)
 
 **结论: agent-executor-runtime.service.ts 中没有任何 skill 相关逻辑。**
 
@@ -655,7 +655,7 @@ export interface Skill {
 
 ### 10.3 数据迁移脚本
 
-**文件**: `/Users/van/Workspace/harbin/backend/scripts/migrate-skill-content-to-db.ts` (161行)
+**文件**: `/Users/van/Workspace/harbin/app/backend/scripts/migrate-skill-content-to-db.ts` (161行)
 
 从 `data/skills/library/*.md` 目录读取 markdown 文件，通过 slug 匹配 DB 中的 skill 记录，将文件内容写入 `content` 字段并计算 contentHash。这表明 content 最初可能存储在文件系统中，后来迁移到 MongoDB。
 
@@ -701,7 +701,7 @@ case 'builtin.sys-mg.mcp.skill-master.create-skill':
 
 ## 十三、Gateway 路由
 
-**文件**: `/Users/van/Workspace/harbin/backend/apps/gateway/src/gateway-proxy.service.ts` line 40:
+**文件**: `/Users/van/Workspace/harbin/app/backend/apps/gateway/src/gateway-proxy.service.ts` line 40:
 ```typescript
 originalUrl.startsWith('/api/skills') ||
 ```

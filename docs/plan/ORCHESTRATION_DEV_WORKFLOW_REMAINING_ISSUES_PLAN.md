@@ -45,10 +45,10 @@ step2 planner 生成任务时，将技术方案制定任务分配给了 **CTO助
 
 | 文件 | 说明 |
 |------|------|
-| `backend/src/modules/orchestration/services/executor-selection.service.ts` | executor 选择逻辑 |
-| `backend/src/modules/orchestration/services/incremental-planning.service.ts` | `resolveAssignmentForPlannerTask` |
-| `backend/src/modules/orchestration/services/planning-context.service.ts` | `buildAgentDiscoveryInstruction` |
-| `backend/src/modules/orchestration/planner.service.ts` | planner prompt 构建 |
+| `app/backend/src/modules/orchestration/services/executor-selection.service.ts` | executor 选择逻辑 |
+| `app/backend/src/modules/orchestration/services/incremental-planning.service.ts` | `resolveAssignmentForPlannerTask` |
+| `app/backend/src/modules/orchestration/services/planning-context.service.ts` | `buildAgentDiscoveryInstruction` |
+| `app/backend/src/modules/orchestration/planner.service.ts` | planner prompt 构建 |
 
 ---
 

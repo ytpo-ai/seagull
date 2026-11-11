@@ -41,7 +41,7 @@
 
 ### 3.1 Schema 层
 
-**`backend/apps/agents/src/schemas/agent-memo.schema.ts`**
+**`app/backend/apps/agents/src/schemas/agent-memo.schema.ts`**
 ```typescript
 // MemoKind 枚举新增 'evaluation'
 export type MemoKind = 'identity' | 'todo' | 'topic' | 'history' | 'draft' | 'custom' | 'evaluation';
@@ -56,20 +56,20 @@ export type MemoKind = 'identity' | 'todo' | 'topic' | 'history' | 'draft' | 'cu
 
 ### 3.3 Module 注册
 
-**`backend/apps/agents/src/modules/memos/memo.module.ts`**
+**`app/backend/apps/agents/src/modules/memos/memo.module.ts`**
 - 注册 `IdentityAggregationService`
 - 注册 `EvaluationAggregationService`
 - 注册所需 Model：Agent、AgentSkill、Skill、OrchestrationTask、AgentRun、AgentPart
 
 ### 3.4 Controller 扩展
 
-**`backend/apps/agents/src/modules/memos/memo.controller.ts`**
+**`app/backend/apps/agents/src/modules/memos/memo.controller.ts`**
 - `POST /api/memos/identity/aggregate` - 手动触发 Identity 聚合
 - `POST /api/memos/evaluation/aggregate` - 手动触发 Evaluation 聚合
 
 ### 3.5 事件总线扩展
 
-**`backend/apps/agents/src/modules/memos/memo-event-bus.service.ts`**
+**`app/backend/apps/agents/src/modules/memos/memo-event-bus.service.ts`**
 ```typescript
 export type MemoDomainEventName =
   | 'agent.updated'
@@ -188,7 +188,7 @@ curl -X POST http://localhost:3003/api/memos/evaluation/aggregate \
 ## 阶段二：Model 层扩展
 
 - [x] 1. 扩展 `AgentMemo` schema，新增 `memoKind: 'evaluation'` 类型支持
-  - 文件：`backend/apps/agents/src/schemas/agent-memo.schema.ts`
+  - 文件：`app/backend/apps/agents/src/schemas/agent-memo.schema.ts`
   - 修改：`MemoKind` 枚举新增 `'evaluation'`
 
 - [x] 2. 更新前端 `AgentMemo` TypeScript 类型
@@ -198,7 +198,7 @@ curl -X POST http://localhost:3003/api/memos/evaluation/aggregate \
 ## 阶段三：Identity 聚合服务开发
 
 - [x] 3. 新增 `IdentityAggregationService` 服务
-  - 文件：`backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
   - 依赖：`Agent`, `AgentSkill`, `Skill`, `OrchestrationTask` Model
 
 - [x] 4. 实现从 Agent 表聚合基础信息
@@ -218,13 +218,13 @@ curl -X POST http://localhost:3003/api/memos/evaluation/aggregate \
   - 输出符合模板的 Markdown
 
 - [x] 8. 注册到 MemoModule
-  - 文件：`backend/apps/agents/src/modules/memos/memo.module.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/memo.module.ts`
   - 注入 `IdentityAggregationService`
 
 ## 阶段四：Evaluation 文档服务开发
 
 - [x] 9. 新增 `EvaluationAggregationService` 服务
-  - 文件：`backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts`
 
 - [x] 10. 实现工具使用统计聚合
   - 方法：`getToolUsageStats(agentId, period)`
@@ -242,7 +242,7 @@ curl -X POST http://localhost:3003/api/memos/evaluation/aggregate \
 ## 阶段五：触发机制对接
 
 - [x] 14. 扩展 `MemoEventBusService` 事件类型
-  - 文件：`backend/apps/agents/src/modules/memos/memo-event-bus.service.ts`
+  - 文件：`app/backend/apps/agents/src/modules/memos/memo-event-bus.service.ts`
   - 新增事件：`'orchestration.task_completed'`
 
 - [x] 15. 在 `MemoAggregationService` 中注册新服务

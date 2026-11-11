@@ -16,10 +16,10 @@
 
 ## 关键影响点
 
-- 后端 / Inner Message：`backend/src/modules/inner-message/*`
-- 后端 / Agents Client：`backend/src/modules/agents-client/*`
-- 后端 / Meeting：`backend/src/modules/meetings/*`
-- Agents 工具层：`backend/apps/agents/src/modules/tools/*`
+- 后端 / Inner Message：`app/backend/src/modules/inner-message/*`
+- 后端 / Agents Client：`app/backend/src/modules/agents-client/*`
+- 后端 / Meeting：`app/backend/src/modules/meetings/*`
+- Agents 工具层：`app/backend/apps/agents/src/modules/tools/*`
 - 文档：`docs/feature/INNER_MESSAGE.md`、`docs/feature/MEETING_CHAT.md`、`docs/feature/AGENT_RUNTIME.md`
 
 ## 风险与依赖

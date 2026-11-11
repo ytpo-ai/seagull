@@ -12,7 +12,7 @@
 ### 1.2 数据结构
 
 ```typescript
-// Schema 定义: backend/src/shared/schemas/meeting.schema.ts
+// Schema 定义: app/backend/src/shared/schemas/meeting.schema.ts
 enum MeetingType {
   WEEKLY = 'weekly',           // 周会
   BOARD = 'board',             // 董事会
@@ -151,7 +151,7 @@ enum ParticipantRole {
 - UI 按边界拆分为组件：会议列表、头部、状态菜单、参与者行、消息列表、输入框、摘要面板、操作侧栏、创建弹窗。
 - 状态菜单改为配置驱动渲染（按 `MeetingStatus` 映射动作），避免多分支重复 JSX。
 
-### 1.4 API（backend/src/modules/meetings/）
+### 1.4 API（app/backend/src/modules/meetings/）
 
 | 方法 | 路径 | 功能 |
 |------|------|------|
@@ -236,7 +236,7 @@ enum ParticipantRole {
 
 ## 3. 相关代码文件
 
-### 后端 (backend/src/)
+### 后端 (app/backend/src/)
 
 #### Schema 定义
 
@@ -266,7 +266,7 @@ enum ParticipantRole {
 | `pages/meetings/components/MeetingStatusActions.tsx` | 状态菜单（配置驱动） |
 | `services/meetingService.ts` | Meeting API 调用服务，包含类型定义 |
 
-### Agent MCP 工具 (backend/apps/agents/src/)
+### Agent MCP 工具 (app/backend/apps/agents/src/)
 
 | 文件 | 功能 |
 |------|------|

@@ -26,9 +26,9 @@
 ## 范围与影响点
 
 - **后端模块**：
-  - `backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts`
-  - `backend/apps/agents/src/modules/agents/agent.service.ts`
-  - `backend/apps/agents/src/modules/tools/tool.service.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+  - `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - 相关 schema/DTO（AgentProfile）
 - **接口层**：
   - `GET/PUT /agents/tool-permission-sets/:roleCode`

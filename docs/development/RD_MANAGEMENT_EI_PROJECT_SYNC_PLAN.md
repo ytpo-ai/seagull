@@ -63,12 +63,12 @@
 ## 4. 影响文件
 
 - 后端：
-  - `backend/src/modules/rd-management/rd-management.controller.ts`
-  - `backend/src/modules/rd-management/rd-management.service.ts`
-  - `backend/src/modules/rd-management/rd-management.module.ts`
-  - `backend/src/modules/rd-management/opencode.service.ts`
-  - `backend/src/modules/rd-management/dto/index.ts`
-  - `backend/src/shared/schemas/rd-project.schema.ts`
+  - `app/backend/src/modules/rd-management/rd-management.controller.ts`
+  - `app/backend/src/modules/rd-management/rd-management.service.ts`
+  - `app/backend/src/modules/rd-management/rd-management.module.ts`
+  - `app/backend/src/modules/rd-management/opencode.service.ts`
+  - `app/backend/src/modules/rd-management/dto/index.ts`
+  - `app/backend/src/shared/schemas/rd-project.schema.ts`
 - 前端：
   - `frontend/src/pages/RdConversation.tsx`
   - `frontend/src/services/rdConversationService.ts`

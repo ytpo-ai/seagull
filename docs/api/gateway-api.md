@@ -4,7 +4,7 @@
 
 - 对外入口：`http://localhost:3100/api`
 - 服务角色：统一入口、鉴权透传、路由分发、操作日志
-- 实现位置：`backend/apps/gateway/src/gateway-proxy.service.ts`
+- 实现位置：`app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 ## 路由分发（当前）
 

@@ -49,14 +49,14 @@
 ### 影响范围
 
 - **前端**：`frontend/src/pages/Skills.tsx`
-- **后端 contracts**：`backend/libs/contracts/src/collaboration-context.types.ts`、`backend/libs/contracts/src/collaboration-context.factory.ts`
+- **后端 contracts**：`app/backend/libs/contracts/src/collaboration-context.types.ts`、`app/backend/libs/contracts/src/collaboration-context.factory.ts`
 - **后端 runtime**：
-  - `backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts`
-  - `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts`
-  - `backend/apps/agents/src/modules/agents/context/context-strategy.service.ts`
-  - `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-  - `backend/apps/agents/src/modules/agents/agent.types.ts`
-- **测试**：`backend/apps/agents/src/modules/agents/context/context-strategy.service.spec.ts`
+  - `app/backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts`
+  - `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts`
+  - `app/backend/apps/agents/src/modules/agents/context/context-strategy.service.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent.types.ts`
+- **测试**：`app/backend/apps/agents/src/modules/agents/context/context-strategy.service.spec.ts`
 
 ## 4. 交付物与追溯
 

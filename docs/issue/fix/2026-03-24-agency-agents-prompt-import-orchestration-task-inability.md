@@ -35,11 +35,11 @@
   - 失败任务上下文未稳定暴露可重设计的“任务业务 ID”，导致 planner 可能填错 `redesignTaskId`
   - 长链路全量导入任务在单任务轮次预算下不稳定，且命令约束导致重试成本高
 - 相关模块/文件：
-  - `backend/src/modules/orchestration/services/incremental-planning.service.ts`
-  - `backend/src/modules/orchestration/planner.service.ts`
-  - `backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts`
-  - `backend/test/orchestration/planner.incremental-redesign.spec.ts`
-  - `backend/test/orchestration/incremental-planning.redesign-taskid.spec.ts`
+  - `app/backend/src/modules/orchestration/services/incremental-planning.service.ts`
+  - `app/backend/src/modules/orchestration/planner.service.ts`
+  - `app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts`
+  - `app/backend/test/orchestration/planner.incremental-redesign.spec.ts`
+  - `app/backend/test/orchestration/incremental-planning.redesign-taskid.spec.ts`
 
 ## 4. 修复动作
 

@@ -23,7 +23,7 @@
 
 ### Step 1：Schema 变更
 
-**文件**：`backend/apps/agents/src/schemas/agent-session.schema.ts`
+**文件**：`app/backend/apps/agents/src/schemas/agent-session.schema.ts`
 
 新增字段：
 ```typescript
@@ -56,7 +56,7 @@ totalCost?: number;
 
 ### Step 2：增量更新 — message 写入链路
 
-**文件**：`backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 
 在 `createMessage` 方法中，当 message 携带 `tokens` 或 `cost` 时，对所属 session 执行 `$inc` 操作：
 

@@ -35,10 +35,10 @@
 
 | 文件 | 改动 |
 |------|------|
-| `backend/libs/contracts/src/collaboration-context.types.ts` | `OrchestrationCollaborationContext` 增加 `projectId?: string` 和 `projectBinding?: { localPath?: string; opencodeEndpointRef?: string; opencodeProjectPath?: string }` |
-| `backend/libs/contracts/src/collaboration-context.factory.ts` | `orchestration()` 参数增加 `projectId?`、`projectBinding?` |
-| `backend/src/modules/orchestration/services/orchestration-context.service.ts` | `buildOrchestrationCollaborationContext` options 增加 `projectId?` 和 `projectBinding?` |
-| `backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | `executeTaskNode` / `executeRunTaskNode` 从 plan/task 读取 `projectId`，查 `ei_projects` 获取绑定信息，传入 collaborationContext 和 sessionContext |
+| `app/backend/libs/contracts/src/collaboration-context.types.ts` | `OrchestrationCollaborationContext` 增加 `projectId?: string` 和 `projectBinding?: { localPath?: string; opencodeEndpointRef?: string; opencodeProjectPath?: string }` |
+| `app/backend/libs/contracts/src/collaboration-context.factory.ts` | `orchestration()` 参数增加 `projectId?`、`projectBinding?` |
+| `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` | `buildOrchestrationCollaborationContext` options 增加 `projectId?` 和 `projectBinding?` |
+| `app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | `executeTaskNode` / `executeRunTaskNode` 从 plan/task 读取 `projectId`，查 `ei_projects` 获取绑定信息，传入 collaborationContext 和 sessionContext |
 
 ### 影响范围
 

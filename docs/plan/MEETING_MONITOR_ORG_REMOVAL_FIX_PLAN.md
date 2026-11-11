@@ -20,7 +20,7 @@
 
 ## 关键影响点
 
-- **后端 / Agent Tools**: `backend/apps/agents/src/modules/tools/tool.service.ts`
+- **后端 / Agent Tools**: `app/backend/apps/agents/src/modules/tools/tool.service.ts`
 - **会议编排运行链路**: Meeting Monitor 经由 MCP 调用会议 API 的稳定性
 - **文档**: `docs/feature/MEETING_CHAT.md` 的 MCP 工具说明
 

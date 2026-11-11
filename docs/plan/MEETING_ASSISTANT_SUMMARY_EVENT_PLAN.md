@@ -16,8 +16,8 @@
 
 ## 关键影响点
 
-- 后端（会议域）：`backend/src/modules/meetings/*`
-- 后端（inner message）：`backend/src/modules/inner-message/*`
+- 后端（会议域）：`app/backend/src/modules/meetings/*`
+- 后端（inner message）：`app/backend/src/modules/inner-message/*`
 - 文档：`docs/feature/MEETING_CHAT.md`
 
 ## 风险与依赖

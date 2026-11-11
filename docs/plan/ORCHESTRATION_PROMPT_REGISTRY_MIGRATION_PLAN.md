@@ -4,7 +4,7 @@
 
 当前 orchestration 模块中用于辅助计划编排各阶段（initialize / generating / pre_execute / post_execute）的 prompt 全部硬编码在代码中，无法在不修改代码、不重新部署的情况下优化 prompt。同时存在以下架构问题：
 
-1. **跨应用直接依赖**：`planner.service.ts`（`backend/src/`，legacy app port 3001）直接 import 了 `apps/agents/src/` 下的 `PromptResolverService` 和 `PromptRegistryModule`，违反了应用模块边界
+1. **跨应用直接依赖**：`planner.service.ts`（`app/backend/src/`，legacy app port 3001）直接 import 了 `apps/agents/src/` 下的 `PromptResolverService` 和 `PromptRegistryModule`，违反了应用模块边界
 2. **prompt 构建职责散落**：orchestration 约 400+ 行 prompt 文本分布在 `planner.service.ts`（4 个 private prompt 构建函数）、`orchestration-context.service.ts`（3 个 prompt 构建函数）、`task-output-validation.service.ts`（1 个 output contract），只有 1 个走了 registry
 3. **PromptResolverService 降级链路不合理**：`cacheOnly` 分支导致 Redis miss 时直接降到 code_default，跳过 DB，发布内容可能因 Redis 丢失而失效
 4. **buildPhaseInitializePrompt Phase 2 过度耦合**：Phase 2 硬编码了 rd-workflow 特有的 requirement 工具调用序列，无法适用于 general/research 域
@@ -146,7 +146,7 @@ After:  PlannerService.planByAgent()
 
 ### 改动
 
-**文件**：`backend/apps/agents/src/modules/prompt-registry/prompt-resolver.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/prompt-registry/prompt-resolver.service.ts`
 
 1. 从 `PromptResolveInput` 接口中移除 `cacheOnly?: boolean` 字段
 2. `resolve()` 方法统一为一条链路：
@@ -177,7 +177,7 @@ After:  PlannerService.planByAgent()
 
 | 文件 | 调整 |
 |---|---|
-| `backend/test/prompt-resolver.service.spec.ts` | 移除 `cacheOnly` 相关测试，新增统一链路测试 |
+| `app/backend/test/prompt-resolver.service.spec.ts` | 移除 `cacheOnly` 相关测试，新增统一链路测试 |
 | `identity-context.builder.spec.ts` | 移除 `cacheOnly: true` 断言 |
 | `agent-executor.service.spec.ts` | 移除 `cacheOnly: true` 断言 |
 
@@ -191,7 +191,7 @@ After:  PlannerService.planByAgent()
 
 ### 改动
 
-**文件**：`backend/src/modules/agents-client/agent-client.service.ts`
+**文件**：`app/backend/src/modules/agents-client/agent-client.service.ts`
 
 新增方法：
 
@@ -249,7 +249,7 @@ async resolvePrompt(input: {
 
 ### 改动
 
-**新文件**：`backend/src/modules/orchestration/orchestration-prompt-catalog.ts`
+**新文件**：`app/backend/src/modules/orchestration/orchestration-prompt-catalog.ts`
 
 提取以下 7 个 prompt：
 
@@ -331,7 +331,7 @@ plannerGenerating: {
 
 ### 改动
 
-**文件**：`backend/apps/agents/src/modules/prompt-registry/prompt-resolver.constants.ts`
+**文件**：`app/backend/apps/agents/src/modules/prompt-registry/prompt-resolver.constants.ts`
 
 ```typescript
 export const PROMPT_SCENES = {
@@ -368,7 +368,7 @@ export const PROMPT_ROLES = {
 
 ### 改动
 
-**文件**：`backend/src/modules/orchestration/planner.service.ts`
+**文件**：`app/backend/src/modules/orchestration/planner.service.ts`
 
 #### 5.1 移除跨模块 import，新增 contextService 依赖
 
@@ -445,7 +445,7 @@ export const PROMPT_ROLES = {
 
 ### 改动
 
-**文件**：`backend/src/modules/orchestration/services/orchestration-context.service.ts`
+**文件**：`app/backend/src/modules/orchestration/services/orchestration-context.service.ts`
 
 #### 6.1 新增依赖
 
@@ -513,7 +513,7 @@ private async resolvePromptFromRegistry(
 
 ### 改动
 
-**文件**：`backend/src/modules/orchestration/services/task-output-validation.service.ts`
+**文件**：`app/backend/src/modules/orchestration/services/task-output-validation.service.ts`
 
 ```diff
 - buildResearchOutputContract(kind: ResearchTaskKind): string { ... }
@@ -535,7 +535,7 @@ private async resolvePromptFromRegistry(
 
 ### 改动
 
-**文件**：`backend/src/modules/orchestration/orchestration.module.ts`
+**文件**：`app/backend/src/modules/orchestration/orchestration.module.ts`
 
 ```diff
 - import { PromptRegistryModule } from '../../../apps/agents/src/modules/prompt-registry/prompt-registry.module';
@@ -564,7 +564,7 @@ private async resolvePromptFromRegistry(
 
 | 文件 | 调整 |
 |---|---|
-| `backend/test/prompt-resolver.service.spec.ts` | 移除 `cacheOnly` 测试，新增统一链路测试（local → Redis → DB → default） |
+| `app/backend/test/prompt-resolver.service.spec.ts` | 移除 `cacheOnly` 测试，新增统一链路测试（local → Redis → DB → default） |
 | `identity-context.builder.spec.ts` | 移除 `cacheOnly: true` 断言 |
 | `agent-executor.service.spec.ts` | 移除 `cacheOnly: true` 断言 |
 | `orchestration-context.service.spec.ts` | 更新：mock `AgentClientService`，验证 prompt 解析链路 |

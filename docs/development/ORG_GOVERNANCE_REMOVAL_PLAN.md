@@ -24,29 +24,29 @@
 ### 2) 后端下线
 
 - 删除组织管理模块：
-  - `backend/src/modules/organization/organization.controller.ts`
-  - `backend/src/modules/organization/organization.module.ts`
-  - `backend/src/modules/organization/organization.service.ts`
+  - `app/backend/src/modules/organization/organization.controller.ts`
+  - `app/backend/src/modules/organization/organization.module.ts`
+  - `app/backend/src/modules/organization/organization.service.ts`
 - 删除公司治理模块：
-  - `backend/src/modules/governance/governance.controller.ts`
-  - `backend/src/modules/governance/governance.module.ts`
-  - `backend/src/modules/governance/governance.service.ts`
+  - `app/backend/src/modules/governance/governance.controller.ts`
+  - `app/backend/src/modules/governance/governance.module.ts`
+  - `app/backend/src/modules/governance/governance.service.ts`
 - 删除治理数据模型：
-  - `backend/src/shared/schemas/proposal.schema.ts`
+  - `app/backend/src/shared/schemas/proposal.schema.ts`
 - 模块装配与启动清理：
-  - `backend/src/app.module.ts` 移除 Organization/Governance 模块注册
-  - `backend/src/main.ts` 移除启动时组织初始化逻辑
+  - `app/backend/src/app.module.ts` 移除 Organization/Governance 模块注册
+  - `app/backend/src/main.ts` 移除启动时组织初始化逻辑
 - 类型清理：
-  - `backend/src/shared/types.ts` 移除 Organization/Proposal 相关类型定义
+  - `app/backend/src/shared/types.ts` 移除 Organization/Proposal 相关类型定义
 
 ### 3) 依赖解耦（防止删除后编译失败）
 
 - HR 模块从组织服务依赖切换为员工数据模型驱动：
-  - `backend/src/modules/hr/hr.module.ts`
-  - `backend/src/modules/hr/hr.service.ts`
+  - `app/backend/src/modules/hr/hr.module.ts`
+  - `app/backend/src/modules/hr/hr.service.ts`
 - 员工模块去除未使用的 Organization schema 注入：
-  - `backend/src/modules/employees/employee.module.ts`
-  - `backend/src/modules/employees/employee.service.ts`
+  - `app/backend/src/modules/employees/employee.module.ts`
+  - `app/backend/src/modules/employees/employee.service.ts`
 
 ## 文档同步
 
@@ -88,7 +88,7 @@
 
 ### 结果验证
 
-- 代码检索：`backend/**/*.ts` 中 `organizationId` 命中为 0。
+- 代码检索：`app/backend/**/*.ts` 中 `organizationId` 命中为 0。
 - 构建验证：`backend npm run build` 通过。
 
 ### 影响说明

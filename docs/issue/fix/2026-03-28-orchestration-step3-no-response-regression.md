@@ -58,7 +58,7 @@
 
 ### 4.1 响应兼容修复（核心）
 
-- 文件：`backend/src/modules/orchestration/planner.service.ts`
+- 文件：`app/backend/src/modules/orchestration/planner.service.ts`
 - 改动：
   - 新增 `resolvePlannerTaskCandidate`：兼容 `task` 与 `nextTask` 两种返回结构。
   - 调整任务有效性判断：以 `title + description` 为核心，不再要求 `agentId` 必填才算有效任务。
@@ -66,7 +66,7 @@
 
 ### 4.2 Prompt 锚点增强（稳定性）
 
-- 文件：`backend/src/modules/orchestration/planner.service.ts`
+- 文件：`app/backend/src/modules/orchestration/planner.service.ts`
 - 改动：
   - 新增 `extractRequirementAnchor`，从计划目标与已完成任务输出里提取 `requirementId/requirementTitle`。
   - 在增量 prompt 前置 `上下文锚点（高优先级）`，并显式说明忽略 `${...}` 占位符字面值。
@@ -74,8 +74,8 @@
 ### 4.3 失败可观测性增强（排障）
 
 - 文件：
-  - `backend/src/modules/orchestration/services/incremental-planning.service.ts`
-  - `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
+  - `app/backend/src/modules/orchestration/services/incremental-planning.service.ts`
+  - `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts`
 - 改动：
   - 新增 `buildEmptyTaskReason`，将 planner 的具体 reasoning 拼接进 `lastError`。
   - 避免所有失败都被笼统记录成同一句，便于后续快速定位真实失败模式。

@@ -40,7 +40,7 @@
 
 ## 6. 关键影响点
 
-- **后端**：`backend/apps/agents/src/modules/tools/`、`backend/src/modules/discussions/services/discussion-outline.service.ts`
+- **后端**：`app/backend/apps/agents/src/modules/tools/`、`app/backend/src/modules/discussions/services/discussion-outline.service.ts`
 - **前端**：无直接改动（后续按需接入工具反馈展示）
 - **数据库**：无新增集合，复用 `discussion_spaces` 与 `discussion_knowledge_entries`
 - **API**：新增 MCP 工具调用入口（通过 tools execute 分发）

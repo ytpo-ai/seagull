@@ -23,8 +23,8 @@
 
 ## 关键影响点
 
-- 后端 Orchestration：`backend/src/modules/orchestration/orchestration.controller.ts`、`backend/src/modules/orchestration/orchestration.service.ts`、`backend/src/modules/orchestration/dto/index.ts`
-- 后端 Agents Tools：`backend/apps/agents/src/modules/tools/tool.service.ts`
+- 后端 Orchestration：`app/backend/src/modules/orchestration/orchestration.controller.ts`、`app/backend/src/modules/orchestration/orchestration.service.ts`、`app/backend/src/modules/orchestration/dto/index.ts`
+- 后端 Agents Tools：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
 - 文档：`docs/api/agents-api.md`、`docs/feature/ORCHETRATION_TASK.md`、`docs/feature/AGENT_TOOL.md`
 
 ## 风险与依赖

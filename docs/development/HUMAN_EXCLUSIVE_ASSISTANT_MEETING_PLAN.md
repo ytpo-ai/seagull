@@ -31,9 +31,9 @@
 - 新增唯一性校验：同一个助理 Agent 不能同时绑定多个不同人类账号。
 
 涉及文件：
-- `backend/src/shared/schemas/employee.schema.ts`
-- `backend/src/modules/employees/employee.service.ts`
-- `backend/src/modules/employees/employee.controller.ts`
+- `app/backend/src/shared/schemas/employee.schema.ts`
+- `app/backend/src/modules/employees/employee.service.ts`
+- `app/backend/src/modules/employees/employee.controller.ts`
 
 ### 2) 登录后阻断引导
 
@@ -54,8 +54,8 @@
   - `assistantForEmployeeId`
 
 涉及文件：
-- `backend/src/modules/meetings/meeting.service.ts`
-- `backend/src/shared/schemas/meeting.schema.ts`
+- `app/backend/src/modules/meetings/meeting.service.ts`
+- `app/backend/src/shared/schemas/meeting.schema.ts`
 
 ### 4) 人类发言自动代理为助理发言
 
@@ -66,7 +66,7 @@
 - 保留“由人类触发会后续响应”的语义，避免因 sender 改写导致自动响应链路失效。
 
 涉及文件：
-- `backend/src/modules/meetings/meeting.service.ts`
+- `app/backend/src/modules/meetings/meeting.service.ts`
 
 ### 5) 前端会议页体验调整
 

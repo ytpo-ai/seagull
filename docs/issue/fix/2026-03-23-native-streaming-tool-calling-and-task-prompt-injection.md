@@ -22,15 +22,15 @@
 - 直接原因：`agent-task.worker.ts` 构建 `runtimeTask` 时，将 `task.prompt` 放在 `description` 字段，`messages` 为空数组 `[]`
 - 深层原因：`ContextAssemblerService.assemble()` 仅从 `context.previousMessages`（即 `task.messages`）中提取 user/assistant 消息。`task.description` 仅在 orchestration/meeting 场景作为 system message 注入，在 chat 场景完全丢失
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts:120-130`
-  - `backend/apps/agents/src/modules/agents/context/context-assembler.service.ts:53-54`
+  - `app/backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts:120-130`
+  - `app/backend/apps/agents/src/modules/agents/context/context-assembler.service.ts:53-54`
 
 ### Bug 2: NativeStreamingEngine 不支持工具调用
 
 - 直接原因：`NativeStreamingAgentExecutorEngine` 只执行一次 `streamingChat`，不检查 LLM 输出中的 `<tool_call>` 标签
 - 深层原因：streaming 引擎设计时仅考虑了纯文本输出，未像 `NativeAgentExecutorEngine`（detailed 模式）那样接入 `executeWithToolCalling` 多轮循环
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/agents/executor-engines/native-streaming-agent-executor.engine.ts`
+  - `app/backend/apps/agents/src/modules/agents/executor-engines/native-streaming-agent-executor.engine.ts`
   - 对比：`native-agent-executor.engine.ts` 正确调用了 `executeWithToolCalling`
 
 ## 4. 修复动作

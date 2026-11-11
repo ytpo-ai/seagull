@@ -20,18 +20,18 @@
 
 | # | 资源 | Schema 文件 | 集合 | 变更内容 | 状态 |
 |---|------|------------|------|---------|------|
-| 1 | **Agent** | `backend/apps/agents/src/schemas/agent.schema.ts` | `agents` | 新增 `projectId?: string` + 索引 | ✅ |
-| 2 | **OrchestrationPlan** | `backend/src/shared/schemas/orchestration-plan.schema.ts` | `orchestration_plans` | 新增 `projectId?: string` + 索引 | ✅ |
-| 3 | **EiRequirement** | `backend/apps/ei/src/schemas/ei-requirement.schema.ts` | `ei_requirements` | 新增 `projectId?: string` + 索引 | ✅ |
+| 1 | **Agent** | `app/backend/apps/agents/src/schemas/agent.schema.ts` | `agents` | 新增 `projectId?: string` + 索引 | ✅ |
+| 2 | **OrchestrationPlan** | `app/backend/src/shared/schemas/orchestration-plan.schema.ts` | `orchestration_plans` | 新增 `projectId?: string` + 索引 | ✅ |
+| 3 | **EiRequirement** | `app/backend/apps/ei/src/schemas/ei-requirement.schema.ts` | `ei_requirements` | 新增 `projectId?: string` + 索引 | ✅ |
 
 ### 2.2 P1 - 冗余字段
 
 | # | 资源 | Schema 文件 | 集合 | 变更内容 | 状态 |
 |---|------|------------|------|---------|------|
-| 4 | **OrchestrationRun** | `backend/src/shared/schemas/orchestration-run.schema.ts` | `orchestration_runs` | 新增 `projectId?: string` + 索引 | ✅ |
-| 5 | **OrchestrationTask** | `backend/src/shared/schemas/orchestration-task.schema.ts` | `orchestration_tasks` | 新增 `projectId?: string` + 索引 | ✅ |
-| 6 | **Schedule** | `backend/src/shared/schemas/schedule.schema.ts` | `orchestration_schedules` | 新增 `projectId?: string` + 索引 | ✅ |
-| 7 | **Meeting** | `backend/src/shared/schemas/meeting.schema.ts` | `meetings` | 新增 `projectId?: string` + 索引 | ✅ |
+| 4 | **OrchestrationRun** | `app/backend/src/shared/schemas/orchestration-run.schema.ts` | `orchestration_runs` | 新增 `projectId?: string` + 索引 | ✅ |
+| 5 | **OrchestrationTask** | `app/backend/src/shared/schemas/orchestration-task.schema.ts` | `orchestration_tasks` | 新增 `projectId?: string` + 索引 | ✅ |
+| 6 | **Schedule** | `app/backend/src/shared/schemas/schedule.schema.ts` | `orchestration_schedules` | 新增 `projectId?: string` + 索引 | ✅ |
+| 7 | **Meeting** | `app/backend/src/shared/schemas/meeting.schema.ts` | `meetings` | 新增 `projectId?: string` + 索引 | ✅ |
 
 ### 2.3 不加 projectId 的资源（通过 agentId 推导）
 
@@ -77,10 +77,10 @@
 
 | 文件 | 说明 |
 |------|------|
-| `backend/apps/ei/src/schemas/incubation-project.schema.ts` | Schema 定义 |
-| `backend/apps/ei/src/dto/incubation-project.dto.ts` | DTO（创建/更新/查询） |
-| `backend/apps/ei/src/services/incubation-projects.service.ts` | Service（CRUD） |
-| `backend/apps/ei/src/controllers/incubation-projects.controller.ts` | Controller（API 路由） |
+| `app/backend/apps/ei/src/schemas/incubation-project.schema.ts` | Schema 定义 |
+| `app/backend/apps/ei/src/dto/incubation-project.dto.ts` | DTO（创建/更新/查询） |
+| `app/backend/apps/ei/src/services/incubation-projects.service.ts` | Service（CRUD） |
+| `app/backend/apps/ei/src/controllers/incubation-projects.controller.ts` | Controller（API 路由） |
 
 ## 4. 待完成
 
@@ -120,7 +120,7 @@
 #### Phase 2 新增文件
 | 文件 | 说明 |
 |------|------|
-| `backend/apps/ei/src/services/incubation-project-aggregation.service.ts` | 聚合查询 Service |
+| `app/backend/apps/ei/src/services/incubation-project-aggregation.service.ts` | 聚合查询 Service |
 
 #### Phase 2 数据访问方式
 | 数据 | 访问方式 | 说明 |

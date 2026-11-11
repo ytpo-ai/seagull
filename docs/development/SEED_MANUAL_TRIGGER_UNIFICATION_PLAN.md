@@ -7,7 +7,7 @@
 
 ## 本次改动
 
-1. 新增统一手动 seed 脚本：`backend/scripts/manual-seed.ts`
+1. 新增统一手动 seed 脚本：`app/backend/scripts/manual-seed.ts`
    - 支持 `--all`
    - 支持 `--only=<seed1,seed2>`
    - 支持 `--dry-run`
@@ -28,7 +28,7 @@
    - `SchedulerService.seedMeetingMonitorSchedule()`
 
 4. 新增命令
-   - `backend/package.json` 增加：`npm run seed:manual -- --all`
+   - `app/backend/package.json` 增加：`npm run seed:manual -- --all`
 
 5. 文档同步
    - `docs/feature/MEETING_CHAT.md` 中 Meeting Monitor 说明改为“手动 seed”。

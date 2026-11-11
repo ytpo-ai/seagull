@@ -5,7 +5,7 @@
 
 ## 1. 需求目标
 
-将 `backend/apps/agents/src/modules/agents/agent.service.ts` 内分散的 Prompt 文案统一下沉到独立文件，形成可检索的 Prompt 元数据清单（`symbol/context/scene/role/defaultContent`），并在 Agent 侧直接使用模板默认值（不通过 `promptResolver.resolve` 覆盖 Agent prompt）。
+将 `app/backend/apps/agents/src/modules/agents/agent.service.ts` 内分散的 Prompt 文案统一下沉到独立文件，形成可检索的 Prompt 元数据清单（`symbol/context/scene/role/defaultContent`），并在 Agent 侧直接使用模板默认值（不通过 `promptResolver.resolve` 覆盖 Agent prompt）。
 
 ## 2. 执行步骤
 

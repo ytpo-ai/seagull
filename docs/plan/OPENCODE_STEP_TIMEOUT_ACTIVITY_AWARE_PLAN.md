@@ -12,7 +12,7 @@
 
 #### 层级 1: axios HTTP 请求超时（`promptSession`）
 
-**文件**: `backend/apps/agents/src/modules/opencode/opencode.adapter.ts`
+**文件**: `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts`
 
 - `promptSession()` 向 opencode 的 `/session/{id}/message` 发送 HTTP POST 请求
 - 这是一个**阻塞式等待** — opencode 在服务端完整执行完任务后才返回 HTTP 响应
@@ -45,7 +45,7 @@ private resolveRequestTimeoutMs(route, runtime?, requestedTimeoutMs?) {
 
 #### 层级 2: worker step timeout（`withStepTimeout`）
 
-**文件**: `backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts`
+**文件**: `app/backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts`
 
 - `withStepTimeout` 是纯 `Promise.race` + `setTimeout`，固定时间窗口
 - 不感知 opencode 是否在活跃执行中，到时间一律 reject
@@ -117,7 +117,7 @@ executeTaskWithStreaming() 被 withStepTimeout 包裹 (timer 1: stepTimeoutMs)
 
 #### 2.3.1 opencode adapter 增加 session 状态查询
 
-**文件**: `backend/apps/agents/src/modules/opencode/opencode.adapter.ts`
+**文件**: `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts`
 
 新增 `getSessionStatus` 方法，查询 opencode session 当前是否仍在执行中：
 
@@ -153,7 +153,7 @@ async getSessionStatus(
 
 #### 2.3.2 改造 `withStepTimeout` 为活动感知模式
 
-**文件**: `backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts`
+**文件**: `app/backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts`
 
 将 `withStepTimeout` 替换为 `withActivityAwareTimeout`：
 
@@ -259,7 +259,7 @@ if (isOpenCodeChannel && openCodeSessionId) {
 
 #### 2.3.4 同步调大 axios 层超时
 
-**文件**: `backend/apps/agents/src/modules/opencode/opencode.adapter.ts`
+**文件**: `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts`
 
 `promptSession` 的 axios 超时必须大于等于 worker 层的绝对上限。否则 axios 会先断开连接。
 
@@ -348,9 +348,9 @@ this.messageRequestTimeoutMs = this.resolveTimeoutMs(
 
 | 文件 | 改动类型 | 说明 |
 |------|----------|------|
-| `backend/apps/agents/src/modules/opencode/opencode.adapter.ts` | 新增方法 + 改默认值 | `getSessionStatus` + axios 超时调大 |
-| `backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts` | 核心改造 | `withActivityAwareTimeout` + 调用点适配 |
-| `backend/apps/agents/src/modules/opencode/opencode-execution.service.ts` | 可能适配 | 暴露 sessionId 给 worker 用于活动检测 |
+| `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts` | 新增方法 + 改默认值 | `getSessionStatus` + axios 超时调大 |
+| `app/backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts` | 核心改造 | `withActivityAwareTimeout` + 调用点适配 |
+| `app/backend/apps/agents/src/modules/opencode/opencode-execution.service.ts` | 可能适配 | 暴露 sessionId 给 worker 用于活动检测 |
 
 ---
 

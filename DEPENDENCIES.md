@@ -74,17 +74,17 @@ npm run install:all
 
 # 或分别安装
 npm install
-cd backend && npm install
+cd app/backend && npm install
 cd ../frontend && npm install
 ```
 
 ### 环境配置
 ```bash
 # 复制环境变量模板
-cp backend/.env.example backend/.env.development
+cp app/backend/.env.example app/backend/.env.development
 
 # 编辑配置文件，填入API密钥
-vim backend/.env.development
+vim app/backend/.env.development
 ```
 
 ## 启动方式
@@ -92,7 +92,7 @@ vim backend/.env.development
 ### 开发环境
 ```bash
 # 使用启动脚本
-./backend/start.sh development
+./app/start.sh development
 
 # 或手动启动
 npm run dev
@@ -101,7 +101,7 @@ npm run dev
 ### 生产环境
 ```bash
 # 使用启动脚本
-./backend/start.sh production
+./app/start.sh production
 
 # 或手动启动
 npm run build

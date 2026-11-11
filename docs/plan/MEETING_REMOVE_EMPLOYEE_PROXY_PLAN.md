@@ -40,7 +40,7 @@
 
 ### Step 1：简化 MeetingMessageService.sendMessage()
 
-**文件**：`backend/src/modules/meetings/services/meeting-message.service.ts`
+**文件**：`app/backend/src/modules/meetings/services/meeting-message.service.ts`
 
 #### 变更内容
 
@@ -88,7 +88,7 @@ async sendMessage(meetingId: string, dto: MeetingMessageDto) {
 
 ### Step 2：简化 pause/revoke 鉴权
 
-**文件**：`backend/src/modules/meetings/services/meeting-message.service.ts`
+**文件**：`app/backend/src/modules/meetings/services/meeting-message.service.ts`
 
 #### 变更内容
 
@@ -108,7 +108,7 @@ private assertMessageController(message: MeetingMessage, employeeId: string): vo
 
 ### Step 3：简化会议参与者管理
 
-**文件**：`backend/src/modules/meetings/services/meeting-participant.service.ts`
+**文件**：`app/backend/src/modules/meetings/services/meeting-participant.service.ts`
 
 #### 变更内容
 
@@ -131,7 +131,7 @@ private assertMessageController(message: MeetingMessage, employeeId: string): vo
 
 ### Step 4：简化会议创建
 
-**文件**：`backend/src/modules/meetings/services/meeting-lifecycle.service.ts`
+**文件**：`app/backend/src/modules/meetings/services/meeting-lifecycle.service.ts`
 
 #### 变更内容
 
@@ -158,7 +158,7 @@ async createMeeting(dto: CreateMeetingDto): Promise<Meeting> {
 
 ### Step 5：简化 Agent 响应编排
 
-**文件**：`backend/src/modules/meetings/services/meeting-orchestration.service.ts`
+**文件**：`app/backend/src/modules/meetings/services/meeting-orchestration.service.ts`
 
 #### 变更内容
 
@@ -176,7 +176,7 @@ async createMeeting(dto: CreateMeetingDto): Promise<Meeting> {
 
 ### Step 6：清理 MeetingParticipantHelperService
 
-**文件**：`backend/src/modules/meetings/services/meeting-participant-helper.service.ts`
+**文件**：`app/backend/src/modules/meetings/services/meeting-participant-helper.service.ts`
 
 #### 变更内容
 
@@ -192,7 +192,7 @@ async createMeeting(dto: CreateMeetingDto): Promise<Meeting> {
 
 ### Step 7：更新 Schema（标记废弃字段）
 
-**文件**：`backend/src/shared/schemas/meeting.schema.ts`
+**文件**：`app/backend/src/shared/schemas/meeting.schema.ts`
 
 #### 变更内容
 

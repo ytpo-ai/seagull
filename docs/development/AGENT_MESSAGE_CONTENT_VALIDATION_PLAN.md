@@ -23,13 +23,13 @@
 
 ## 影响文件
 
-- `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-- `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-- `backend/apps/agents/src/schemas/agent-message.schema.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+- `app/backend/apps/agents/src/schemas/agent-message.schema.ts`
 
 ## 验证
 
-- 执行 `backend/` 下 `npm run build:agents`，构建通过。
+- 执行 `app/backend/` 下 `npm run build:agents`，构建通过。
 
 ## 结论
 

@@ -23,7 +23,7 @@ Agent.tools ⊆ MCPProfile.tools(agent.type)
 
 ### 2.1 白名单校验实现
 
-位置：`backend/apps/agents/src/modules/agents/agent.service.ts`
+位置：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 核心方法：`ensureToolsWithinMcpProfileWhitelist(...)`
 

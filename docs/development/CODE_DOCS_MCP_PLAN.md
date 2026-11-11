@@ -42,16 +42,16 @@
 
 ## 影响文件
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
-- `backend/apps/agents/src/modules/tools/gh-repo-docs-reader-mcp.util.ts`
-- `backend/apps/agents/src/modules/tools/gh-repo-updates-mcp.util.ts`
-- `backend/apps/agents/src/modules/tools/local-repo-docs-reader.util.ts`
-- `backend/apps/agents/src/modules/tools/local-repo-updates-reader.util.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/gh-repo-docs-reader-mcp.util.ts`
+- `app/backend/apps/agents/src/modules/tools/gh-repo-updates-mcp.util.ts`
+- `app/backend/apps/agents/src/modules/tools/local-repo-docs-reader.util.ts`
+- `app/backend/apps/agents/src/modules/tools/local-repo-updates-reader.util.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 ## 验证结果
 
-- `npm run build`（`backend/`）通过。
+- `npm run build`（`app/backend/`）通过。
 
 ## 本次会话补充（2026-03-08）
 

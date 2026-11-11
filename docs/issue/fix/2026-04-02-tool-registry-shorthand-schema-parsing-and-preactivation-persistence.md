@@ -44,9 +44,9 @@ if (!value || typeof value !== 'object') return acc;  // "string" 不是 object 
 
 | 文件 | 角色 |
 |------|------|
-| `backend/apps/agents/src/modules/tools/tool-registry.service.ts` | 工具 schema 解析（被 getToolInputContract 使用） |
-| `backend/apps/agents/src/modules/agents/agent-executor.service.ts` | 预激活 schema 注入 + 持久化 |
-| `backend/apps/agents/src/modules/tools/tool-execution.service.ts` | 对比参考（正确实现） |
+| `app/backend/apps/agents/src/modules/tools/tool-registry.service.ts` | 工具 schema 解析（被 getToolInputContract 使用） |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` | 预激活 schema 注入 + 持久化 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution.service.ts` | 对比参考（正确实现） |
 
 ## 4. 修复动作
 

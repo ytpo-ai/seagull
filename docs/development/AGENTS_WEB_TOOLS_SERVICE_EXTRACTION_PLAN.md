@@ -10,20 +10,20 @@
 
 ### 2.1 新增文件
 
-- `backend/apps/agents/src/modules/tools/web-tools.service.ts`
+- `app/backend/apps/agents/src/modules/tools/web-tools.service.ts`
   - 承载 `performWebSearch`、`performWebFetch`、`performContentExtract`
   - 承载 Web 搜索默认路由 `searchWebWithDefaultProvider`
   - 承载相关私有辅助方法（Exa/Composio 结果归一化、HTML 标题提取、文本清洗）
 
 ### 2.2 现有文件调整
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - 注入 `WebToolsService`
   - `executeToolImplementation` 的三类 Web 工具分支改为委托调用
   - `searchLatestModels` 改为复用 `WebToolsService.searchWebWithDefaultProvider`
   - 删除已迁移的 Web 工具实现与辅助方法，降低单文件复杂度
 
-- `backend/apps/agents/src/modules/tools/tool.module.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.module.ts`
   - 注册并导出 `WebToolsService` provider，保证模块内可注入
 
 - `docs/feature/AGENT_TOOL.md`
@@ -31,7 +31,7 @@
 
 ## 3. 验证结果
 
-- 执行命令：`npm run build:agents`（在 `backend/`，含 nvm 初始化）
+- 执行命令：`npm run build:agents`（在 `app/backend/`，含 nvm 初始化）
 - 结果：构建通过
 
 ## 4. 收益与后续建议

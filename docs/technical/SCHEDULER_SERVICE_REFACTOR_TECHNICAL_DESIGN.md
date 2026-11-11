@@ -9,7 +9,7 @@
 ### 1.1 当前模块结构
 
 ```
-backend/src/modules/orchestration/scheduler/
+app/backend/src/modules/orchestration/scheduler/
   ├── dto/
   │   └── index.ts                  # CreateScheduleDto, UpdateScheduleDto, ScheduleHistoryQueryDto
   ├── scheduler.module.ts           # OrchestrationSchedulerModule
@@ -58,7 +58,7 @@ if (schedule.planId) {
 
 ### 1.3 当前 Schema 定义
 
-**文件**: `backend/src/shared/schemas/orchestration-schedule.schema.ts`  
+**文件**: `app/backend/src/shared/schemas/orchestration-schedule.schema.ts`  
 **集合名**: `orchestration_schedules`
 
 ```typescript
@@ -140,7 +140,7 @@ await this.agentService.executeTaskDetailed(
 ### 2.1 目标模块结构
 
 ```
-backend/src/modules/scheduler/
+app/backend/src/modules/scheduler/
   ├── dto/
   │   └── index.ts                  # CreateScheduleDto, UpdateScheduleDto, ScheduleHistoryQueryDto
   ├── scheduler.module.ts           # SchedulerModule（独立一级模块）
@@ -199,12 +199,12 @@ Cron/Interval 触发  或  手动 POST /schedules/:id/trigger
 
 ```
 # 旧
-backend/src/shared/schemas/orchestration-schedule.schema.ts
+app/backend/src/shared/schemas/orchestration-schedule.schema.ts
   类名: OrchestrationSchedule
   集合名: orchestration_schedules
 
 # 新
-backend/src/shared/schemas/schedule.schema.ts
+app/backend/src/shared/schemas/schedule.schema.ts
   类名: Schedule
   集合名: orchestration_schedules    ← 保持不变，@Schema({ collection: 'orchestration_schedules' })
 ```
@@ -270,7 +270,7 @@ export class Schedule {
 
 ### 4.1 sendDirectInnerMessage
 
-**文件**: `backend/src/modules/agents-client/agent-client.service.ts`
+**文件**: `app/backend/src/modules/agents-client/agent-client.service.ts`
 
 ```typescript
 interface SendDirectInnerMessageInput {
@@ -500,7 +500,7 @@ private async dispatchSchedule(
 
 ### 6.1 RuntimeBridge 增强
 
-**文件**: `backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts`
 
 在 `buildPrompt()` 中增加对 `schedule.trigger` 类 eventType 的识别：
 
@@ -554,7 +554,7 @@ const sessionContext = {
 
 ### 7.1 现有 6 个系统 Schedule 的变更
 
-**文件**: `backend/scripts/seed/system-schedule.ts`
+**文件**: `app/backend/scripts/seed/system-schedule.ts`
 
 | 系统 Schedule | 现 planId | 现 input.payload | 重构后 target.executorId | 重构后 message.eventType | 重构后 input |
 |---|---|---|---|---|---|

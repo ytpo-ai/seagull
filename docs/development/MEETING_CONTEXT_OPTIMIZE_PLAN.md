@@ -9,16 +9,16 @@
 
 ### 1) Prompt Registry Resolver（Step2）
 
-- 模板实体：`backend/src/shared/schemas/prompt-template.schema.ts`
+- 模板实体：`app/backend/src/shared/schemas/prompt-template.schema.ts`
   - 字段：`scene`、`role`、`version`、`status`、`content`、`updatedBy`、`updatedAt`
-- Resolver：`backend/src/modules/prompt-registry/prompt-resolver.service.ts`
+- Resolver：`app/backend/src/modules/prompt-registry/prompt-resolver.service.ts`
   - 解析优先级：`session override > DB(published) > Redis cache > code default`
   - Redis 缓存键：`prompt-registry:scene:{scene}:role:{role}:published`
   - 提供发布后缓存刷新能力：`refreshPublishedCache(scene, role)`
 
 ### 2) 会议场景接入 Resolver（Step2）
 
-- 文件：`backend/apps/agents/src/modules/agents/agent.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - 改造点：
   - 会议执行策略 system block 改为通过 Resolver 获取。
   - 支持 `teamContext.promptOverrides` 作为会话级覆盖来源。
@@ -26,7 +26,7 @@
 
 ### 3) 计划编排场景接入 Resolver（Step2）
 
-- 文件：`backend/src/modules/orchestration/planner.service.ts`
+- 文件：`app/backend/src/modules/orchestration/planner.service.ts`
 - 改造点：
   - Planner task decomposition prompt 改为模板解析。
   - 支持变量渲染：`{{prompt}}`、`{{mode}}`、`{{requirementScope}}`。
@@ -36,14 +36,14 @@
 
 - **归属修正**：Prompt Registry 管理能力归属 agents（非 legacy）。
 - 后端（agents app）：
-  - `backend/apps/agents/src/modules/prompt-registry/prompt-registry.controller.ts`
-  - `backend/apps/agents/src/modules/prompt-registry/prompt-registry-admin.service.ts`
-  - `backend/apps/agents/src/modules/prompt-registry/prompt-registry-admin.module.ts`
-  - `backend/src/shared/schemas/prompt-template-audit.schema.ts`
+  - `app/backend/apps/agents/src/modules/prompt-registry/prompt-registry.controller.ts`
+  - `app/backend/apps/agents/src/modules/prompt-registry/prompt-registry-admin.service.ts`
+  - `app/backend/apps/agents/src/modules/prompt-registry/prompt-registry-admin.module.ts`
+  - `app/backend/src/shared/schemas/prompt-template-audit.schema.ts`
 - API 能力：
   - 模板列表、草稿保存、发布、回滚、版本对比（diff）、生效查询、审计查询。
   - 审计记录包含：操作者、时间、动作、版本、摘要。
-- 网关转发：`/api/prompt-registry` 路由转发到 agents 服务（`backend/apps/gateway/src/gateway-proxy.service.ts`）。
+- 网关转发：`/api/prompt-registry` 路由转发到 agents 服务（`app/backend/apps/gateway/src/gateway-proxy.service.ts`）。
 - 前端管理页：
   - `frontend/src/pages/PromptRegistry.tsx`
   - `frontend/src/services/promptRegistryService.ts`
@@ -58,7 +58,7 @@
   - `npm run build`
   - `npm run build:gateway`
 - 前端构建通过：
-  - `cd frontend && npm run build`
+  - `cd app/frontend && npm run build`
 
 ## 风险与后续建议
 

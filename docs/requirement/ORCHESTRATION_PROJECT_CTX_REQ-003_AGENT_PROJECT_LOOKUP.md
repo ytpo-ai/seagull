@@ -43,9 +43,9 @@ agents app 当前完全不访问 `ei_projects` 数据。plan 的 `projectId` 虽
 
 | 文件 | 改动 |
 |------|------|
-| `backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | 增加 `resolveProjectBinding(projectId)` 方法，查询 `ei_projects` 并序列化绑定信息；在 `executeTaskNode` / `executeRunTaskNode` 的 `sessionContext` 中增加 `projectId` + `projectBinding` |
-| `backend/apps/agents/src/modules/agents/agent.types.ts` | `AgentContext` 增加 `projectBinding?` 字段 |
-| `backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts` | 从 `task.sessionContext` 提取 `projectBinding` 注入 `AgentContext` |
+| `app/backend/src/modules/orchestration/services/orchestration-execution-engine.service.ts` | 增加 `resolveProjectBinding(projectId)` 方法，查询 `ei_projects` 并序列化绑定信息；在 `executeTaskNode` / `executeRunTaskNode` 的 `sessionContext` 中增加 `projectId` + `projectBinding` |
+| `app/backend/apps/agents/src/modules/agents/agent.types.ts` | `AgentContext` 增加 `projectBinding?` 字段 |
+| `app/backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts` | 从 `task.sessionContext` 提取 `projectBinding` 注入 `AgentContext` |
 
 ### 影响范围
 

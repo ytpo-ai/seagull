@@ -20,8 +20,8 @@
 - 直接原因：`IdentityAggregationService.buildIdentityContent` 在“能力域”中固定输出“工具描述”章节与描述列。
 - 深层原因：Identity 模板仍沿用早期“工具元数据展示”格式，未按最新展示口径收敛为工具 ID 列表。
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
-  - `backend/apps/agents/src/modules/memos/identity-aggregation.service.spec.ts`
+  - `app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
+  - `app/backend/apps/agents/src/modules/memos/identity-aggregation.service.spec.ts`
 
 ## 4. 修复动作
 
@@ -44,7 +44,7 @@
   - 核对文档描述是否与实现一致。
 - 验证结论：通过
 - 测试与检查：
-  - `backend/apps/agents/src/modules/memos/identity-aggregation.service.spec.ts`
+  - `app/backend/apps/agents/src/modules/memos/identity-aggregation.service.spec.ts`
 
 ## 6. 风险与后续
 

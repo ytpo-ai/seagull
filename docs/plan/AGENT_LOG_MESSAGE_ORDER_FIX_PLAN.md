@@ -35,7 +35,7 @@ Agent 详情页 → 日志 Tab → 执行流程（flow）视图中，每一轮�
 
 ### 步骤 1：修改 assistant 消息的 sequence 编号公式
 
-**文件**: `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
 
 - 新增方法 `computeAssistantSequence(base, round)` → `base + (round + 2) * 100 - 1`
 - 修改 line 1095，使用新公式
@@ -44,7 +44,7 @@ Agent 详情页 → 日志 Tab → 执行流程（flow）视图中，每一轮�
 
 ### 步骤 2：修改后端查询排序逻辑
 
-**文件**: `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 
 将 `listRunMessagesWithParts` 方法的排序从 `{ createdAt: 1, sequence: 1 }` 改为 `{ sequence: 1, createdAt: 1 }`，让 sequence 成为主排序键。
 

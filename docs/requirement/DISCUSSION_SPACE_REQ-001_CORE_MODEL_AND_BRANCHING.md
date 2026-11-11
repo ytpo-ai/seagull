@@ -42,7 +42,7 @@ Discussion Space 需要从线性对话升级为树状可分叉模型，现有 Me
 
 ### 影响范围
 
-- **后端**：`backend/src/modules/discussions/` 新增模块与服务
+- **后端**：`app/backend/src/modules/discussions/` 新增模块与服务
 - **前端**：暂未开始（后续 REQ-003）
 - **数据库**：新增 5 个 discussion_* 集合
 - **API**：新增 `/discussions` 及子路由

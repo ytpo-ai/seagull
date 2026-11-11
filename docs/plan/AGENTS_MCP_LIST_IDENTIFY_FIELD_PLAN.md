@@ -18,8 +18,8 @@
 
 ## 3. 影响点
 
-- 后端：`backend/apps/agents/src/modules/tools/tool.service.ts`
-- 后端：`backend/apps/agents/src/modules/memos/memo.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/memos/memo.service.ts`
 - 文档：`docs/api/agents-api.md`、`docs/feature/AGENT_TOOL.md`
 
 ## 4. 风险与依赖

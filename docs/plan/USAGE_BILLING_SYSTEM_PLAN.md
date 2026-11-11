@@ -9,7 +9,7 @@
 
 ### Phase 1：定价源与计费收口（高优先级）
 
-1. **新增 ModelPricingService**（`backend/apps/agents/src/modules/models/model-pricing.service.ts`）
+1. **新增 ModelPricingService**（`app/backend/apps/agents/src/modules/models/model-pricing.service.ts`）
    - 从 `models.dev/api.json` 拉取全量定价数据（104 providers / 3898 models）
    - 实现三层 fallback：ModelRegistry 手动覆盖 > 本地缓存文件 > 远程拉取
    - 启动时读本地缓存，异步拉取最新（不阻塞启动）

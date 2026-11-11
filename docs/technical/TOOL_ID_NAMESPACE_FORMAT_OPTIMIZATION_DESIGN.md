@@ -52,7 +52,7 @@
 
 ## 3. 现状问题（基于当前代码）
 
-数据来源：`backend/apps/agents/src/modules/tools/tool.service.ts` 中 `initializeBuiltinTools` 与 `toolIdMapping`。
+数据来源：`app/backend/apps/agents/src/modules/tools/tool.service.ts` 中 `initializeBuiltinTools` 与 `toolIdMapping`。
 
 1. 当前主格式为 `provider.channel.namespace.resource(.action)`，与目标格式不一致。
 2. 当前 ID 存在 4 段、5 段、6 段混用，不利于稳定解析。

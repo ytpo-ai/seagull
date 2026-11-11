@@ -20,7 +20,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/tools/tool.service.ts`。
+- 后端：`app/backend/apps/agents/src/modules/tools/tool.service.ts`。
 - API 交互：`/orchestration/plans/from-prompt` 的调用前校验与失败日志。
 - 运维排障：日志可观测性提升（定位 400 的具体原因）。
 

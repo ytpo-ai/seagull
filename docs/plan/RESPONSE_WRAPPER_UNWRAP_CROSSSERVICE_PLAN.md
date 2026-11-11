@@ -11,7 +11,7 @@
 
 ## 2. 背景
 
-系统中 6 个 app（legacy、agents、gateway、ei、channel、ws）均已全局注册 `ResponseInterceptor`（`backend/src/shared/common/interceptors/response.interceptor.ts`），所有 HTTP API 成功响应自动包装为：
+系统中 6 个 app（legacy、agents、gateway、ei、channel、ws）均已全局注册 `ResponseInterceptor`（`app/backend/src/shared/common/interceptors/response.interceptor.ts`），所有 HTTP API 成功响应自动包装为：
 
 ```json
 {
@@ -31,12 +31,12 @@
 
 | App | main.ts 路径 | 端口 | 已注册拦截器 |
 |-----|-------------|------|-------------|
-| legacy | `backend/src/main.ts` | 3001 | 是 |
-| agents | `backend/apps/agents/src/main.ts` | 3002 | 是 |
-| ws | `backend/apps/ws/src/main.ts` | 3003 | 是 |
-| ei | `backend/apps/ei/src/main.ts` | 3004 | 是 |
-| channel | `backend/apps/channel/src/main.ts` | 3006 | 是 |
-| gateway | `backend/apps/gateway/src/main.ts` | 3100 | 是 |
+| legacy | `app/backend/src/main.ts` | 3001 | 是 |
+| agents | `app/backend/apps/agents/src/main.ts` | 3002 | 是 |
+| ws | `app/backend/apps/ws/src/main.ts` | 3003 | 是 |
+| ei | `app/backend/apps/ei/src/main.ts` | 3004 | 是 |
+| channel | `app/backend/apps/channel/src/main.ts` | 3006 | 是 |
+| gateway | `app/backend/apps/gateway/src/main.ts` | 3100 | 是 |
 
 #### 跨服务客户端 response 解析模式分布
 
@@ -73,7 +73,7 @@
 
 ## 6. 关键影响点
 
-- **后端**: `InternalApiClient`（`backend/apps/agents/src/modules/tools/internal-api-client.service.ts`）、`AgentClientService`（`backend/src/modules/agents-client/agent-client.service.ts`）
+- **后端**: `InternalApiClient`（`app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts`）、`AgentClientService`（`app/backend/src/modules/agents-client/agent-client.service.ts`）
 - **Tool handlers**: 6 个 builtin tool handler 的返回值结构恢复正确
   - `orchestration-tool-handler.service.ts` — 17 个调用点
   - `engineering-requirement-tool-handler.service.ts` — 11 个调用点
@@ -127,8 +127,8 @@ private unwrapResponseEnvelope<T>(payload: unknown): T {
 
 | 文件 | 变更类型 |
 |------|---------|
-| `backend/apps/agents/src/modules/tools/internal-api-client.service.ts` | 新增 `unwrapResponseEnvelope`，修改 `callApi` / `postEngineeringStatistics` / `postDocsHeatRefresh` |
-| `backend/src/modules/agents-client/agent-client.service.ts` | 增强解包方法，应用到 ~20 个方法 |
-| `backend/apps/agents/src/modules/tools/builtin/meeting-tool-handler.service.ts` | 移除 3 处 `result?.data \|\| result` 兼容代码 |
-| `backend/apps/agents/src/modules/tools/builtin/communication-tool-handler.service.ts` | 移除 1 处 `response?.data \|\| response` 兼容代码 |
-| `backend/apps/agents/src/modules/runtime/runtime-ei-sync.service.ts` | 修复 `duplicate` 取值 |
+| `app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts` | 新增 `unwrapResponseEnvelope`，修改 `callApi` / `postEngineeringStatistics` / `postDocsHeatRefresh` |
+| `app/backend/src/modules/agents-client/agent-client.service.ts` | 增强解包方法，应用到 ~20 个方法 |
+| `app/backend/apps/agents/src/modules/tools/builtin/meeting-tool-handler.service.ts` | 移除 3 处 `result?.data \|\| result` 兼容代码 |
+| `app/backend/apps/agents/src/modules/tools/builtin/communication-tool-handler.service.ts` | 移除 1 处 `response?.data \|\| response` 兼容代码 |
+| `app/backend/apps/agents/src/modules/runtime/runtime-ei-sync.service.ts` | 修复 `duplicate` 取值 |

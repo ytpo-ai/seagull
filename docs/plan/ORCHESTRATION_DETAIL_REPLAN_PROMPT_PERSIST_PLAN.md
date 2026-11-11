@@ -28,7 +28,7 @@
 ## Impact
 
 - Frontend: `frontend/src/pages/Orchestration.tsx`, `frontend/src/services/orchestrationService.ts`
-- Backend: `backend/src/modules/orchestration/orchestration.controller.ts`, `backend/src/modules/orchestration/orchestration.service.ts`, `backend/src/modules/orchestration/dto/index.ts`
+- Backend: `app/backend/src/modules/orchestration/orchestration.controller.ts`, `app/backend/src/modules/orchestration/orchestration.service.ts`, `app/backend/src/modules/orchestration/dto/index.ts`
 - Docs: `docs/feature/ORCHETRATION_TASK.md`
 
 ## Risks / Dependencies

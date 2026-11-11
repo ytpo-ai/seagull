@@ -15,7 +15,7 @@
 
 ### 2.2 系统 schedule seed 脚本化
 
-- 新增 `backend/scripts/system-schedule-seed.ts`，统一幂等 upsert：
+- 新增 `app/backend/scripts/system-schedule-seed.ts`，统一幂等 upsert：
   - `system-meeting-monitor`
   - `system-engineering-statistics`
   - `system-memo-event-flush`
@@ -39,19 +39,19 @@
 ## 3. 关键文件
 
 - 后端调度：
-  - `backend/src/modules/orchestration/scheduler/scheduler.service.ts`
-  - `backend/src/modules/orchestration/scheduler/scheduler.module.ts`
+  - `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+  - `app/backend/src/modules/orchestration/scheduler/scheduler.module.ts`
 - seed：
-  - `backend/scripts/manual-seed.ts`
-  - `backend/scripts/system-schedule-seed.ts`
+  - `app/backend/scripts/manual-seed.ts`
+  - `app/backend/scripts/system-schedule-seed.ts`
 - memo 异步触发：
-  - `backend/src/modules/agents-client/agent-client.service.ts`
-  - `backend/apps/agents/src/modules/memos/memo-aggregation-command-consumer.service.ts`
-  - `backend/apps/agents/src/modules/memos/memo.module.ts`
+  - `app/backend/src/modules/agents-client/agent-client.service.ts`
+  - `app/backend/apps/agents/src/modules/memos/memo-aggregation-command-consumer.service.ts`
+  - `app/backend/apps/agents/src/modules/memos/memo.module.ts`
 - 公共与基础设施：
-  - `backend/libs/common/src/memo-aggregation.constants.ts`
-  - `backend/libs/common/src/index.ts`
-  - `backend/libs/infra/src/redis.service.ts`
+  - `app/backend/libs/common/src/memo-aggregation.constants.ts`
+  - `app/backend/libs/common/src/index.ts`
+  - `app/backend/libs/infra/src/redis.service.ts`
 
 ## 4. 验证结果
 

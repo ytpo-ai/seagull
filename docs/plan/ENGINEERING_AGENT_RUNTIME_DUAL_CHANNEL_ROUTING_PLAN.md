@@ -17,9 +17,9 @@
 
 ## 3. 关键影响点
 
-- 后端（Agents Runtime）：`backend/apps/agents/src/modules/agents/` 执行路由与策略判定。
-- 后端（Agent Task）：`backend/apps/agents/src/modules/agent-tasks/` 上下文透传与异步执行入口。
-- 后端（Orchestration -> Agents）：`backend/src/modules/orchestration/` 发起 async agent task 时的任务类型上下文。
+- 后端（Agents Runtime）：`app/backend/apps/agents/src/modules/agents/` 执行路由与策略判定。
+- 后端（Agent Task）：`app/backend/apps/agents/src/modules/agent-tasks/` 上下文透传与异步执行入口。
+- 后端（Orchestration -> Agents）：`app/backend/src/modules/orchestration/` 发起 async agent task 时的任务类型上下文。
 - 可观测：run 的 `executionChannel`、执行日志与事件 payload 增加判定元信息。
 - 文档：`docs/feature/AGENT_RUNTIME.md`、相关开发沉淀与 dailylog。
 

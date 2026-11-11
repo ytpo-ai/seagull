@@ -8,7 +8,7 @@
 
 ## 背景
 
-`backend/src/modules/orchestration/orchestration.service.ts` 目前有 **4164 行**，承担了 Plan CRUD、Task CRUD、执行引擎、状态管理、SSE 事件流、上下文构建、tier 治理等多项职责，严重违反单一职责原则，维护和测试成本极高。
+`app/backend/src/modules/orchestration/orchestration.service.ts` 目前有 **4164 行**，承担了 Plan CRUD、Task CRUD、执行引擎、状态管理、SSE 事件流、上下文构建、tier 治理等多项职责，严重违反单一职责原则，维护和测试成本极高。
 
 需要将其拆分为多个职责单一的子 service，原 `orchestration.service.ts` 瘦身为 Facade 层，仅做方法委派。
 
@@ -226,7 +226,7 @@ Controller 层无需任何改动。
 ## 拆分后目录结构
 
 ```
-backend/src/modules/orchestration/
+app/backend/src/modules/orchestration/
 ├── dto/
 │   └── index.ts
 ├── scheduler/

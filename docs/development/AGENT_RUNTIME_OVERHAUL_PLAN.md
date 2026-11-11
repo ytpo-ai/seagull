@@ -19,7 +19,7 @@
 
 ### 2.1 新增 Runtime 模块
 
-路径：`backend/apps/agents/src/modules/runtime/`
+路径：`app/backend/apps/agents/src/modules/runtime/`
 
 - `runtime.module.ts`
 - `runtime-orchestrator.service.ts`
@@ -32,7 +32,7 @@
 
 ### 2.2 新增持久化模型
 
-路径：`backend/apps/agents/src/schemas/`
+路径：`app/backend/apps/agents/src/schemas/`
 
 - `agent-run.schema.ts`：运行实例（run）
 - `agent-message.schema.ts`：消息层
@@ -42,7 +42,7 @@
 
 ### 2.3 现有 Agent 执行链路接入
 
-主要修改：`backend/apps/agents/src/modules/agents/agent.service.ts`
+主要修改：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 - 普通执行 `executeTask` 接入 run 生命周期
 - 流式执行 `executeTaskWithStreaming` 接入 `llm.delta` 事件
@@ -164,7 +164,7 @@
 
 ## 7. Gateway 协同改造
 
-路径：`backend/apps/gateway/src/gateway-proxy.service.ts`
+路径：`app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 - 对 runtime 控制类路径增加审计日志
 - 覆盖动作：`pause/resume/cancel/replay/dead_letter_requeue/purge_legacy`
@@ -208,57 +208,57 @@
 ## 11. Commit 映射索引
 
 - `437d030`：Runtime 重构底座（run/message/part/outbox + zod 事件契约）
-  - `backend/apps/agents/src/modules/runtime/runtime.module.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/agents/src/modules/runtime/hook-dispatcher.service.ts`
-  - `backend/apps/agents/src/schemas/agent-run.schema.ts`
-  - `backend/apps/agents/src/schemas/agent-message.schema.ts`
-  - `backend/apps/agents/src/schemas/agent-part.schema.ts`
-  - `backend/apps/agents/src/schemas/agent-event-outbox.schema.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.module.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/hook-dispatcher.service.ts`
+  - `app/backend/apps/agents/src/schemas/agent-run.schema.ts`
+  - `app/backend/apps/agents/src/schemas/agent-message.schema.ts`
+  - `app/backend/apps/agents/src/schemas/agent-part.schema.ts`
+  - `app/backend/apps/agents/src/schemas/agent-event-outbox.schema.ts`
 
 - `1c7477a`：Run 控制 API 初版与 replay 过滤、tool part 状态迁移
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 
 - `c827996`：Run 控制权限收敛（role + context）与 Hook 指标
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/hook-dispatcher.service.ts`
-  - `backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/hook-dispatcher.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
   - `docs/architecture/AGENT_RUNTIME_HOOKS_GUIDE.md`
 
 - `bc2856a`：组织隔离 + dead-letter 导出 + gateway 运行控制审计
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/gateway/src/gateway-proxy.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 - `7334281`：dead-letter 重投闭环（requeue）
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/gateway/src/gateway-proxy.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 - `92c6a45`：dead-letter dry-run 与指标补全
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
 
 - `555bd1e`：dead-letter 可见性增强（total/hasMore）与安全性改进
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
 
 - `df908b1`：legacy purge 接口与工具状态机严格迁移守卫
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
-  - `backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/contracts/runtime-control.contract.ts`
 
 - `ff066c7`：维护审计落库（batch/dry-run/作用域/结果）与审计查询
-  - `backend/apps/agents/src/schemas/agent-runtime-maintenance-audit.schema.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime.module.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-  - `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+  - `app/backend/apps/agents/src/schemas/agent-runtime-maintenance-audit.schema.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.module.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
 
 ---
 

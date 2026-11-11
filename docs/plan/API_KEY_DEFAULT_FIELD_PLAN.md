@@ -8,7 +8,7 @@
 
 ### 2.1 数据库Schema更新
 
-**文件**: `backend/src/shared/schemas/apiKey.schema.ts`
+**文件**: `app/backend/src/shared/schemas/apiKey.schema.ts`
 
 - 添加 `isDefault` 字段 (boolean, default: false)
 - 添加 `isDeprecated` 字段 (boolean, default: false)
@@ -16,7 +16,7 @@
 
 ### 2.2 后端服务逻辑更新
 
-**文件**: `backend/src/modules/api-keys/api-key.service.ts`
+**文件**: `app/backend/src/modules/api-keys/api-key.service.ts`
 
 - 更新接口定义：
   - `CreateApiKeyDto`: 添加 `isDefault?: boolean`
@@ -100,8 +100,8 @@
 ## 7. 相关代码文件
 
 ### 后端代码
-- `backend/src/shared/schemas/apiKey.schema.ts`
-- `backend/src/modules/api-keys/api-key.service.ts`
+- `app/backend/src/shared/schemas/apiKey.schema.ts`
+- `app/backend/src/modules/api-keys/api-key.service.ts`
 
 ### 前端代码
 - `frontend/src/services/apiKeyService.ts`

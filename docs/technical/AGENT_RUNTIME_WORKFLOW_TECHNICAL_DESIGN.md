@@ -11,11 +11,11 @@
 
 核心代码入口：
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
-- `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-- `backend/apps/agents/src/modules/runtime/hook-dispatcher.service.ts`
-- `backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/hook-dispatcher.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
 
 ---
 
@@ -78,7 +78,7 @@
 
 ## 4. 数据模型设计
 
-路径：`backend/apps/agents/src/schemas/`
+路径：`app/backend/apps/agents/src/schemas/`
 
 - `agent_runs`（`agent-run.schema.ts`）
   - run 主记录：状态、步骤、起止时间、错误

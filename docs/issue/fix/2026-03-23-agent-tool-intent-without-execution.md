@@ -26,10 +26,10 @@
 - **三次定位（真正根因）**：`provideLifecycleHook()` 在 `AgentModule` 注册了 `LIFECYCLE_HOOKS_TOKEN` multi-provider，但 `HookRegistryService` 在 `RuntimeModule` 被实例化。NestJS multi-provider 是模块作用域的，跨模块不可见，导致 `discoveredHooks` 始终为空数组。启动日志 `[hook_registry_init] registered=0 hooks=[]` 证实了这一点
 - 修复方式：移除 `AgentModule` 中的 `provideLifecycleHook()` 调用，改为 `AgentModule.onModuleInit()` 中通过 `HookRegistryService.register()` 手动注册
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts` -- prompt 模板定义
-  - `backend/apps/agents/src/modules/agents/hooks/agent-after-step-evaluation.hook.ts` -- after-step hook（空壳）
-  - `backend/apps/agents/src/modules/agents/agent-executor.service.ts:1261-1443` -- 无 tool_call 时的处理流程
-  - `backend/apps/agents/src/modules/agents/agent-executor.helpers.ts:125-141` -- extractToolCall 解析
+  - `app/backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts` -- prompt 模板定义
+  - `app/backend/apps/agents/src/modules/agents/hooks/agent-after-step-evaluation.hook.ts` -- after-step hook（空壳）
+  - `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts:1261-1443` -- 无 tool_call 时的处理流程
+  - `app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts:125-141` -- extractToolCall 解析
 
 ## 4. 修复动作
 
@@ -51,9 +51,9 @@
 - 增补了反模式检测：覆盖"我不能调用工具"、"请在终端执行"、代码块内 `repo-writer clone` / `git clone` 的转交式回复，统一触发重试纠偏
 
 ### 代码改动点：
-1. `backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts` -- 修改 2 个模板 + 新增 1 个模板
-2. `backend/apps/agents/src/modules/agents/hooks/agent-after-step-evaluation.hook.ts` -- 实现检测 + 重试逻辑
-3. `backend/apps/agents/src/modules/agents/agent.module.ts` -- 移除 `provideLifecycleHook()`，改为 `onModuleInit()` 手动注册
+1. `app/backend/apps/agents/src/modules/prompt-registry/agent-prompt-catalog.ts` -- 修改 2 个模板 + 新增 1 个模板
+2. `app/backend/apps/agents/src/modules/agents/hooks/agent-after-step-evaluation.hook.ts` -- 实现检测 + 重试逻辑
+3. `app/backend/apps/agents/src/modules/agents/agent.module.ts` -- 移除 `provideLifecycleHook()`，改为 `onModuleInit()` 手动注册
 
 ### 兼容性处理：
 - prompt 变更方向为收紧约束，不影响已正确调用工具的 agent

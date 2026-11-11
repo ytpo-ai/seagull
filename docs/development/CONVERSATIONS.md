@@ -235,7 +235,7 @@ provider: agentData.model.provider as AIModel['provider']
 
 #### 1. 模型配置数据
 ```typescript
-// backend/src/config/models.ts
+// app/backend/src/config/models.ts
 export const AVAILABLE_MODELS: AIModel[] = [
   { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', provider: 'openai', ... },
   // ... 50个模型
@@ -244,7 +244,7 @@ export const AVAILABLE_MODELS: AIModel[] = [
 
 #### 2. 模型管理服务
 ```typescript
-// backend/src/modules/models/model-management.service.ts
+// app/backend/src/modules/models/model-management.service.ts
 @Injectable()
 export class ModelManagementService {
   selectModelForFounder(founderType: 'ceo' | 'cto', modelId: string) { ... }

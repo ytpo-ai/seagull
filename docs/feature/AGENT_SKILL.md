@@ -11,7 +11,7 @@
 
 ### 1.2 数据结构
 
-当前核心模型位于 `backend/apps/agents/src/schemas/`：
+当前核心模型位于 `app/backend/apps/agents/src/schemas/`：
 
 | 集合 | Schema 文件 | 说明 |
 |------|-------------|------|
@@ -89,7 +89,7 @@
 
 ## 3. 相关代码文件
 
-### 后端 Skills 模块 (backend/apps/agents/src/modules/skills/)
+### 后端 Skills 模块 (app/backend/apps/agents/src/modules/skills/)
 
 | 文件 | 功能 |
 |------|------|
@@ -101,7 +101,7 @@
 | `skill-doc-loader.service.ts` | 文档扫描与 frontmatter/content 解析能力 |
 | `../agents/agent.service.ts` | Agent 执行消息构建；Skill 摘要注入与按需 content 激活 |
 
-### 领域 Schema (backend/apps/agents/src/schemas/)
+### 领域 Schema (app/backend/apps/agents/src/schemas/)
 
 | 文件 | 功能 |
 |------|------|

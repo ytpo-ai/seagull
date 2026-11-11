@@ -11,11 +11,11 @@
 **问题描述**：`orchestration_tasks` schema 无字段关联回 `ei_requirements`，导致任务完成后无法自动触发需求状态更新，闭环断裂。
 
 **代码位置**：
-- `backend/src/shared/schemas/orchestration-task.schema.ts` — 任务数据模型，缺少 `requirementId` 字段
+- `app/backend/src/shared/schemas/orchestration-task.schema.ts` — 任务数据模型，缺少 `requirementId` 字段
 
 **相关文件**：
-- `backend/src/modules/orchestration/orchestration.service.ts` — 任务执行与状态流转逻辑
-- `backend/src/modules/orchestration/planner.service.ts` — 任务拆解服务
+- `app/backend/src/modules/orchestration/orchestration.service.ts` — 任务执行与状态流转逻辑
+- `app/backend/src/modules/orchestration/planner.service.ts` — 任务拆解服务
 
 ---
 
@@ -24,9 +24,9 @@
 **问题描述**：全部 10 个编排工具 + 3 个会议工具在执行前调用 `assertMeetingContext()`，无会议上下文时抛错。定时调度（cron）、CTO 主动触发等非会议场景无法使用编排 MCP 工具。
 
 **代码位置**：
-- `backend/apps/agents/src/modules/tools/tool.service.ts:1984-1996` — `assertMeetingContext()` 方法定义
-- `backend/apps/agents/src/modules/tools/tool.service.ts:2153` — 首次调用位置
-- `backend/apps/agents/src/modules/tools/tool.service.ts` — 共 11 处调用（1984, 2153, 2198, 2228, 2288, 2306, 2327, 2357, 2476, 2532, 2575）
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts:1984-1996` — `assertMeetingContext()` 方法定义
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts:2153` — 首次调用位置
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts` — 共 11 处调用（1984, 2153, 2198, 2228, 2288, 2306, 2327, 2357, 2476, 2532, 2575）
 
 **影响范围**：
 - 定时调度场景无法工作（`scheduler.service.ts` 触发时无 meetingId）
@@ -39,8 +39,8 @@
 **问题描述**：`runningPlans` 是内存中的 `Set<string>`，进程重启后丢失，无法防止并发执行。
 
 **代码位置**：
-- `backend/src/modules/orchestration/orchestration.service.ts:43` — `private readonly runningPlans = new Set<string>()` 声明
-- `backend/src/modules/orchestration/orchestration.service.ts:511-520` — `runPlanAsync` 中的锁检查与添加逻辑
+- `app/backend/src/modules/orchestration/orchestration.service.ts:43` — `private readonly runningPlans = new Set<string>()` 声明
+- `app/backend/src/modules/orchestration/orchestration.service.ts:511-520` — `runPlanAsync` 中的锁检查与添加逻辑
 
 **具体代码**：
 ```typescript
@@ -62,8 +62,8 @@ this.runningPlans.delete(runKey);
 **问题描述**：任务分配算法使用简单的 `text.includes()` 关键词匹配判断任务类型（如 email、research），不够智能。
 
 **代码位置**：
-- `backend/src/modules/orchestration/orchestration.service.ts:1499-1512` — `isEmailTask()` 方法
-- `backend/src/modules/orchestration/orchestration.service.ts:1515-1527` — `isResearchTask()` 方法
+- `app/backend/src/modules/orchestration/orchestration.service.ts:1499-1512` — `isEmailTask()` 方法
+- `app/backend/src/modules/orchestration/orchestration.service.ts:1515-1527` — `isResearchTask()` 方法
 
 **具体代码**：
 ```typescript
@@ -88,8 +88,8 @@ private isEmailTask(title: string, description: string): boolean {
 **问题描述**：任务完成验证依赖 Agent 输出中的特定标记（如 `EMAIL_SEND_PROOF`、`RESEARCH_EXECUTION_PROOF`），使用正则提取验证，不够可靠。
 
 **代码位置**：
-- `backend/src/modules/orchestration/orchestration.service.ts:1242-1266` — `extractEmailSendProof()` 方法
-- `backend/src/modules/orchestration/orchestration.service.ts:1761-1783` — `validateResearchExecutionProof()` 方法
+- `app/backend/src/modules/orchestration/orchestration.service.ts:1242-1266` — `extractEmailSendProof()` 方法
+- `app/backend/src/modules/orchestration/orchestration.service.ts:1761-1783` — `validateResearchExecutionProof()` 方法
 
 **具体代码**：
 ```typescript
@@ -101,8 +101,8 @@ const markerMatch = text.match(/RESEARCH_EXECUTION_PROOF\s*:\s*(\{[\s\S]*?\})/i)
 ```
 
 **相关配置**：
-- `backend/src/modules/orchestration/orchestration.service.ts:1160` — 研究任务类型定义 `city_population | generic_research`
-- `backend/src/modules/orchestration/orchestration.service.ts:1733-1759` — 研究输出契约构建
+- `app/backend/src/modules/orchestration/orchestration.service.ts:1160` — 研究任务类型定义 `city_population | generic_research`
+- `app/backend/src/modules/orchestration/orchestration.service.ts:1733-1759` — 研究输出契约构建
 
 ---
 
@@ -111,7 +111,7 @@ const markerMatch = text.match(/RESEARCH_EXECUTION_PROOF\s*:\s*(\{[\s\S]*?\})/i)
 **问题描述**：与编排服务类似，调度器也使用内存 `Set` 防止并发触发。
 
 **代码位置**：
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts:39` — `private readonly runLocks = new Set<string>()`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts:39` — `private readonly runLocks = new Set<string>()`
 
 ---
 
@@ -122,8 +122,8 @@ const markerMatch = text.match(/RESEARCH_EXECUTION_PROOF\s*:\s*(\{[\s\S]*?\})/i)
 **问题描述**：Runtime 角色准入仅允许 `devops-engineer`、`fullstack-engineer`、`technical-architect` 三个角色，其他角色（包括 CTO）无法触发 OpenCode 执行。
 
 **代码位置**：
-- `backend/apps/agents/src/modules/agents/agent.service.ts:177-181` — `OPENCODE_ALLOWED_ROLE_CODES` 常量定义
-- `backend/apps/agents/src/modules/agents/agent.service.ts:590-602` — `assertOpenCodeExecutionGate()` 方法
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:177-181` — `OPENCODE_ALLOWED_ROLE_CODES` 常量定义
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:590-602` — `assertOpenCodeExecutionGate()` 方法
 
 **具体代码**：
 ```typescript
@@ -149,8 +149,8 @@ if (!OPENCODE_ALLOWED_ROLE_CODES.has(roleCode)) {
 **问题描述**：使用内存 `Map<string, Promise<void>>` 实现串行执行锁，进程重启后锁丢失，无法防止并发。
 
 **代码位置**：
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:31` — `private readonly lockTails = new Map<string, Promise<void>>()` 声明
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:803-831` — `acquireLock()` 方法实现
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:31` — `private readonly lockTails = new Map<string, Promise<void>>()` 声明
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:803-831` — `acquireLock()` 方法实现
 
 **具体代码**：
 ```typescript
@@ -180,11 +180,11 @@ private async acquireLock(lockKey: string): Promise<() => void> {
 **问题描述**：预算超限时触发 `permission.asked` 事件并暂停 run，而非硬性阻断。需人工审批后才能继续。
 
 **代码位置**：
-- `backend/apps/agents/src/modules/agents/agent.service.ts:720-800` — `applyAgentBudgetGate()` 方法
-- `backend/apps/agents/src/modules/agents/agent.service.ts:802-834` — `parseAgentBudgetConfig()` 方法
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:259-263` — `pauseRunWithActor()` 方法
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:295-299` — `resumeRunWithActor()` 方法
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:386` — `permission.asked` 事件发射
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:720-800` — `applyAgentBudgetGate()` 方法
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:802-834` — `parseAgentBudgetConfig()` 方法
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:259-263` — `pauseRunWithActor()` 方法
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:295-299` — `resumeRunWithActor()` 方法
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts:386` — `permission.asked` 事件发射
 
 **具体代码**：
 ```typescript
@@ -211,7 +211,7 @@ await this.runtimeOrchestrator.recordPermissionAsked({
 **问题描述**：`tool.service.ts` 中 `executeToolImplementation` 是一个巨大的 switch-case，扩展性差。
 
 **代码位置**：
-- `backend/apps/agents/src/modules/tools/tool.service.ts` — 约 3720 行，switch-case 分散在多处
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts` — 约 3720 行，switch-case 分散在多处
 
 ---
 
@@ -222,8 +222,8 @@ await this.runtimeOrchestrator.recordPermissionAsked({
 **问题描述**：需求管理仅有 HTTP API（`/engineering-intelligence/requirements/*`），Agent 无法通过 MCP 工具操作需求。
 
 **代码位置**：
-- `backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.controller.ts:128-182` — 需求相关 API 端点
-- `backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts` — 需求 CRUD 服务
+- `app/backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.controller.ts:128-182` — 需求相关 API 端点
+- `app/backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts` — 需求 CRUD 服务
 
 **涉及 API**：
 - `GET /engineering-intelligence/requirements` — 列表
@@ -241,7 +241,7 @@ await this.runtimeOrchestrator.recordPermissionAsked({
 **问题描述**：`syncRequirementToGithub` 仅创建 Issue 并回写映射，不会在需求 `done` 时关闭 Issue。
 
 **代码位置**：
-- `backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts` — `syncRequirementToGithub()` 方法（约 1250-1537 行区间）
+- `app/backend/apps/engineering-intelligence/src/modules/engineering-intelligence/engineering-intelligence.service.ts` — `syncRequirementToGithub()` 方法（约 1250-1537 行区间）
 
 ---
 
@@ -252,7 +252,7 @@ await this.runtimeOrchestrator.recordPermissionAsked({
 - 任务→需求回写存在竞态条件风险
 
 **代码位置**：
-- `backend/apps/engineering-intelligence/src/schemas/ei-requirement.schema.ts` — 需求数据模型
+- `app/backend/apps/engineering-intelligence/src/schemas/ei-requirement.schema.ts` — 需求数据模型
 
 ---
 
@@ -263,7 +263,7 @@ await this.runtimeOrchestrator.recordPermissionAsked({
 **问题描述**：`rateLimitHits` 和 `circuitBreakers` 使用内存 `Map`，不持久化。
 
 **代码位置**：
-- `backend/apps/agents/src/modules/tools/tool.service.ts:122-123` — 内存 Map 声明
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts:122-123` — 内存 Map 声明
 ```typescript
 private readonly rateLimitHits = new Map<string, number[]>();
 private readonly circuitBreakers = new Map<string, CircuitState>();
@@ -276,8 +276,8 @@ private readonly circuitBreakers = new Map<string, CircuitState>();
 **问题描述**：工具 ID 在运行时统一归一化到 canonical，但依赖运行时解析，调试困难。
 
 **相关代码**：
-- `backend/apps/agents/src/modules/agents/agent.service.ts:154` — `ORCHESTRATION_TOOL_ID_SET` 定义
-- `backend/apps/agents/src/modules/agents/agent.service.ts:155-174` — `LEGACY_TOOL_ID_ALIASES` 别名映射
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:154` — `ORCHESTRATION_TOOL_ID_SET` 定义
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts:155-174` — `LEGACY_TOOL_ID_ALIASES` 别名映射
 
 ---
 

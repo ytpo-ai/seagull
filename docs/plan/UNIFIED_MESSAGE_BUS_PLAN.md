@@ -81,7 +81,7 @@ Agents 模块对 EI 的 HTTP 依赖共 **11 个端点**，分布在 3 个服务�
 |---|---|---|---|---|
 | `POST` | `/ei/sync-batches` | Agent Run 事件同步 | 仅读 `duplicate` 标记 | **迁移到 `runtime.ei-sync` Stream** |
 
-- 文件：`backend/apps/agents/src/modules/runtime/runtime-ei-sync.service.ts:69`
+- 文件：`app/backend/apps/agents/src/modules/runtime/runtime-ei-sync.service.ts:69`
 - 触发点：`agent-executor.service.ts:347/373/463/473`（run 终态后 `scheduleRunSync`）
 - **所有 executionChannel（native + opencode）的 run 都走此链路**，并非仅 opencode
 
@@ -92,7 +92,7 @@ Agents 模块对 EI 的 HTTP 依赖共 **11 个端点**，分布在 3 个服务�
 | `POST` | `/ei/statistics/snapshots` | 触发工作区统计快照 | **是**（返回快照数据给 agent） | 暂保留 HTTP |
 | `POST` | `/ei/docs-heat/refresh` | 触发文档热度刷新 | **是**（返回热度排名给 agent） | 暂保留 HTTP |
 
-- 文件：`backend/apps/agents/src/modules/tools/builtin/engineering-statistics-tool-handler.service.ts:25/44`
+- 文件：`app/backend/apps/agents/src/modules/tools/builtin/engineering-statistics-tool-handler.service.ts:25/44`
 - 经由：`internal-api-client.service.ts:120/132`（独立 axios 调用，无重试）
 
 #### 2.5.3 `RequirementToolHandler`（MCP 工具，同步调用，暂保留 HTTP）
@@ -108,7 +108,7 @@ Agents 模块对 EI 的 HTTP 依赖共 **11 个端点**，分布在 3 个服务�
 | `POST` | `/ei/requirements/:id/comments` | 添加评论 | **是** | 暂保留 HTTP |
 | `POST` | `/ei/requirements/:id/github/sync` | GitHub 同步 | **是** | 暂保留 HTTP |
 
-- 文件：`backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts`
 - 经由：`internal-api-client.service.ts:59`（`callEiApi()` 含 502/503/504 重试）
 
 #### 2.5.4 解耦决策总结
@@ -152,7 +152,7 @@ Agents 模块对 EI 的 HTTP 依赖共 **11 个端点**，分布在 3 个服务�
 
 ### 3.2 核心接口定义
 
-文件位置：`backend/libs/infra/src/messaging/`
+文件位置：`app/backend/libs/infra/src/messaging/`
 
 #### 3.2.1 统一消息信封（MessageEnvelope）
 
@@ -418,7 +418,7 @@ interface RuntimeEiSyncPayload {
 
 | 步骤 | 内容 | 影响模块 |
 |---|---|---|
-| 1.1 | 在 `backend/libs/infra/src/messaging/` 下创建接口定义（MessageEnvelope、MessageBus、MessageAdapter、TopicConfig） | infra |
+| 1.1 | 在 `app/backend/libs/infra/src/messaging/` 下创建接口定义（MessageEnvelope、MessageBus、MessageAdapter、TopicConfig） | infra |
 | 1.2 | 实现 `RedisPubSubAdapter`，内部封装 `RedisService.publish/subscribe` | infra |
 | 1.3 | 实现 `RedisStreamAdapter`，内部封装 `RedisService.xadd/xreadgroup/xack`，内建重试和 DLQ 逻辑 | infra |
 | 1.4 | 实现 `TopicRouter`：读取 topic 注册表，按 topic 分发到对应 adapter | infra |
@@ -481,7 +481,7 @@ interface RuntimeEiSyncPayload {
 ## 6. 文件结构规划
 
 ```
-backend/libs/infra/src/messaging/
+app/backend/libs/infra/src/messaging/
 ├── index.ts                          // barrel export
 ├── message-envelope.ts               // MessageEnvelope + MessageHeaders 类型
 ├── message-bus.port.ts               // MessageBus 接口 + PublishInput/Result + MessageHandler/Context

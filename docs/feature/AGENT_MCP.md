@@ -64,13 +64,13 @@
 
 | 文件 | 功能 |
 |------|------|
-| `backend/apps/agents/src/modules/tools/tool.service.ts` | Agent MCP 工具注册、执行分发、默认 API Key 解析 |
-| `backend/apps/agents/src/modules/tools/tool.module.ts` | Agent MCP 依赖装配（含 API Key schema 注入） |
+| `app/backend/apps/agents/src/modules/tools/tool.service.ts` | Agent MCP 工具注册、执行分发、默认 API Key 解析 |
+| `app/backend/apps/agents/src/modules/tools/tool.module.ts` | Agent MCP 依赖装配（含 API Key schema 注入） |
 
 ### 后端 Agents 模块
 
 | 文件 | 功能 |
 |------|------|
-| `backend/scripts/mcp-profile-seed.ts` | MCP Profile seed 数据与落库逻辑（manual-seed 入口调用） |
-| `backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts` | MCP Profile 读写、权限自动派生、role profile 能力聚合 |
-| `backend/apps/agents/src/schemas/agent-profile.schema.ts` | MCP Profile 持久化结构（permissions/manual/derived 兼容字段） |
+| `app/backend/scripts/mcp-profile-seed.ts` | MCP Profile seed 数据与落库逻辑（manual-seed 入口调用） |
+| `app/backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts` | MCP Profile 读写、权限自动派生、role profile 能力聚合 |
+| `app/backend/apps/agents/src/schemas/agent-profile.schema.ts` | MCP Profile 持久化结构（permissions/manual/derived 兼容字段） |

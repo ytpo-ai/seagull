@@ -15,10 +15,10 @@
 
 ## 关键影响点
 
-- `backend/scripts/manual-seed.ts`
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
-- `backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts`
+- `app/backend/scripts/manual-seed.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts`
 - `docs/feature/AGENT_TOOL.md`
 - `docs/dailylog/day/2026-03-17.md`
 

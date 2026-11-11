@@ -1,0 +1,430 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PromptRegistryAdminService = void 0;
+const common_1 = require("@nestjs/common");
+const mongoose_1 = require("@nestjs/mongoose");
+const mongoose_2 = require("mongoose");
+const prompt_template_schema_1 = require("../../schemas/prompt-template.schema");
+const prompt_template_audit_schema_1 = require("../../schemas/prompt-template-audit.schema");
+const prompt_resolver_service_1 = require("./prompt-resolver.service");
+let PromptRegistryAdminService = class PromptRegistryAdminService {
+    constructor(promptTemplateModel, promptTemplateAuditModel, promptResolverService) {
+        this.promptTemplateModel = promptTemplateModel;
+        this.promptTemplateAuditModel = promptTemplateAuditModel;
+        this.promptResolverService = promptResolverService;
+    }
+    async listTemplates(query) {
+        const filter = {};
+        const scene = String(query.scene || '').trim();
+        const role = String(query.role || '').trim();
+        const category = String(query.category || '').trim();
+        const status = String(query.status || '').trim();
+        const limit = Math.min(200, Math.max(1, Number(query.limit || 50)));
+        if (scene)
+            filter.scene = scene;
+        if (role)
+            filter.role = role;
+        if (category)
+            filter.category = category;
+        if (status && status !== 'all') {
+            filter.status = status;
+        }
+        return this.promptTemplateModel
+            .find(filter)
+            .sort({ scene: 1, role: 1, version: -1 })
+            .limit(limit)
+            .lean()
+            .exec();
+    }
+    async listTemplateFilters() {
+        const [sceneRolePairs, statuses, categories] = await Promise.all([
+            this.promptTemplateModel
+                .aggregate([
+                {
+                    $match: {
+                        scene: { $type: 'string', $nin: ['', null] },
+                        role: { $type: 'string', $nin: ['', null] },
+                    },
+                },
+                {
+                    $group: {
+                        _id: {
+                            scene: '$scene',
+                            role: '$role',
+                        },
+                    },
+                },
+                {
+                    $sort: {
+                        '_id.scene': 1,
+                        '_id.role': 1,
+                    },
+                },
+            ])
+                .exec(),
+            this.promptTemplateModel.distinct('status', { status: { $type: 'string', $nin: ['', null] } }).exec(),
+            this.promptTemplateModel.distinct('category', { category: { $type: 'string', $nin: ['', null] } }).exec(),
+        ]);
+        const sceneRoleMap = {};
+        for (const pair of sceneRolePairs) {
+            const scene = String(pair?._id?.scene || '').trim();
+            const role = String(pair?._id?.role || '').trim();
+            if (!scene || !role) {
+                continue;
+            }
+            if (!sceneRoleMap[scene]) {
+                sceneRoleMap[scene] = [];
+            }
+            if (!sceneRoleMap[scene].includes(role)) {
+                sceneRoleMap[scene].push(role);
+            }
+        }
+        const scenes = Object.keys(sceneRoleMap).sort((a, b) => a.localeCompare(b));
+        for (const scene of scenes) {
+            sceneRoleMap[scene] = sceneRoleMap[scene].sort((a, b) => a.localeCompare(b));
+        }
+        const roles = Array.from(new Set(Object.values(sceneRoleMap)
+            .flat()
+            .map((item) => item.trim())
+            .filter(Boolean))).sort((a, b) => a.localeCompare(b));
+        const normalizedStatuses = Array.from(new Set(statuses.map((item) => String(item || '').trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+        const normalizedCategories = Array.from(new Set(categories.map((item) => String(item || '').trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+        return {
+            scenes,
+            roles,
+            statuses: normalizedStatuses,
+            categories: normalizedCategories,
+            sceneRoleMap,
+        };
+    }
+    async getEffectiveTemplate(input) {
+        const scene = String(input.scene || '').trim();
+        const role = String(input.role || '').trim();
+        if (!scene || !role) {
+            throw new common_1.BadRequestException('scene and role are required');
+        }
+        return this.promptResolverService.resolve({
+            scene,
+            role,
+            defaultContent: '',
+            sessionOverride: input.sessionOverride,
+        });
+    }
+    async getTemplateById(templateId) {
+        const normalizedId = String(templateId || '').trim();
+        if (!normalizedId) {
+            throw new common_1.BadRequestException('templateId is required');
+        }
+        const template = await this.promptTemplateModel.findById(normalizedId).lean().exec();
+        if (!template) {
+            throw new common_1.NotFoundException('template not found');
+        }
+        return template;
+    }
+    async saveDraft(input) {
+        const normalized = this.normalizeDraftInput({
+            scene: input.scene,
+            role: input.role,
+            content: input.content,
+            description: input.description,
+            category: input.category,
+            tags: input.tags,
+            source: input.source,
+        });
+        const latest = await this.getLatestVersion(normalized.scene, normalized.role);
+        const nextVersion = (latest?.version || 0) + 1;
+        const summary = String(input.summary || '').trim();
+        if (typeof input.baseVersion === 'number' && input.baseVersion > 0) {
+            const existingBase = await this.promptTemplateModel
+                .findOne({ scene: normalized.scene, role: normalized.role, version: input.baseVersion })
+                .lean()
+                .exec();
+            if (!existingBase) {
+                throw new common_1.BadRequestException(`baseVersion ${input.baseVersion} not found`);
+            }
+        }
+        const created = await this.promptTemplateModel.create({
+            scene: normalized.scene,
+            role: normalized.role,
+            version: nextVersion,
+            status: 'draft',
+            content: normalized.content,
+            description: normalized.description,
+            category: normalized.category,
+            tags: normalized.tags,
+            source: normalized.source,
+            updatedBy: String(input.operatorId || '').trim() || undefined,
+            updatedAt: new Date(),
+        });
+        await this.createAudit({
+            scene: normalized.scene,
+            role: normalized.role,
+            action: 'create_draft',
+            version: nextVersion,
+            fromVersion: input.baseVersion,
+            operatorId: input.operatorId,
+            summary: summary || `创建草稿 v${nextVersion}`,
+        });
+        return created;
+    }
+    async publish(input) {
+        const scene = String(input.scene || '').trim();
+        const role = String(input.role || '').trim();
+        const version = Number(input.version || 0);
+        if (!scene || !role || !version) {
+            throw new common_1.BadRequestException('scene, role, version are required');
+        }
+        const target = await this.promptTemplateModel.findOne({ scene, role, version }).exec();
+        if (!target) {
+            throw new common_1.NotFoundException(`template version not found: ${version}`);
+        }
+        await this.promptTemplateModel
+            .updateMany({ scene, role, status: 'published', version: { $ne: version } }, { $set: { status: 'archived' } })
+            .exec();
+        target.status = 'published';
+        target.updatedBy = String(input.operatorId || '').trim() || target.updatedBy;
+        target.updatedAt = new Date();
+        await target.save();
+        await this.promptResolverService.cachePublishedTemplate({
+            scene,
+            role,
+            content: target.content,
+            version,
+            updatedAt: target.updatedAt,
+        });
+        await this.createAudit({
+            scene,
+            role,
+            action: 'publish',
+            version,
+            operatorId: input.operatorId,
+            summary: String(input.summary || '').trim() || `发布模板 v${version}`,
+        });
+        return target;
+    }
+    async unpublish(input) {
+        const scene = String(input.scene || '').trim();
+        const role = String(input.role || '').trim();
+        const version = Number(input.version || 0);
+        if (!scene || !role || !version) {
+            throw new common_1.BadRequestException('scene, role, version are required');
+        }
+        const target = await this.promptTemplateModel.findOne({ scene, role, version }).exec();
+        if (!target) {
+            throw new common_1.NotFoundException(`template version not found: ${version}`);
+        }
+        if (target.status !== 'published') {
+            throw new common_1.BadRequestException('only published template can be unpublished');
+        }
+        target.status = 'archived';
+        target.updatedBy = String(input.operatorId || '').trim() || target.updatedBy;
+        target.updatedAt = new Date();
+        await target.save();
+        await this.promptResolverService.clearPublishedCache(scene, role);
+        await this.createAudit({
+            scene,
+            role,
+            action: 'unpublish',
+            version,
+            operatorId: input.operatorId,
+            summary: String(input.summary || '').trim() || `取消发布模板 v${version}`,
+        });
+        return target;
+    }
+    async rollback(input) {
+        const scene = String(input.scene || '').trim();
+        const role = String(input.role || '').trim();
+        const targetVersion = Number(input.targetVersion || 0);
+        if (!scene || !role || !targetVersion) {
+            throw new common_1.BadRequestException('scene, role, targetVersion are required');
+        }
+        const target = await this.promptTemplateModel.findOne({ scene, role, version: targetVersion }).lean().exec();
+        if (!target) {
+            throw new common_1.NotFoundException(`target version not found: ${targetVersion}`);
+        }
+        const latest = await this.getLatestVersion(scene, role);
+        const nextVersion = (latest?.version || targetVersion) + 1;
+        await this.promptTemplateModel.updateMany({ scene, role, status: 'published' }, { $set: { status: 'archived' } }).exec();
+        const created = await this.promptTemplateModel.create({
+            scene,
+            role,
+            version: nextVersion,
+            status: 'published',
+            content: target.content,
+            description: target.description,
+            category: target.category,
+            tags: target.tags,
+            source: target.source,
+            updatedBy: String(input.operatorId || '').trim() || undefined,
+            updatedAt: new Date(),
+        });
+        await this.promptResolverService.cachePublishedTemplate({
+            scene,
+            role,
+            content: created.content,
+            version: nextVersion,
+            updatedAt: created.updatedAt,
+        });
+        await this.createAudit({
+            scene,
+            role,
+            action: 'rollback',
+            version: nextVersion,
+            fromVersion: targetVersion,
+            operatorId: input.operatorId,
+            summary: String(input.summary || '').trim() || `回滚到 v${targetVersion} 并发布为 v${nextVersion}`,
+        });
+        return created;
+    }
+    async compareVersions(input) {
+        const scene = String(input.scene || '').trim();
+        const role = String(input.role || '').trim();
+        const baseVersion = Number(input.baseVersion || 0);
+        const targetVersion = Number(input.targetVersion || 0);
+        if (!scene || !role || !baseVersion || !targetVersion) {
+            throw new common_1.BadRequestException('scene, role, baseVersion, targetVersion are required');
+        }
+        const [base, target] = await Promise.all([
+            this.promptTemplateModel.findOne({ scene, role, version: baseVersion }).lean().exec(),
+            this.promptTemplateModel.findOne({ scene, role, version: targetVersion }).lean().exec(),
+        ]);
+        if (!base || !target) {
+            throw new common_1.NotFoundException('baseVersion or targetVersion not found');
+        }
+        const baseLines = String(base.content || '').split('\n');
+        const targetLines = String(target.content || '').split('\n');
+        const baseSet = new Set(baseLines);
+        const targetSet = new Set(targetLines);
+        const added = targetLines.filter((line) => !baseSet.has(line));
+        const removed = baseLines.filter((line) => !targetSet.has(line));
+        return {
+            scene,
+            role,
+            baseVersion,
+            targetVersion,
+            summary: {
+                addedLines: added.length,
+                removedLines: removed.length,
+            },
+            preview: {
+                added: added.slice(0, 20),
+                removed: removed.slice(0, 20),
+            },
+            base: {
+                version: base.version,
+                status: base.status,
+                updatedAt: base.updatedAt,
+            },
+            target: {
+                version: target.version,
+                status: target.status,
+                updatedAt: target.updatedAt,
+            },
+        };
+    }
+    async listAudits(input) {
+        const filter = {};
+        const scene = String(input.scene || '').trim();
+        const role = String(input.role || '').trim();
+        const limit = Math.min(200, Math.max(1, Number(input.limit || 50)));
+        if (scene)
+            filter.scene = scene;
+        if (role)
+            filter.role = role;
+        return this.promptTemplateAuditModel.find(filter).sort({ createdAt: -1 }).limit(limit).lean().exec();
+    }
+    async deleteTemplate(input) {
+        const templateId = String(input.templateId || '').trim();
+        if (!templateId) {
+            throw new common_1.BadRequestException('templateId is required');
+        }
+        const target = await this.promptTemplateModel.findById(templateId).exec();
+        if (!target) {
+            throw new common_1.NotFoundException('template not found');
+        }
+        if (target.status === 'published') {
+            throw new common_1.BadRequestException('published template cannot be deleted');
+        }
+        await this.promptTemplateModel.deleteOne({ _id: target._id }).exec();
+        return {
+            deleted: true,
+            templateId,
+            scene: target.scene,
+            role: target.role,
+            version: target.version,
+            status: target.status,
+        };
+    }
+    normalizeDraftInput(input) {
+        const normalizedScene = String(input.scene || '').trim();
+        const normalizedRole = String(input.role || '').trim();
+        const normalizedContent = String(input.content || '').trim();
+        const normalizedDescription = String(input.description || '').trim();
+        const normalizedCategory = String(input.category || '').trim();
+        const normalizedTags = Array.from(new Set((Array.isArray(input.tags) ? input.tags : [])
+            .map((item) => String(item || '').trim())
+            .filter(Boolean)));
+        if (!normalizedScene || !normalizedRole || !normalizedContent) {
+            throw new common_1.BadRequestException('scene, role, content are required');
+        }
+        let normalizedSource;
+        if (input.source) {
+            const sourceType = String(input.source.type || '').trim();
+            if (!sourceType || !['github', 'manual', 'internal'].includes(sourceType)) {
+                throw new common_1.BadRequestException('source.type must be github | manual | internal');
+            }
+            normalizedSource = {
+                type: sourceType,
+                repo: String(input.source.repo || '').trim() || undefined,
+                path: String(input.source.path || '').trim() || undefined,
+                importedAt: input.source.importedAt instanceof Date ? input.source.importedAt : new Date(),
+            };
+        }
+        return {
+            scene: normalizedScene,
+            role: normalizedRole,
+            content: normalizedContent,
+            description: normalizedDescription || undefined,
+            category: normalizedCategory || undefined,
+            tags: normalizedTags.length ? normalizedTags : undefined,
+            source: normalizedSource,
+        };
+    }
+    async getLatestVersion(scene, role) {
+        return this.promptTemplateModel.findOne({ scene, role }).sort({ version: -1 }).exec();
+    }
+    async createAudit(input) {
+        await this.promptTemplateAuditModel.create({
+            scene: input.scene,
+            role: input.role,
+            action: input.action,
+            version: input.version,
+            fromVersion: input.fromVersion,
+            operatorId: String(input.operatorId || '').trim() || undefined,
+            summary: String(input.summary || '').trim() || undefined,
+            createdAt: new Date(),
+        });
+    }
+};
+exports.PromptRegistryAdminService = PromptRegistryAdminService;
+exports.PromptRegistryAdminService = PromptRegistryAdminService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_1.InjectModel)(prompt_template_schema_1.PromptTemplate.name)),
+    __param(1, (0, mongoose_1.InjectModel)(prompt_template_audit_schema_1.PromptTemplateAudit.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        prompt_resolver_service_1.PromptResolverService])
+], PromptRegistryAdminService);
+//# sourceMappingURL=prompt-registry-admin.service.js.map

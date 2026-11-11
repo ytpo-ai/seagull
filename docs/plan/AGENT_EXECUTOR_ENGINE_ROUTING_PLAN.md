@@ -17,8 +17,8 @@
 
 ## 3. 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/agents/agent-executor.service.ts` 执行编排主入口。
-- 后端：`backend/apps/agents/src/modules/agents/` 新增 executor engine 协议、实现类与 DI 装配。
+- 后端：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` 执行编排主入口。
+- 后端：`app/backend/apps/agents/src/modules/agents/` 新增 executor engine 协议、实现类与 DI 装配。
 - 后端：涉及 OpenCode/native runtime 调用的依赖传递方式与后续扩展点。
 - 测试：`agent-executor.service.spec.ts` 及相关单测需要覆盖新的 engine 路由。
 - 文档：`docs/feature/AGENT_RUNTIME.md`、`docs/dailylog/`。

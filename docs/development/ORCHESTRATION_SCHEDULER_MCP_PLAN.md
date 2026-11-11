@@ -38,8 +38,8 @@
 
 ## 关键文件
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - `docs/api/agents-api.md`
 - `docs/feature/ORCHETRATION_SCHEDULER.md`
 - `docs/plan/ORCHESTRATION_SCHEDULER_MCP_PLAN.md`

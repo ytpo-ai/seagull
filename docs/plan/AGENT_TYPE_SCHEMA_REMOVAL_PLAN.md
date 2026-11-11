@@ -47,7 +47,7 @@
 
 ## 6. 验收标准
 
-- `backend/src/shared/schemas/agent.schema.ts` 中不再存在 `type` 字段。
+- `app/backend/src/shared/schemas/agent.schema.ts` 中不再存在 `type` 字段。
 - 后端核心路径中不再读取 `agent.type` 或按 `agentType` 回退 profile。
 - `list-agents` 在无 `type` 数据时仍能正确按 role 判定 `exposed`。
 - 文档中权限与可见性描述统一为 role-only。

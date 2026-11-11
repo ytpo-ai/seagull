@@ -8,7 +8,7 @@
 
 ### 1. 问题概述
 
-`backend/apps/agents` 共 64 个 .ts 文件，合计 **19,941 行**。其中 **20 个文件超过 200 行**，前 3 个文件占全部代码的 48%：
+`app/backend/apps/agents` 共 64 个 .ts 文件，合计 **19,941 行**。其中 **20 个文件超过 200 行**，前 3 个文件占全部代码的 48%：
 
 | 排名 | 文件 | 行数 | 占比 |
 |------|------|------|------|
@@ -236,7 +236,7 @@ P3 （锦上添花）
 
 ### 1. 模块概览
 
-Orchestration 模块位于 `backend/src/modules/orchestration/`，是一个计划-执行工作流引擎，包含：
+Orchestration 模块位于 `app/backend/src/modules/orchestration/`，是一个计划-执行工作流引擎，包含：
 
 | 文件 | 行数 | 职责 |
 |------|------|------|
@@ -679,9 +679,9 @@ Phase 3: 架构加固（P2，持续改进）
 #### 1.1 审计范围与口径
 
 已审计目录：
-- `backend/src/shared/schemas/`
-- `backend/apps/agents/src/schemas/`
-- `backend/apps/engineering-intelligence/src/schemas/`
+- `app/backend/src/shared/schemas/`
+- `app/backend/apps/agents/src/schemas/`
+- `app/backend/apps/engineering-intelligence/src/schemas/`
 
 判定口径：
 - **一致**：显式声明 `@Schema({ collection: 'module_model' })` 且为 snake_case
@@ -719,8 +719,8 @@ Phase 3: 架构加固（P2，持续改进）
 #### 1.4 高风险结构问题：`AgentSession` 双定义
 
 `AgentSession` 在两个位置分别定义，且都未显式声明 collection：
-- `backend/src/shared/schemas/agent-session.schema.ts`
-- `backend/apps/agents/src/schemas/agent-session.schema.ts`
+- `app/backend/src/shared/schemas/agent-session.schema.ts`
+- `app/backend/apps/agents/src/schemas/agent-session.schema.ts`
 
 两者都会落到 `agentsessions`，且字段并不完全一致。该问题会造成：
 - 模型注册顺序敏感

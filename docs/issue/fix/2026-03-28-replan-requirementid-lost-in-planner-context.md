@@ -75,8 +75,8 @@ phasePostExecute() → sceneOptimizationService.applyPostExecuteOptimizations()
 **第一个疑问：上次的 requirementId 修复是否生效了？**
 
 检查 dist 编译产物：
-- `backend/dist/.../planner.service.js` 时间戳 `03:29`，包含 `context.requirementId`
-- `backend/dist/.../incremental-planning.service.js` 包含 `resolveRequirementIdFromPlan` 两处引用
+- `app/backend/dist/.../planner.service.js` 时间戳 `03:29`，包含 `context.requirementId`
+- `app/backend/dist/.../incremental-planning.service.js` 包含 `resolveRequirementIdFromPlan` 两处引用
 
 修复代码已编译。但 planner 日志（03:30:32）仍显示 "no requirementId"。
 
@@ -212,7 +212,7 @@ replan
 
 ## 4. 涉及文件变更明细
 
-### `backend/src/modules/orchestration/planner.service.ts`
+### `app/backend/src/modules/orchestration/planner.service.ts`
 
 | 位置 | 变更内容 | 涉及修复 |
 |---|---|---|
@@ -221,7 +221,7 @@ replan
 | Line 660-662 | `extractRequirementAnchor` 优先使用 `context.requirementId` | A |
 | Line 499-510 | 首步豁免从 3 条扩展为完整的覆盖指令（含 list-agents 豁免 + JSON 模板） | B + D |
 
-### `backend/src/modules/orchestration/services/incremental-planning.service.ts`
+### `app/backend/src/modules/orchestration/services/incremental-planning.service.ts`
 
 | 位置 | 变更内容 | 涉及修复 |
 |---|---|---|

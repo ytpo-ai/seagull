@@ -15,7 +15,7 @@
 - 所有定时计划统一走：`dispatchSchedule -> 创建 schedule task -> executeStandaloneTask`。
 
 对应文件：
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
 
 ### 2.2 系统会议监控计划输入标准化
 
@@ -26,7 +26,7 @@
   - 提醒与结束消息模板
 
 对应文件：
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
 
 ### 2.3 历史计划兼容迁移
 
@@ -35,7 +35,7 @@
   - 同步刷新 interval 配置，避免旧配置残留
 
 对应文件：
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
 
 ## 3. 文档更新
 

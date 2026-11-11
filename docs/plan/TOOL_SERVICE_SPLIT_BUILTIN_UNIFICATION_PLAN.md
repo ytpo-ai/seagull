@@ -2,7 +2,7 @@
 
 ## 1. 背景
 
-`backend/apps/agents/src/modules/tools/tool.service.ts` 已膨胀至 **2664 行 / 87 个方法**，混合了 Tool Identity 解析、Registry CRUD、执行引擎、分发路由、内联工具实现、执行统计等 6 类职责。同时所有内部工具 handler 散落在 `tools/` 根目录，缺少统一组织。
+`app/backend/apps/agents/src/modules/tools/tool.service.ts` 已膨胀至 **2664 行 / 87 个方法**，混合了 Tool Identity 解析、Registry CRUD、执行引擎、分发路由、内联工具实现、执行统计等 6 类职责。同时所有内部工具 handler 散落在 `tools/` 根目录，缺少统一组织。
 
 ## 2. 目标
 

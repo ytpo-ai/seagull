@@ -55,10 +55,10 @@
 - `frontend/src/pages/RdConversation.tsx`
 - `frontend/src/services/rdConversationService.ts`
 - `frontend/src/components/Layout.tsx`
-- `backend/apps/ei/src/controllers/opencode.controller.ts`
-- `backend/apps/ei/src/services/opencode.service.ts`
-- `backend/apps/ei/src/services/management.service.ts`
-- `backend/apps/ei/src/services/opencode-client.service.ts`
+- `app/backend/apps/ei/src/controllers/opencode.controller.ts`
+- `app/backend/apps/ei/src/services/opencode.service.ts`
+- `app/backend/apps/ei/src/services/management.service.ts`
+- `app/backend/apps/ei/src/services/opencode-client.service.ts`
 
 ## 验证
 

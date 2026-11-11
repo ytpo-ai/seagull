@@ -31,30 +31,30 @@ WebSocket Service (3003) <------------- Redis Pub/Sub
 
 ## Monorepo 应用边界
 
-后端应用定义见 `backend/nest-cli.json`，当前包含 6 个应用：
+后端应用定义见 `app/backend/nest-cli.json`，当前包含 6 个应用：
 
-- `legacy`（`backend/src`）
+- `legacy`（`app/backend/src`）
   - 承载尚未拆分的历史业务模块。
   - 端口默认 `3001`，全局前缀 `/api`。
-- `gateway`（`backend/apps/gateway`）
+- `gateway`（`app/backend/apps/gateway`）
   - 统一入口、鉴权、请求签名、路由分发、操作日志落库。
   - 端口默认 `3100`。
-- `agents`（`backend/apps/agents`）
+- `agents`（`app/backend/apps/agents`）
   - 承载 Agent/Tools/Models/Skills 等核心执行能力。
   - 端口默认 `3002`，全局前缀 `/api`。
-- `ws`（`backend/apps/ws`）
+- `ws`（`app/backend/apps/ws`）
   - WebSocket 网关，订阅 Redis channel 并转发给前端。
   - 端口默认 `3003`，WS 路径 `/ws`（HTTP 服务器上）。
-- `ei`（`backend/apps/ei`）
+- `ei`（`app/backend/apps/ei`）
   - 独立承载研发智能文档分析能力。
   - 端口默认 `3004`，全局前缀 `/api`。
-- `channel`（`backend/apps/channel`）
+- `channel`（`app/backend/apps/channel`）
   - 消息通道服务，聚合多平台消息（飞书等）并转发至消息中心。
   - 端口默认 `3006`，全局前缀 `/api`。
 
 ## Gateway 分流策略
 
-实现位置：`backend/apps/gateway/src/gateway-proxy.service.ts`
+实现位置：`app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 - `/api/ei/**` 或 `/api/engineering-intelligence/**` -> `ENGINEERING_INTELLIGENCE_SERVICE_URL`（默认 `http://localhost:3004`）
 - `/api/agents/**` -> `AGENTS_SERVICE_URL`（默认 `http://localhost:3002`）
@@ -99,7 +99,7 @@ npm run dev                          # 前端 + 后端主流程
 npm run dev:ei                       # 单独启动研发智能服务
 ```
 
-后端单服务命令（`backend/package.json`）：
+后端单服务命令（`app/backend/package.json`）：
 
 ```bash
 npm run start:gateway -- --watch

@@ -17,7 +17,7 @@
 
 ## 3. 影响点
 
-- 后端：`backend/src/modules/message-center` 查询能力扩展。
+- 后端：`app/backend/src/modules/message-center` 查询能力扩展。
 - 前端：`frontend/src/services/messageCenterService.ts`、`frontend/src/pages/MessageCenter.tsx`。
 - 数据库：读取 `inner_messages`，不改集合结构。
 

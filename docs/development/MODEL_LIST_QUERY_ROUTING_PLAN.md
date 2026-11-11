@@ -7,22 +7,22 @@
 ## 本次实现
 
 1. 新增模型列表 MCP 工具 `model_mcp_list_models`
-   - 位置：`backend/apps/agents/src/modules/tools/tool.service.ts`
+   - 位置：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
    - 能力：读取系统当前模型库，支持 `provider` 与 `limit` 参数
    - 输出：`id/name/provider/model/maxTokens/temperature/topP`
 
 2. 模型管理 Agent 工具集与提示词强化
-   - 位置：`backend/apps/agents/src/modules/agents/agent.service.ts`
+   - 位置：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
    - 调整：`MODEL_MANAGEMENT_AGENT_TOOLS` 增加 `model_mcp_list_models`
    - 约束：当用户询问模型列表时，必须先调用 `model_mcp_list_models`
 
 3. 会议意图路由增强
-   - 位置：`backend/src/modules/meetings/meeting.service.ts`
+   - 位置：`app/backend/src/modules/meetings/meeting.service.ts`
    - 新增：`isModelListIntent`、`isModelManagementIntent`
    - 行为：命中“模型列表”或“最新模型搜索”时，优先路由 `Model Management Agent`
 
 4. 会议上下文约束补充
-   - 位置：`backend/src/modules/meetings/meeting.service.ts`
+   - 位置：`app/backend/src/modules/meetings/meeting.service.ts`
    - 规则：模型列表场景必须返回模型字段结构，禁止回答 Agent 列表
 
 5. 文档更新

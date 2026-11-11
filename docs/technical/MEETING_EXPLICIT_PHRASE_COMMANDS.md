@@ -24,7 +24,7 @@
 
 ## 4. 前后端联动
 
-- 后端：`backend/src/modules/meetings/meeting.service.ts`
+- 后端：`app/backend/src/modules/meetings/meeting.service.ts`
   - `extractBracketCommands`
   - `hasBracketPhraseIntent`
   - `is*Intent` 系列方法

@@ -438,16 +438,16 @@ Auth API -> Caller: access_token + expires_in
 
 建议落点：
 
-1. `backend/apps/agents/src/modules/auth/**`
+1. `app/backend/apps/agents/src/modules/auth/**`
    - credential service
    - token issuer
    - jwt guard
-2. `backend/apps/agents/src/modules/tools/tool.service.ts`
+2. `app/backend/apps/agents/src/modules/tools/tool.service.ts`
    - 统一授权链收敛
    - input/output 安全处理
-3. `backend/apps/agents/src/modules/tools/internal-api-client.service.ts`
+3. `app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts`
    - 真实 actor 透传
-4. `backend/src/shared/schemas/**`
+4. `app/backend/src/shared/schemas/**`
    - `agentCredential.schema.ts`
    - `tokenRevocation.schema.ts`（可选）
 

@@ -21,8 +21,8 @@
 
 ### 2.1 范围
 
-- `backend/apps/agents/src/modules/tools/**`
-- `backend/apps/agents/src/modules/agents/**`（授权来源与白名单收敛）
+- `app/backend/apps/agents/src/modules/tools/**`
+- `app/backend/apps/agents/src/modules/agents/**`（授权来源与白名单收敛）
 - 新增认证与密钥管理模块（Agent Credential + Token Issuer + Guard）
 - 工具执行入口鉴权链、输入强校验、输出净化、审计扩展
 - 配置校验、灰度开关、安全回归测试
@@ -162,10 +162,10 @@
 
 | 问题 | 解决动作 | 核心文件（计划） |
 |---|---|---|
-| N-17/N-32 | 移除默认密钥 + 启动 fail-fast | `backend/apps/agents/src/modules/tools/internal-api-client.service.ts` + 配置模块 |
-| N-30 | 统一鉴权链（enabled/whitelist/requiredPermissions/scope） | `backend/apps/agents/src/modules/tools/tool.service.ts` |
-| N-31 | 透传真实 actor + token 主体审计 | `backend/apps/agents/src/modules/tools/internal-api-client.service.ts` |
-| N-33 | input 强校验 + output 净化 | `backend/apps/agents/src/modules/tools/tool.service.ts` + validator/sanitizer |
+| N-17/N-32 | 移除默认密钥 + 启动 fail-fast | `app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts` + 配置模块 |
+| N-30 | 统一鉴权链（enabled/whitelist/requiredPermissions/scope） | `app/backend/apps/agents/src/modules/tools/tool.service.ts` |
+| N-31 | 透传真实 actor + token 主体审计 | `app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts` |
+| N-33 | input 强校验 + output 净化 | `app/backend/apps/agents/src/modules/tools/tool.service.ts` + validator/sanitizer |
 | 外部调用安全 | agent credential exchange + JWT guard | auth module + controller/guard |
 
 ---
@@ -182,7 +182,7 @@
 
 ## 10. 验证命令
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

@@ -51,7 +51,7 @@
 - **前端布局**：`frontend/src/components/Layout.tsx`
 - **前端页面/组件**：`frontend/src/pages/discussions/DiscussionDetail.tsx`、`frontend/src/components/discussion/SedimentPanel.tsx`
 - **前端服务**：`frontend/src/services/discussionService.ts`
-- **后端接口**：`backend/src/modules/discussions/discussion.controller.ts`、`backend/src/modules/discussions/services/discussion-sediment.service.ts`、`backend/src/modules/discussions/discussion.types.ts`
+- **后端接口**：`app/backend/src/modules/discussions/discussion.controller.ts`、`app/backend/src/modules/discussions/services/discussion-sediment.service.ts`、`app/backend/src/modules/discussions/discussion.types.ts`
 
 ## 4. 交付物与追溯
 

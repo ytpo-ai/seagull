@@ -8,27 +8,27 @@
 ## 本次实现
 
 1. **新增工具参数契约读取能力（按需）**
-   - 文件：`backend/apps/agents/src/modules/tools/tool.service.ts`
+   - 文件：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
    - 新增 `getToolInputContract(toolId)`，统一从 `inputSchema` 与 `implementation.parameters` 提取工具入参契约。
    - 新增归一化逻辑：支持标准 JSON Schema 与历史 `{ field: "string" }` 形态，输出统一 `type/properties/required/additionalProperties` 结构。
 
 2. **运行时失败后单工具 schema 修复重试**
-   - 文件：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+   - 文件：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
    - 在工具失败分支识别参数类错误后，仅查询当前失败工具契约并追加修复指令。
    - 修复指令要求模型只输出新的 `<tool_call>`，避免冗余解释。
    - 默认路径仍保持轻量工具注入，不做全量 schema 常驻。
 
 3. **内置 send-internal-message 升级为标准 JSON Schema**
-   - 文件：`backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
+   - 文件：`app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
    - 将参数定义改为对象 schema，显式声明：
      - `required`: `receiverAgentId/title/content`
      - `additionalProperties: false`
    - 让关键必填约束直接来自工具定义。
 
 4. **测试补充**
-   - 文件：`backend/apps/agents/src/modules/tools/tool.service.spec.ts`
+   - 文件：`app/backend/apps/agents/src/modules/tools/tool.service.spec.ts`
      - 增加“input contract 归一化”测试：覆盖标准 schema 与历史参数 map。
-   - 文件：`backend/apps/agents/src/modules/agents/agent-executor.service.spec.ts`
+   - 文件：`app/backend/apps/agents/src/modules/agents/agent-executor.service.spec.ts`
      - 增加“参数错误识别/修复指令构造”测试。
 
 ## 验证结果

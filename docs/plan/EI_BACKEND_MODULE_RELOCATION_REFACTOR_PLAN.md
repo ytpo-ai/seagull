@@ -2,7 +2,7 @@
 
 ## 1. 背景与目标
 
-- 当前 `backend/src/modules` 中仍有工程智能（EI）相关实现，职责与 `apps/engineering-intelligence` 边界不清晰。
+- 当前 `app/backend/src/modules` 中仍有工程智能（EI）相关实现，职责与 `apps/engineering-intelligence` 边界不清晰。
 - 现有 Controller/Service 存在按功能堆叠的问题，不利于后续扩展与维护。
 - 本次目标是完成两件事：
   - EI 后端代码从 legacy backend 迁移到 `apps/engineering-intelligence`。
@@ -12,8 +12,8 @@
 
 ### 2.1 包含范围
 
-- `backend/src/modules` 下 EI 相关模块、子模块、DTO、Schema 引用、测试用例。
-- `backend/apps/engineering-intelligence/src` 内的 module/controller/service 重组。
+- `app/backend/src/modules` 下 EI 相关模块、子模块、DTO、Schema 引用、测试用例。
+- `app/backend/apps/engineering-intelligence/src` 内的 module/controller/service 重组。
 - EI 对外 API 设计调整（资源化拆分、状态码与错误语义统一）。
 - 前端 EI 页面路由从 `/engineering-intelligence` 调整为 `/ei`（含兼容跳转策略）。
 - API 文档与技术方案文档更新。
@@ -132,7 +132,7 @@ Service 对应按资源同名拆分，不再保留“全量 EI 业务”聚合 S
 
 ## 9. 验收标准
 
-- EI 业务代码从 `backend/src/modules` 迁移到 `apps/engineering-intelligence`。
+- EI 业务代码从 `app/backend/src/modules` 迁移到 `apps/engineering-intelligence`。
 - Controller/Service 按资源拆分完成，无单文件聚合实现。
 - API 文档完成新结构定义，并附带旧到新映射。
 - lint/typecheck/test 通过，调用链路可用。
@@ -143,7 +143,7 @@ Service 对应按资源同名拆分，不再保留“全量 EI 业务”聚合 S
 
 ### 10.1 背景
 
-- 当前 `backend/apps/ei/src/modules/engineering-intelligence` 仍使用聚合式 `controllers/services/dto` 布局，且存在 `ei-` 文件名前缀。
+- 当前 `app/backend/apps/ei/src/modules/engineering-intelligence` 仍使用聚合式 `controllers/services/dto` 布局，且存在 `ei-` 文件名前缀。
 - 本轮决策不再继续按资源建立独立 module 目录。
 - 目标调整为：将 `controllers/services/dto` 上移到应用级 `src`，并统一移除 `ei-` 文件名前缀。
 

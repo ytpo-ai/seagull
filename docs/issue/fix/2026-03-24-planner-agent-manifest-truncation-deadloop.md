@@ -68,10 +68,10 @@ Agent Manifest 截断（2000 字符）
 
 | 文件 | 行号 | 说明 |
 |---|---|---|
-| `backend/src/modules/orchestration/services/planning-context.service.ts` | 47-48, 219-220 | `AGENT_MANIFEST_MAX_LENGTH` 截断逻辑 |
-| `backend/src/modules/orchestration/services/planning-context.service.ts` | 110-220 | `buildAgentManifest` 全流程 |
-| `backend/src/modules/orchestration/planner.service.ts` | 330-335 | Manifest 注入到 Planner Prompt |
-| `backend/src/modules/orchestration/services/incremental-planning.service.ts` | 297-350 | `buildPlannerContext` 组装上下文 |
+| `app/backend/src/modules/orchestration/services/planning-context.service.ts` | 47-48, 219-220 | `AGENT_MANIFEST_MAX_LENGTH` 截断逻辑 |
+| `app/backend/src/modules/orchestration/services/planning-context.service.ts` | 110-220 | `buildAgentManifest` 全流程 |
+| `app/backend/src/modules/orchestration/planner.service.ts` | 330-335 | Manifest 注入到 Planner Prompt |
+| `app/backend/src/modules/orchestration/services/incremental-planning.service.ts` | 297-350 | `buildPlannerContext` 组装上下文 |
 
 ## 4. 已执行的修复动作
 
@@ -128,7 +128,7 @@ sections.push('F) **【禁止】生成验证/预检类元任务**：你已拥有
 
 1. **误判一：以为问题是 Planner 不应生成"验证工具"的元任务**。仅看了第一轮 replan 的失败结果（`task_inability`），没有查数据库验证系统中是否真的存在具备工具的 Agent。实际上系统中有 Docter-W 和 Coder-T 两个 Agent 完全具备所需工具，问题在于 Planner 看不到它们。
 
-2. **误判二：以为种子数据中没有分配这两个工具**。只检查了 `backend/scripts/seed/mcp-profile.ts` 的种子文件代码，得出"没有任何 Agent 被分配 repo-writer/save-prompt-template"的错误结论。实际上种子文件只是初始数据，Agent 的工具配置在运行时已通过 UI/API 被修改。**必须查数据库才能确认实际状态**。
+2. **误判二：以为种子数据中没有分配这两个工具**。只检查了 `app/backend/scripts/seed/mcp-profile.ts` 的种子文件代码，得出"没有任何 Agent 被分配 repo-writer/save-prompt-template"的错误结论。实际上种子文件只是初始数据，Agent 的工具配置在运行时已通过 UI/API 被修改。**必须查数据库才能确认实际状态**。
 
    数据库实际情况：
    - `agent_profiles` 中 `technical-architect` 和 `fullstack-engineer` 两个角色已配置了这两个工具

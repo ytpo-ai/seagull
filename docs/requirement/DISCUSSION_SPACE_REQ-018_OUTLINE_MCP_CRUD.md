@@ -40,7 +40,7 @@
 
 ### 影响范围
 
-- **后端**：`backend/apps/agents/src/modules/tools/`、`backend/src/modules/discussions/services/discussion-outline.service.ts`
+- **后端**：`app/backend/apps/agents/src/modules/tools/`、`app/backend/src/modules/discussions/services/discussion-outline.service.ts`
 - **前端**：无直接变更
 - **数据库**：无 schema 变更
 - **API**：新增工具动作入口（通过 `tools execute` 分发）

@@ -75,8 +75,8 @@
 - `frontend/src/pages/Meetings.tsx`
 - `frontend/src/pages/Agents.tsx`
 - `frontend/src/services/meetingService.ts`
-- `backend/src/modules/meetings/meeting.controller.ts`
-- `backend/src/modules/meetings/meeting.service.ts`
+- `app/backend/src/modules/meetings/meeting.controller.ts`
+- `app/backend/src/modules/meetings/meeting.service.ts`
 - `README.md`
 - `docs/api/API.md`
 - `docs/plan/MEETING_CHAT_UPGRADE_PLAN.md`

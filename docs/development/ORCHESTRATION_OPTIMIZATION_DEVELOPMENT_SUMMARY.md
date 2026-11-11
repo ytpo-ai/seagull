@@ -15,9 +15,9 @@
 ## 实施范围
 
 ### 后端
-- `backend/src/modules/orchestration/orchestration.service.ts`：删除计划前检查关联定时服务
-- `backend/src/modules/orchestration/scheduler/scheduler.controller.ts`：新增按 planId 查询接口
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`：新增按 planId 查询方法
+- `app/backend/src/modules/orchestration/orchestration.service.ts`：删除计划前检查关联定时服务
+- `app/backend/src/modules/orchestration/scheduler/scheduler.controller.ts`：新增按 planId 查询接口
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`：新增按 planId 查询方法
 
 ### 前端
 - `frontend/src/pages/PlanDetail.tsx`：新增计划详情独立页面

@@ -28,5 +28,5 @@
 
 ## 3. 影响范围
 
-- 后端：`backend/src/modules/discussions/services/discussion-message.service.ts`
-- 后端：`backend/src/shared/schemas/discussion-message.schema.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-message.service.ts`
+- 后端：`app/backend/src/shared/schemas/discussion-message.schema.ts`

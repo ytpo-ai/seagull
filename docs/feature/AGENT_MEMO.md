@@ -13,7 +13,7 @@
 ### 1.2 数据结构
 
 ```typescript
-// Schema 定义: backend/apps/agents/src/schemas/agent-memo.schema.ts
+// Schema 定义: app/backend/apps/agents/src/schemas/agent-memo.schema.ts
 type MemoKind =
   | 'identity'
   | 'todo'
@@ -266,7 +266,7 @@ type MemoType = 'knowledge' | 'standard';
 
 ## 3. 相关代码文件
 
-### 后端 (backend/apps/agents/src/)
+### 后端 (app/backend/apps/agents/src/)
 
 #### Schema 定义
 
@@ -296,7 +296,7 @@ type MemoType = 'knowledge' | 'standard';
 | `modules/memos/evaluation-aggregation.service.ts` | Evaluation 工作评估聚合，从 AgentRun/AgentPart 表聚合 |
 | `modules/memos/deduction-aggregation.service.ts` | Deduction 扣分记录聚合，从 AgentRunScore 表聚合，分层数据策略（近期覆盖 + 历史增量） |
 
-### 调度承接（backend/src/）
+### 调度承接（app/backend/src/）
 
 | 文件 | 功能 |
 |------|------|

@@ -82,9 +82,9 @@
 
 | 文件 | 改动类型 |
 |------|---------|
-| `backend/src/shared/schemas/orchestration-plan.schema.ts` | Schema 注释 |
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | Session 写入修复 |
-| `backend/src/modules/orchestration/planner.service.ts` | Prompt 阶段隔离声明 |
-| `backend/src/modules/orchestration/services/orchestration-context.service.ts` | Pre/post prompt 阶段隔离声明 |
-| `backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | Skill 裁剪 |
-| `backend/apps/agents/src/modules/agents/agent-executor.service.ts` | Planner 纯文本 retry |
+| `app/backend/src/shared/schemas/orchestration-plan.schema.ts` | Schema 注释 |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | Session 写入修复 |
+| `app/backend/src/modules/orchestration/planner.service.ts` | Prompt 阶段隔离声明 |
+| `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` | Pre/post prompt 阶段隔离声明 |
+| `app/backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | Skill 裁剪 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` | Planner 纯文本 retry |

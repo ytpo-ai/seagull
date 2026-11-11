@@ -63,9 +63,9 @@
 ## 4. 关键影响点
 
 - 后端
-  - `backend/src/modules/orchestration`（任务分配/完成触发消息）
-  - 新增 `backend/src/modules/inner-message`（分发与状态管理）
-  - 新增 `backend/src/shared/schemas` 消息与订阅模型
+  - `app/backend/src/modules/orchestration`（任务分配/完成触发消息）
+  - 新增 `app/backend/src/modules/inner-message`（分发与状态管理）
+  - 新增 `app/backend/src/shared/schemas` 消息与订阅模型
 - Redis
   - 新增 Agent 消息分发队列与死信队列
 - 文档

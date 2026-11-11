@@ -14,33 +14,33 @@
 
 ### 1) 领域模型与索引
 
-- 新增 `Skill` schema：`backend/src/shared/schemas/skill.schema.ts`
+- 新增 `Skill` schema：`app/backend/src/shared/schemas/skill.schema.ts`
   - 关键字段：`slug`、`provider`、`version`、`status`、`confidenceScore`
   - 索引：`slug + provider + version` 唯一索引
-- 新增 `AgentSkill` schema：`backend/src/shared/schemas/agent-skill.schema.ts`
+- 新增 `AgentSkill` schema：`app/backend/src/shared/schemas/agent-skill.schema.ts`
   - 关键字段：`agentId`、`skillId`、`proficiencyLevel`
   - 索引：`agentId + skillId` 唯一索引
-- 新增 `SkillSuggestion` schema：`backend/src/shared/schemas/skill-suggestion.schema.ts`
+- 新增 `SkillSuggestion` schema：`app/backend/src/shared/schemas/skill-suggestion.schema.ts`
   - 关键字段：`reason`、`priority`、`status`、`score`
   - 索引：`agentId + status + createdAt`
 
 ### 2) 模块与服务
 
-- 新增模块：`backend/src/modules/skills/skill.module.ts`
-- 新增服务：`backend/src/modules/skills/skill.service.ts`
+- 新增模块：`app/backend/src/modules/skills/skill.module.ts`
+- 新增服务：`app/backend/src/modules/skills/skill.service.ts`
   - Skill CRUD
   - Agent 绑定技能
   - AgentSkillManager 检索入库（`discoverSkillsFromInternet`）
   - AgentSkillManager 建议生成（`suggestSkillsForAgent`）
   - 建议审核与应用（`reviewSuggestion`）
   - 文档重建（`rebuildSkillDocs`）
-- 新增控制器：`backend/src/modules/skills/skill.controller.ts`
-- 新增文档同步服务：`backend/src/modules/skills/skill-doc-sync.service.ts`
+- 新增控制器：`app/backend/src/modules/skills/skill.controller.ts`
+- 新增文档同步服务：`app/backend/src/modules/skills/skill-doc-sync.service.ts`
 
 ### 3) 应用接入
 
-- 在主应用模块注册 skills 模块：`backend/src/app.module.ts`
-- 扩展共享类型：`backend/src/shared/types.ts`
+- 在主应用模块注册 skills 模块：`app/backend/src/app.module.ts`
+- 扩展共享类型：`app/backend/src/shared/types.ts`
 
 ### 4) 文档双轨维护
 
@@ -79,7 +79,7 @@
 - `npm run lint`：失败（当前仓库缺少 ESLint 配置文件）
 - `npm test -- skill.service.spec.ts`：失败（当前 Jest TS 转换配置与测试文件不兼容）
 
-新增测试文件：`backend/src/modules/skills/skill.service.spec.ts`
+新增测试文件：`app/backend/src/modules/skills/skill.service.spec.ts`
 
 ## 已知限制与后续建议
 
@@ -156,7 +156,7 @@
 
 根据最新架构建议，skills 相关后端能力已迁移至 `apps/agents`：
 
-1. 模块迁移到：`backend/apps/agents/src/modules/skills/`
+1. 模块迁移到：`app/backend/apps/agents/src/modules/skills/`
 2. `AgentsAppModule` 已注册 `SkillModule`
 3. Gateway 已将 `/api/skills` 路由转发到 agents service
 4. Legacy app 已移除 `SkillModule` 注册，避免双入口重复
@@ -171,15 +171,15 @@
 
 为进一步统一领域边界，已将 skills 相关 schema 收拢到 agents app：
 
-- `backend/apps/agents/src/schemas/skill.schema.ts`
-- `backend/apps/agents/src/schemas/agent-skill.schema.ts`
-- `backend/apps/agents/src/schemas/skill-suggestion.schema.ts`
+- `app/backend/apps/agents/src/schemas/skill.schema.ts`
+- `app/backend/apps/agents/src/schemas/agent-skill.schema.ts`
+- `app/backend/apps/agents/src/schemas/skill-suggestion.schema.ts`
 
 同时为兼容历史引用，保留 shared 路径的 re-export：
 
-- `backend/src/shared/schemas/skill.schema.ts`
-- `backend/src/shared/schemas/agent-skill.schema.ts`
-- `backend/src/shared/schemas/skill-suggestion.schema.ts`
+- `app/backend/src/shared/schemas/skill.schema.ts`
+- `app/backend/src/shared/schemas/agent-skill.schema.ts`
+- `app/backend/src/shared/schemas/skill-suggestion.schema.ts`
 
 当前策略为“领域内实现 + 兼容层过渡”，后续可在确认无外部引用后移除兼容层。
 
@@ -196,8 +196,8 @@
 
 关键文件：
 
-- `backend/apps/agents/src/modules/agents/agent.module.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.module.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 验证方式：
 

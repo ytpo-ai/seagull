@@ -23,12 +23,12 @@
 
 | 文件 | 职责 |
 |---|---|
-| `backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts` | 任务执行主循环、超时策略选择 |
-| `backend/apps/agents/src/modules/agent-tasks/agent-task.service.ts` | 任务状态管理、默认超时写入 |
-| `backend/apps/agents/src/modules/opencode/opencode.adapter.ts` | HTTP 请求超时、活动探测、SSE 流 |
-| `backend/apps/agents/src/modules/opencode/opencode-execution.service.ts` | 执行桥接、AbortController、cancel 重试 |
-| `backend/apps/agents/src/modules/opencode/contracts/opencode.contract.ts` | 类型定义 |
-| `backend/apps/agents/src/schemas/agent-task.schema.ts` | 数据模型（stepTimeoutMs / taskTimeoutMs） |
+| `app/backend/apps/agents/src/modules/agent-tasks/agent-task.worker.ts` | 任务执行主循环、超时策略选择 |
+| `app/backend/apps/agents/src/modules/agent-tasks/agent-task.service.ts` | 任务状态管理、默认超时写入 |
+| `app/backend/apps/agents/src/modules/opencode/opencode.adapter.ts` | HTTP 请求超时、活动探测、SSE 流 |
+| `app/backend/apps/agents/src/modules/opencode/opencode-execution.service.ts` | 执行桥接、AbortController、cancel 重试 |
+| `app/backend/apps/agents/src/modules/opencode/contracts/opencode.contract.ts` | 类型定义 |
+| `app/backend/apps/agents/src/schemas/agent-task.schema.ts` | 数据模型（stepTimeoutMs / taskTimeoutMs） |
 
 ---
 

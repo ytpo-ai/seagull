@@ -42,7 +42,7 @@
 
 ### 3.3 统一质量门禁
 
-在 `backend/` 目录执行：
+在 `app/backend/` 目录执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

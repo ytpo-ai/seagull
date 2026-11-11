@@ -43,7 +43,7 @@
 
 ### 影响范围
 
-- **后端**：`backend/src/modules/discussions/discussion.controller.ts`、`backend/src/modules/discussions/services/discussion-thread.service.ts`、`backend/src/modules/discussions/discussion.types.ts`
+- **后端**：`app/backend/src/modules/discussions/discussion.controller.ts`、`app/backend/src/modules/discussions/services/discussion-thread.service.ts`、`app/backend/src/modules/discussions/discussion.types.ts`
 - **前端**：`frontend/src/components/discussion/ThreadTree.tsx`、`frontend/src/pages/discussions/DiscussionDetail.tsx`
 - **前端服务**：`frontend/src/services/discussionService.ts`
 - **数据库**：`discussion_threads`、`discussion_messages`、`discussion_knowledge_entries` 级联删除

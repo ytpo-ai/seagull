@@ -36,7 +36,7 @@
 
 ### 影响范围
 
-- **后端**：`backend/src/modules/orchestration/dto/index.ts`、`backend/src/modules/orchestration/services/plan-management.service.ts`
+- **后端**：`app/backend/src/modules/orchestration/dto/index.ts`、`app/backend/src/modules/orchestration/services/plan-management.service.ts`
 - **前端**：`frontend/src/pages/orchestration/index.tsx`、`frontend/src/pages/orchestration/components/CreatePlanModal.tsx`、`frontend/src/services/orchestrationService.ts`
 - **数据库**：复用 `orchestration_plans.strategy.skillActivation`
 - **API**：`POST /orchestration/plans/from-prompt` 请求体新增可选 `skillActivation`

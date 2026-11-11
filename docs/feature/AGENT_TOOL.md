@@ -10,7 +10,7 @@
 
 ### 1.2 数据结构
 
-当前核心数据结构位于 `backend/src/shared/schemas/`：
+当前核心数据结构位于 `app/backend/src/shared/schemas/`：
 
 | 集合 | Schema 文件 | 说明 |
 |------|-------------|------|
@@ -102,7 +102,7 @@
 
 ## 3. 相关代码文件
 
-### 后端 Tools 模块 (backend/apps/agents/src/modules/tools/)
+### 后端 Tools 模块 (app/backend/apps/agents/src/modules/tools/)
 
 | 文件 | 功能 |
 |------|------|
@@ -137,7 +137,7 @@
 | `gh-repo-docs-reader-mcp.util.ts` | 文档检索类工具实现 |
 | `gh-repo-updates-mcp.util.ts` | 更新摘要类工具实现 |
 
-### Agents Schema (backend/apps/agents/src/schemas/)
+### Agents Schema (app/backend/apps/agents/src/schemas/)
 
 | 文件 | 功能 |
 |------|------|
@@ -148,9 +148,9 @@
 
 | 文件 | 功能 |
 |------|------|
-| `backend/apps/agents/src/modules/agents/agent.service.ts` | Agent 运行链路中的工具可用集与调用协同 |
-| `backend/apps/gateway/src/gateway-proxy.service.ts` | `/api/tools/**` 网关分流与日志透传 |
-| `backend/src/modules/agents-client/agent-client.service.ts` | legacy 后端访问 agents 服务时的工具执行历史查询（`getToolExecutions`） |
+| `app/backend/apps/agents/src/modules/agents/agent.service.ts` | Agent 运行链路中的工具可用集与调用协同 |
+| `app/backend/apps/gateway/src/gateway-proxy.service.ts` | `/api/tools/**` 网关分流与日志透传 |
+| `app/backend/src/modules/agents-client/agent-client.service.ts` | legacy 后端访问 agents 服务时的工具执行历史查询（`getToolExecutions`） |
 
 ### 前端 Tools 页面 (frontend/src/)
 

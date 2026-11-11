@@ -2,7 +2,7 @@
 
 ## 目标
 
-- 将角色（Agent-role）主数据与管理能力收敛到 `backend/apps/agents`，不再依赖 legacy `/roles` 作为运行时强依赖。
+- 将角色（Agent-role）主数据与管理能力收敛到 `app/backend/apps/agents`，不再依赖 legacy `/roles` 作为运行时强依赖。
 - 保持 Agent 主流程（创建/编辑/执行）角色语义稳定，避免迁移期间影响 `roleId -> role.code` 权限链路。
 - 统一前后端角色访问口径到 `/agents/roles*`，并保留短期兼容策略降低切换风险。
 

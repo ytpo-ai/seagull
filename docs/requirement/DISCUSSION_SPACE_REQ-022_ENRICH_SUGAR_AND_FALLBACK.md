@@ -30,5 +30,5 @@
 ## 3. 影响范围
 
 - 前端：`frontend/src/pages/discussions/DiscussionDetail.tsx`
-- 后端：`backend/src/modules/discussions/services/discussion-outline.service.ts`
-- 测试：`backend/src/modules/discussions/services/discussion-outline.service.spec.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-outline.service.ts`
+- 测试：`app/backend/src/modules/discussions/services/discussion-outline.service.spec.ts`

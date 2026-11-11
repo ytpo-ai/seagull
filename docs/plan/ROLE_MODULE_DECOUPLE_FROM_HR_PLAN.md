@@ -8,7 +8,7 @@
 
 ## 执行步骤
 
-1. 新增 `backend/src/modules/roles` 模块并迁移角色 CRUD 与同步逻辑。
+1. 新增 `app/backend/src/modules/roles` 模块并迁移角色 CRUD 与同步逻辑。
 2. 从 `hr` 模块删除角色路由与角色服务代码，保留纯 HR 能力。
 3. 更新 legacy `AppModule` 注入 `RolesModule`。
 4. 更新 agents 与 frontend 调用路径（`/hr/roles*` -> `/roles*`）。

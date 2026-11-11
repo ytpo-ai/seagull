@@ -8,13 +8,13 @@
 
 ### 阶段一：字段与映射落地
 
-- 新增统一 tier 映射与规则能力：`backend/src/shared/role-tier.ts`。
+- 新增统一 tier 映射与规则能力：`app/backend/src/shared/role-tier.ts`。
 - 为 `agent`、`employee`、`agent_role` 三类核心 Schema 增加 `tier` 字段并接入类型系统。
 - 修复一致性问题：
   - `employee.schema` 补齐 `userId` 明确字段定义。
   - 专属助理默认 roleId 统一为 `role-human-exclusive-assistant`。
 - 角色 seed 增加 `tier` 写入，保障新环境初始化一致。
-- 新增历史数据迁移脚本 `backend/scripts/migrate-role-tier.ts`，并注册 `migrate:role-tier` 命令。
+- 新增历史数据迁移脚本 `app/backend/scripts/migrate-role-tier.ts`，并注册 `migrate:role-tier` 命令。
 
 ### 阶段二：运行时守卫落地
 
@@ -37,16 +37,16 @@
 ## 主要影响文件
 
 - 后端
-  - `backend/src/shared/role-tier.ts`
-  - `backend/src/shared/schemas/agent.schema.ts`
-  - `backend/src/shared/schemas/employee.schema.ts`
-  - `backend/src/shared/schemas/agent-role.schema.ts`
-  - `backend/src/modules/roles/roles.service.ts`
-  - `backend/src/modules/employees/employee.service.ts`
-  - `backend/src/modules/orchestration/orchestration.service.ts`
-  - `backend/src/modules/orchestration/services/executor-selection.service.ts`
-  - `backend/apps/agents/src/modules/tools/tool.service.ts`
-  - `backend/scripts/migrate-role-tier.ts`
+  - `app/backend/src/shared/role-tier.ts`
+  - `app/backend/src/shared/schemas/agent.schema.ts`
+  - `app/backend/src/shared/schemas/employee.schema.ts`
+  - `app/backend/src/shared/schemas/agent-role.schema.ts`
+  - `app/backend/src/modules/roles/roles.service.ts`
+  - `app/backend/src/modules/employees/employee.service.ts`
+  - `app/backend/src/modules/orchestration/orchestration.service.ts`
+  - `app/backend/src/modules/orchestration/services/executor-selection.service.ts`
+  - `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+  - `app/backend/scripts/migrate-role-tier.ts`
 - 前端
   - `frontend/src/pages/Agents.tsx`
   - `frontend/src/pages/EmployeeManagement.tsx`

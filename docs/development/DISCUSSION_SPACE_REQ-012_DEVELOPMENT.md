@@ -16,9 +16,9 @@
 ## 3. 影响文件
 
 - 后端：
-  - `backend/apps/ei/src/app.module.ts`
-  - `backend/apps/ei/src/services/incubation-project-aggregation.service.ts`
-  - `backend/apps/ei/src/controllers/incubation-projects.controller.ts`
+  - `app/backend/apps/ei/src/app.module.ts`
+  - `app/backend/apps/ei/src/services/incubation-project-aggregation.service.ts`
+  - `app/backend/apps/ei/src/controllers/incubation-projects.controller.ts`
 - 前端：
   - `frontend/src/services/incubationProjectService.ts`
   - `frontend/src/pages/IncubationProjectDetail.tsx`

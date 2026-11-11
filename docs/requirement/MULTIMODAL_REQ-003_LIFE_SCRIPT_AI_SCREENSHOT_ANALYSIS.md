@@ -77,7 +77,7 @@
 
 | 变量 | 说明 | 位置 |
 |------|------|------|
-| `BAZI_ANALYSIS_AGENT_ID` | 八字分析 Agent 的 ID | `workspace/life_script/backend/.env` |
+| `BAZI_ANALYSIS_AGENT_ID` | 八字分析 Agent 的 ID | `workspace/life_script/app/backend/.env` |
 
 ## 依赖
 

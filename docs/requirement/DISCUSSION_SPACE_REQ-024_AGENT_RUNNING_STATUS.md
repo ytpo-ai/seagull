@@ -29,9 +29,9 @@
 
 ## 3. 影响范围
 
-- 后端：`backend/src/modules/discussions/services/discussion-message-stream.service.ts`
-- 后端：`backend/src/modules/discussions/services/discussion-message.service.ts`
-- 后端测试：`backend/src/modules/discussions/services/discussion-message-stream.service.spec.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-message-stream.service.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-message.service.ts`
+- 后端测试：`app/backend/src/modules/discussions/services/discussion-message-stream.service.spec.ts`
 - 前端服务：`frontend/src/services/discussionService.ts`
 - 前端页面：`frontend/src/pages/discussions/DiscussionDetail.tsx`
 

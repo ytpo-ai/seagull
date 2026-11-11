@@ -14,9 +14,9 @@
 
 | 维度 | 路径 | 说明 |
 |---|---|---|
-| 模块 | `backend/src/modules/scheduler/` | `scheduler.module.ts` / `scheduler.controller.ts` / `scheduler.service.ts` |
-| Schema | `backend/src/shared/schemas/schedule.schema.ts` | 主 Schema，集合名仍为 `orchestration_schedules` |
-| 兼容导出 | `backend/src/shared/schemas/orchestration-schedule.schema.ts` | 兼容旧 import |
+| 模块 | `app/backend/src/modules/scheduler/` | `scheduler.module.ts` / `scheduler.controller.ts` / `scheduler.service.ts` |
+| Schema | `app/backend/src/shared/schemas/schedule.schema.ts` | 主 Schema，集合名仍为 `orchestration_schedules` |
+| 兼容导出 | `app/backend/src/shared/schemas/orchestration-schedule.schema.ts` | 兼容旧 import |
 
 ### 2.2 前端模块
 

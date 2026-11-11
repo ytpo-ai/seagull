@@ -52,9 +52,9 @@
 ## 变更文件清单
 
 ### 后端
-- `backend/src/modules/orchestration/orchestration.service.ts` - 删除计划时检查关联定时服务
-- `backend/src/modules/orchestration/scheduler/scheduler.controller.ts` - 新增查询接口
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts` - 新增查询方法
+- `app/backend/src/modules/orchestration/orchestration.service.ts` - 删除计划时检查关联定时服务
+- `app/backend/src/modules/orchestration/scheduler/scheduler.controller.ts` - 新增查询接口
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` - 新增查询方法
 
 ### 前端
 - `frontend/src/pages/PlanDetail.tsx` - 新建计划详情页

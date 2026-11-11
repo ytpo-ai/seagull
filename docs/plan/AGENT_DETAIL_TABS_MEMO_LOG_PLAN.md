@@ -8,8 +8,8 @@
 ## Plan
 1. Locate agent detail route and page layout to insert a tabbed interface for "备忘录" and "日志". (frontend/router)
 2. Implement the tab UI and shared layout container for the new sections. (frontend/ui)
-3. Wire memo tab to existing memo data sources or define new API/state handling if missing. (frontend/state, backend/api if needed)
-4. Wire log tab to existing agent log APIs with list rendering and pagination/sort. (frontend/state, backend/api if needed)
+3. Wire memo tab to existing memo data sources or define new API/state handling if missing. (frontend/state, app/backend/api if needed)
+4. Wire log tab to existing agent log APIs with list rendering and pagination/sort. (frontend/state, app/backend/api if needed)
 5. Update tests and docs if behavior or API surface changes. (test/docs)
 
 ## Risks / Dependencies

@@ -85,7 +85,7 @@
 
 迁移脚本：
 
-- `backend/scripts/migrate-skill-content-to-db.ts`
+- `app/backend/scripts/migrate-skill-content-to-db.ts`
 - 执行：`npm run migrate:skill-content -- --dry-run`
 
 ## 8. 监控与告警

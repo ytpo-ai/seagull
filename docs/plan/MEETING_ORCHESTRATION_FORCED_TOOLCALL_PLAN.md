@@ -25,7 +25,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/agents/agent.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - 文档：`docs/development/AGENT_ORCHESTRATION_AGENTSESSION_UNIFICATION_PLAN.md`
 
 ## 风险与依赖

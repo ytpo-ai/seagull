@@ -163,43 +163,43 @@ step1 的 runtimeTaskType = 'general'（不是 'development.plan'）
 | 文件 | 变更 |
 |---|---|
 | `frontend/src/hooks/usePlanStreaming.ts` | 同时监听 `plan.*` 和 `planning.*` 两种事件前缀；新增 `planning.task.completed`/`planning.task.failed` 处理；兼容 `event.data.taskId` 和 `event.data.task._id` |
-| `backend/.../incremental-planning.service.ts` | `completePlanning` 和 `failPlanning` 新增 `plan.status.changed` 事件发射 |
-| `backend/.../orchestration-step-dispatcher.service.ts` | `phaseGenerate` 开始时设置 `status: 'drafting'` 并发射 `plan.status.changed` |
-| `backend/.../orchestration-context.service.ts` | 新增 `isPlanContractStepTask`（后续 commit 移除） |
-| `backend/.../orchestration-context.service.spec.ts` | 新增测试用例 |
+| `app/backend/.../incremental-planning.service.ts` | `completePlanning` 和 `failPlanning` 新增 `plan.status.changed` 事件发射 |
+| `app/backend/.../orchestration-step-dispatcher.service.ts` | `phaseGenerate` 开始时设置 `status: 'drafting'` 并发射 `plan.status.changed` |
+| `app/backend/.../orchestration-context.service.ts` | 新增 `isPlanContractStepTask`（后续 commit 移除） |
+| `app/backend/.../orchestration-context.service.spec.ts` | 新增测试用例 |
 
 ### Commit 2: `e3aabc6` — Agent 分配 fallback 到 plan planner
 
 | 文件 | 变更 |
 |---|---|
-| `backend/.../incremental-planning.service.ts` | `resolveAssignmentForPlannerTask` 新增第三参数 `planPlannerAgentId`；planner 未提供 agentId 时，general 类型任务回退到 plan 的 planner agent |
-| `backend/test/.../incremental-planning.redesign-taskid.spec.ts` | 更新 mock |
+| `app/backend/.../incremental-planning.service.ts` | `resolveAssignmentForPlannerTask` 新增第三参数 `planPlannerAgentId`；planner 未提供 agentId 时，general 类型任务回退到 plan 的 planner agent |
+| `app/backend/test/.../incremental-planning.redesign-taskid.spec.ts` | 更新 mock |
 
 ### Commit 3: `b3689f4` — generateNext 重置 consecutiveFailures
 
 | 文件 | 变更 |
 |---|---|
-| `backend/.../plan-management.service.ts` | `generateNext` 执行前将 `consecutiveFailures` 重置为 0，清除 `lastError`，设 `currentPhase: 'idle'` |
+| `app/backend/.../plan-management.service.ts` | `generateNext` 执行前将 `consecutiveFailures` 重置为 0，清除 `lastError`，设 `currentPhase: 'idle'` |
 
 ### Commit 4: `fdb7763` — 移除硬编码 runtimeTaskType 推断
 
 | 文件 | 变更 |
 |---|---|
-| `backend/.../orchestration-context.service.ts` | 移除 `isPlanContractStepTask` 和 `isReviewContractStepTask`；fallback 仅按 plan domain 粗分 |
-| `backend/.../orchestration-context.service.spec.ts` | 重写测试用例，覆盖 domain fallback 和 existingRuntimeTaskType 优先级 |
+| `app/backend/.../orchestration-context.service.ts` | 移除 `isPlanContractStepTask` 和 `isReviewContractStepTask`；fallback 仅按 plan domain 粗分 |
+| `app/backend/.../orchestration-context.service.spec.ts` | 重写测试用例，覆盖 domain fallback 和 existingRuntimeTaskType 优先级 |
 
 ### Commit 5: `334caec` + `210e4e4` — Planner prompt 首步豁免
 
 | 文件 | 变更 |
 |---|---|
-| `backend/.../planner.service.ts` | `buildIncrementalPlannerPrompt` 中 `totalSteps === 0` 时注入 `[SYSTEM OVERRIDE — 首步豁免]` 指令块；新增 planner raw response 调试日志 |
+| `app/backend/.../planner.service.ts` | `buildIncrementalPlannerPrompt` 中 `totalSteps === 0` 时注入 `[SYSTEM OVERRIDE — 首步豁免]` 指令块；新增 planner raw response 调试日志 |
 
 ### Commit 6: `6095dd0` — requirementId backfill match 条件放宽
 
 | 文件 | 变更 |
 |---|---|
-| `backend/.../scene-optimization.service.ts` | backfill rule 的 match 条件从 `runtimeTaskType === 'development.plan'` 改为仅检查 `planDomainType === 'development'` + `taskStatus === 'completed'` |
-| `backend/test/.../scene-optimization.service.spec.ts` | 新增 step1 general 类型任务触发 backfill 的测试 |
+| `app/backend/.../scene-optimization.service.ts` | backfill rule 的 match 条件从 `runtimeTaskType === 'development.plan'` 改为仅检查 `planDomainType === 'development'` + `taskStatus === 'completed'` |
+| `app/backend/test/.../scene-optimization.service.spec.ts` | 新增 step1 general 类型任务触发 backfill 的测试 |
 
 ## 5. 验证结果
 
@@ -241,10 +241,10 @@ step1 的 runtimeTaskType = 'general'（不是 'development.plan'）
 | 文件 | 职责 |
 |---|---|
 | `frontend/src/hooks/usePlanStreaming.ts` | 前端 SSE 事件监听与 UI 状态更新 |
-| `backend/.../planner.service.ts` | Planner prompt 构建、LLM 调用、响应解析 |
-| `backend/.../incremental-planning.service.ts` | 增量规划引擎、任务创建、agent 分配 |
-| `backend/.../orchestration-step-dispatcher.service.ts` | 四阶段调度器、post-execute 优化调用 |
-| `backend/.../plan-management.service.ts` | generateNext / replan 入口、failure 重置 |
-| `backend/.../orchestration-context.service.ts` | runtimeTaskType 推断 |
-| `backend/.../scene-optimization.service.ts` | requirementId backfill 规则 |
-| `backend/.../plan-event-stream.service.ts` | SSE 事件发射 |
+| `app/backend/.../planner.service.ts` | Planner prompt 构建、LLM 调用、响应解析 |
+| `app/backend/.../incremental-planning.service.ts` | 增量规划引擎、任务创建、agent 分配 |
+| `app/backend/.../orchestration-step-dispatcher.service.ts` | 四阶段调度器、post-execute 优化调用 |
+| `app/backend/.../plan-management.service.ts` | generateNext / replan 入口、failure 重置 |
+| `app/backend/.../orchestration-context.service.ts` | runtimeTaskType 推断 |
+| `app/backend/.../scene-optimization.service.ts` | requirementId backfill 规则 |
+| `app/backend/.../plan-event-stream.service.ts` | SSE 事件发射 |

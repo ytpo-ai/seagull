@@ -13,18 +13,18 @@
 
 ## 具体改动文件
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
   - 新增 `DEFAULT_MAX_TOOL_ROUNDS = 30`
   - 新增 `getMaxToolRounds()` 读取与兜底逻辑
   - 将 `executeWithToolCalling` 内 `maxToolRounds` 改为动态读取
-- `backend/.env.example`
+- `app/backend/.env.example`
   - 新增 `MAX_TOOL_ROUNDS=30`
 - `docs/feature/MEETING_CHAT.md`
   - 配置项表新增 `MAX_TOOL_ROUNDS` 说明
 
 ## 验证结果
 
-- 执行 `npm run build:agents`（在 `backend/`）通过，未出现 TypeScript 编译错误。
+- 执行 `npm run build:agents`（在 `app/backend/`）通过，未出现 TypeScript 编译错误。
 
 ## 影响与后续建议
 

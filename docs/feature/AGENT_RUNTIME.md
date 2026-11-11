@@ -17,7 +17,7 @@
 
 ### 1.2 数据结构
 
-核心集合位于 `backend/apps/agents/src/schemas/`：
+核心集合位于 `app/backend/apps/agents/src/schemas/`：
 
 | 集合 | Schema 文件 | 说明 |
 |------|-------------|------|
@@ -264,7 +264,7 @@
 - Agent 主执行链路（`modules/agents/agent.service.ts`）已接入 runtime 的 run 生命周期与工具状态事件。
 - legacy `inner-message` 分发链路支持 Runtime Bridge：内部消息可统一桥接到 Agent `executeTask` 执行入口，由 Agent 按角色能力自主处理。
 - Agent 主执行链路已按职责拆分协作：
-  - `backend/libs/common/src/debug-timing.provider.ts`（`debugTiming` 统一 Provider，集中开关读取与耗时日志格式，供执行链路复用）
+  - `app/backend/libs/common/src/debug-timing.provider.ts`（`debugTiming` 统一 Provider，集中开关读取与耗时日志格式，供执行链路复用）
   - `modules/agents/agent-executor-runtime.service.ts`（runtime 生命周期模板与收尾）
   - `modules/agents/agent-opencode-policy.service.ts`（OpenCode gate/budget 策略）
   - `modules/agents/agent-before-step-optimization.hook.ts`（step 进入前语义优化 Hook，实现 `LifecycleHook` 接口，phase=`step.before`）
@@ -343,7 +343,7 @@
 
 ## 3. 相关代码文件
 
-### 后端 Runtime 模块 (backend/apps/agents/src/modules/runtime/)
+### 后端 Runtime 模块 (app/backend/apps/agents/src/modules/runtime/)
 
 | 文件 | 功能 |
 |------|------|
@@ -366,7 +366,7 @@
 | `contracts/runtime-run.contract.ts` | run 与工具事件输入契约 |
 | `contracts/runtime-control.contract.ts` | 控制面与运维接口入参契约 |
 
-### 后端 Schema (backend/apps/agents/src/schemas/)
+### 后端 Schema (app/backend/apps/agents/src/schemas/)
 
 | 文件 | 功能 |
 |------|------|
@@ -378,13 +378,13 @@
 | `agent-session.schema.ts` | 会话模型（含 `memoSnapshot`） |
 | `agent-run-score.schema.ts` | 扣分评分模型（AgentRunScore + AgentRunScoreDeduction） |
 
-### 后端迁移脚本 (backend/scripts/migrate/)
+### 后端迁移脚本 (app/backend/scripts/migrate/)
 
 | 文件 | 功能 |
 |------|------|
 | `backfill-session-token-cost.ts` | 回填历史 session 的 `totalTokens/totalCost` 聚合字段（支持 `--dry-run`/`--reset-missing`） |
 
-### 上下文构建 (backend/apps/agents/src/modules/agents/context/)
+### 上下文构建 (app/backend/apps/agents/src/modules/agents/context/)
 
 | 文件 | 功能 |
 |------|------|
@@ -427,8 +427,8 @@
 | `modules/agent-tasks/runtime-sse-stream.service.ts` | SSE 实时流 + 心跳 + Redis 订阅桥接 |
 | `modules/agent-tasks/opencode-serve-router.service.ts` | Multi-Serve 路由与会话粘性所需 serve 选择能力 |
 | `schemas/agent-task.schema.ts` | Agent Task 状态持久化模型（queued/running/succeeded/failed/cancelled） |
-| `backend/apps/gateway/src/gateway-proxy.service.ts` | Runtime 控制类路径网关侧审计日志 |
-| `backend/src/modules/agent-action-logs/agent-action-log.controller.ts` | Runtime hook 内部写入入口与查询接口 |
-| `backend/src/modules/agents-client/agent-client.service.ts` | legacy 后端对 Agents Runtime/Task/Session/Memo 的统一客户端封装（已合并 models/tools client 能力） |
-| `backend/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` | inner-message 到 Agent Runtime 的统一桥接执行 |
+| `app/backend/apps/gateway/src/gateway-proxy.service.ts` | Runtime 控制类路径网关侧审计日志 |
+| `app/backend/src/modules/agent-action-logs/agent-action-log.controller.ts` | Runtime hook 内部写入入口与查询接口 |
+| `app/backend/src/modules/agents-client/agent-client.service.ts` | legacy 后端对 Agents Runtime/Task/Session/Memo 的统一客户端封装（已合并 models/tools client 能力） |
+| `app/backend/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` | inner-message 到 Agent Runtime 的统一桥接执行 |
 | `frontend/src/pages/AgentDetail.tsx` | Agent Session 抽屉消息轨迹展示（正文折叠、parts 展开、手动刷新） |

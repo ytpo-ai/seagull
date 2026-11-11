@@ -16,19 +16,19 @@
 ## 改动范围
 
 1. 移除工具注册与执行路由
-   - `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
-   - `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
+   - `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
+   - `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
 
 2. 移除 Agent 常量与 legacy alias 映射
-   - `backend/apps/agents/src/modules/agents/agent.constants.ts`
-   - `backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts`
+   - `app/backend/apps/agents/src/modules/agents/agent.constants.ts`
+   - `app/backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts`
 
 3. 调整 seed，避免 profile 中残留已下线工具
-   - `backend/scripts/seed/mcp-profile.ts`
+   - `app/backend/scripts/seed/mcp-profile.ts`
    - 关键修正：`mode=sync` 时改为 `tools: normalizedSeedTools` 覆盖写入，不再仅 `$addToSet`。
 
 4. 增加历史工具清理标记
-   - `backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
+   - `app/backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
    - 将 5 个 canonical tool id 纳入 `DEPRECATED_TOOL_IDS`，配合 `builtin-tools` 的 sync 清理旧数据。
 
 5. 功能文档同步

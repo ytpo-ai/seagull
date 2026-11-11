@@ -16,7 +16,7 @@
 
 ### 2.1 Tools 模块
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - 注册新内置工具：`builtin.sys-mg.mcp.orchestration.debug-task`
   - 执行分发新增 debug-task 分支
   - 新增 `debugOrchestrationTask` 方法：
@@ -26,7 +26,7 @@
 
 ### 2.2 Agent 编排意图与反馈
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
   - MCP profile 种子工具列表加入 `debug-task`
   - 会议编排强制工具调用意图新增 `mcp.orchestration.debugTask`
   - 支持关键词：`调试任务`、`任务调试`、`debug task`、`debug-run`
@@ -34,7 +34,7 @@
 
 ### 2.3 测试
 
-- `backend/apps/agents/src/modules/tools/tool.service.spec.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.spec.ts`
   - 新增 3 个用例：
     - 缺失 `taskId` 抛错
     - 调试成功并返回摘要
@@ -42,10 +42,10 @@
 
 ## 3. 配置与文档同步
 
-- `backend/package.json`
+- `app/backend/package.json`
   - 新增 Jest 配置（`ts-jest`、alias 映射、jest types）
 
-- `backend/.eslintrc.cjs`
+- `app/backend/.eslintrc.cjs`
   - 新增 backend ESLint 基础配置（用于解决无配置导致无法执行 lint）
 
 - `docs/feature/ORCHETRATION_TASK.md`

@@ -18,7 +18,7 @@
 
 ## Gateway 路由策略（当前生效）
 
-实现：`backend/apps/gateway/src/gateway-proxy.service.ts`
+实现：`app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 - `/api/ei/**` 或 `/api/engineering-intelligence/**` -> `ENGINEERING_INTELLIGENCE_SERVICE_URL`
 - `/api/agents/**` -> `AGENTS_SERVICE_URL`
@@ -72,7 +72,7 @@ Gateway 从登录上下文中提取用户身份并签名透传：
 
 ## 推荐本地启动方式
 
-在 `backend/` 目录按以下顺序启动：
+在 `app/backend/` 目录按以下顺序启动：
 
 ```bash
 npm run start:legacy -- --watch

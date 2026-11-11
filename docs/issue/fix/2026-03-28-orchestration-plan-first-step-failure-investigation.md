@@ -175,15 +175,15 @@ Body: { task: { type: "planning", description: "..." }, context: { collaboration
 
 | 文件 | 职责 |
 |------|------|
-| `backend/src/modules/orchestration/planner.service.ts` | Planner 核心：`generateNextTask` / `executePreTask` / `executePostTask` / prompt 构建 |
-| `backend/src/modules/orchestration/services/incremental-planning.service.ts` | 增量规划递归引擎 |
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | 四阶段调度器 |
-| `backend/src/modules/orchestration/services/orchestration-context.service.ts` | Pre/Post task context prompt 构建 |
-| `backend/apps/agents/src/modules/agents/context/context-strategy.service.ts` | Skill 激活策略（planning 类型强制激活） |
-| `backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | Skill 方法论注入 |
-| `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` | JSON-ONLY MODE 注入 |
-| `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts` | Session ID 生成（`plan-{planId}-{agentId}`） |
-| `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts` | Runtime 执行入口、session 创建决策 |
+| `app/backend/src/modules/orchestration/planner.service.ts` | Planner 核心：`generateNextTask` / `executePreTask` / `executePostTask` / prompt 构建 |
+| `app/backend/src/modules/orchestration/services/incremental-planning.service.ts` | 增量规划递归引擎 |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | 四阶段调度器 |
+| `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` | Pre/Post task context prompt 构建 |
+| `app/backend/apps/agents/src/modules/agents/context/context-strategy.service.ts` | Skill 激活策略（planning 类型强制激活） |
+| `app/backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts` | Skill 方法论注入 |
+| `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` | JSON-ONLY MODE 注入 |
+| `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts` | Session ID 生成（`plan-{planId}-{agentId}`） |
+| `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts` | Runtime 执行入口、session 创建决策 |
 
 ## 7. 后续
 

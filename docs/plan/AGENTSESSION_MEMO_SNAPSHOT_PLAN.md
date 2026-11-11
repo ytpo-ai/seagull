@@ -19,13 +19,13 @@
 ## 关键改动点
 
 - **agents 服务**：
-  - `backend/apps/agents/src/schemas/agent-session.schema.ts` - 添加 memoSnapshot 字段
-  - `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts` - startRun 时刷新 memoSnapshot
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts` - 持久化 memoSnapshot
-  - `backend/apps/agents/src/modules/runtime/runtime.module.ts` - 导入 MemoModule
+  - `app/backend/apps/agents/src/schemas/agent-session.schema.ts` - 添加 memoSnapshot 字段
+  - `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts` - startRun 时刷新 memoSnapshot
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts` - 持久化 memoSnapshot
+  - `app/backend/apps/agents/src/modules/runtime/runtime.module.ts` - 导入 MemoModule
 
 - **主应用**：
-  - 移除 `backend/src/modules/orchestration/session-manager.service.ts` 中的 memoSnapshot 逻辑
+  - 移除 `app/backend/src/modules/orchestration/session-manager.service.ts` 中的 memoSnapshot 逻辑
 
 - **前端**：
   - `frontend/src/services/orchestrationService.ts` - AgentSession 类型已包含 memoSnapshot

@@ -2,7 +2,7 @@
 
 ## 1. 需求理解
 
-当前 `backend/scripts/` 下散落着 seed、migration、cleanup 三类脚本，缺乏统一组织：
+当前 `app/backend/scripts/` 下散落着 seed、migration、cleanup 三类脚本，缺乏统一组织：
 - Seed 脚本已有 `manual-seed.ts` 统一入口，但与 migration/cleanup 混在同一目录
 - 日常数据维护能力不足：仅有 `cleanup-agents-runtime-data.ts` 清理少量运行时数据
 - 缺少 Redis 缓存全局审查与清理能力
@@ -15,7 +15,7 @@
 ## 2. 目标目录结构
 
 ```
-backend/scripts/
+app/backend/scripts/
 ├── seed/                              # 第一层：初始化预置数据
 │   ├── seed-runner.ts                 # 统一入口（从 manual-seed.ts 迁移）
 │   ├── builtin-tool-seed.ts           # 内置工具 seed（从 ToolService 迁出）
@@ -165,7 +165,7 @@ backend/scripts/
 
 **功能：**
 - 从环境变量读取 MongoDB 连接信息
-- 默认输出到 `backend/backups/<dbname>_<YYYYMMDD_HHmmss>/`
+- 默认输出到 `app/backend/backups/<dbname>_<YYYYMMDD_HHmmss>/`
 - 支持参数：
   - `--output=<dir>`：自定义输出路径
   - `--gzip`：启用 gzip 压缩
@@ -236,7 +236,7 @@ ts-node scripts/maintenance/maintenance-runner.ts --task=restore --from=./backup
 
 ### 步骤 11：清理遗留文件
 
-- 删除 `backend/scripts/ss.json`（空文件）
+- 删除 `app/backend/scripts/ss.json`（空文件）
 - 原位置的旧脚本文件在迁移完成后删除
 
 ## 4. 关键影响点

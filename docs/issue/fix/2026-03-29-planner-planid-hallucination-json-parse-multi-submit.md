@@ -142,7 +142,7 @@ JSON.parse(raw) // → Bad control character in string literal at position 190
 
 ### 修复 1：planId 覆写（P0）
 
-**文件**：`backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
 
 ```diff
  case 'builtin.sys-mg.mcp.orchestration.submit-task':
@@ -153,7 +153,7 @@ JSON.parse(raw) // → Bad control character in string literal at position 190
 +  return this.orchestrationToolHandler.reportOrchestrationTaskRunResult(parameters, executionContext);
 ```
 
-**文件**：`backend/apps/agents/src/modules/tools/builtin/orchestration-tool-handler.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/tools/builtin/orchestration-tool-handler.service.ts`
 
 两个方法（`submitOrchestrationTask`、`reportOrchestrationTaskRunResult`）新增 `executionContext` 参数，优先从 `executionContext.collaborationContext.planId` 获取真实 planId：
 
@@ -165,7 +165,7 @@ const planId = contextPlanId || paramPlanId;
 
 ### 修复 2：Prompt 注入真实 planId（P1）
 
-**文件**：`backend/src/modules/orchestration/planner.service.ts`
+**文件**：`app/backend/src/modules/orchestration/planner.service.ts`
 
 ```diff
 -const prompt = this.buildIncrementalPlannerPrompt(context, { domainType: planDomainType });
@@ -179,7 +179,7 @@ const planId = contextPlanId || paramPlanId;
 
 ### 修复 3：ObjectId 格式校验（P2）
 
-**文件**：`backend/src/modules/orchestration/services/incremental-planning.service.ts`
+**文件**：`app/backend/src/modules/orchestration/services/incremental-planning.service.ts`
 
 在 `submitPlannerTaskFromTool` 和 `reportTaskRunResultFromTool` 中 `findById` 前增加：
 ```typescript
@@ -190,7 +190,7 @@ if (!Types.ObjectId.isValid(planId)) {
 
 ### 修复 4：JSON 解析增强容错
 
-**文件**：`backend/apps/agents/src/modules/agents/agent-executor.helpers.ts`
+**文件**：`app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts`
 
 新增 `sanitizeJsonString`：将实际换行符 `\n` → `\\n`，`\r` → `\\r`，`\t` → `\\t`，移除控制字符，移除尾部多余逗号。
 
@@ -198,14 +198,14 @@ if (!Types.ObjectId.isValid(planId)) {
 
 ### 修复 5：空响应防御与诊断日志
 
-**文件**：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
 
 1. `extractToolCall` 返回 null 但 response 含 `<tool_call>` 时，记录 `[tool_call_parse_failed]` 警告日志（含 response preview）
 2. `stripToolCallMarkup` 后内容为空但原始 response 非空时，回退为 `response.replace(/<\/?tool_call>/gi, '').trim()`，避免信息完全丢失
 
 ### 修复 6：Prompt 强化 — 禁止确认性文本 + 单任务约束
 
-**文件**：`backend/src/modules/orchestration/planner.service.ts`
+**文件**：`app/backend/src/modules/orchestration/planner.service.ts`
 
 在 `buildIncrementalPlannerPrompt` 顶部增加行为约束块：
 ```
@@ -218,7 +218,7 @@ if (!Types.ObjectId.isValid(planId)) {
 
 ### 修复 7：submit-task 成功后 early return
 
-**文件**：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
 
 在工具执行成功后，检测到 `submit-task` 且返回值含 `taskId` 时，直接 `return JSON.stringify(toolResultPayload)` 中断 tool-calling 循环：
 
@@ -265,12 +265,12 @@ if (normalizedToolCallId === 'builtin.sys-mg.mcp.orchestration.submit-task' && t
 
 | 文件 | 改动类型 |
 |---|---|
-| `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | submit-task/report-task-run-result 传入 executionContext |
-| `backend/apps/agents/src/modules/tools/builtin/orchestration-tool-handler.service.ts` | planId 从 executionContext 覆写 |
-| `backend/apps/agents/src/modules/agents/agent-executor.helpers.ts` | sanitizeJsonString + parseToolCallPayload 容错增强 |
-| `backend/apps/agents/src/modules/agents/agent-executor.service.ts` | tool_call_parse_failed 日志 + strip 回退 + submit-task early return |
-| `backend/src/modules/orchestration/planner.service.ts` | planId 注入 prompt + 行为约束强化 |
-| `backend/src/modules/orchestration/services/incremental-planning.service.ts` | ObjectId 格式校验 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | submit-task/report-task-run-result 传入 executionContext |
+| `app/backend/apps/agents/src/modules/tools/builtin/orchestration-tool-handler.service.ts` | planId 从 executionContext 覆写 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts` | sanitizeJsonString + parseToolCallPayload 容错增强 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` | tool_call_parse_failed 日志 + strip 回退 + submit-task early return |
+| `app/backend/src/modules/orchestration/planner.service.ts` | planId 注入 prompt + 行为约束强化 |
+| `app/backend/src/modules/orchestration/services/incremental-planning.service.ts` | ObjectId 格式校验 |
 
 ---
 

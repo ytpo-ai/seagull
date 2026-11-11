@@ -20,7 +20,7 @@
 - 直接原因：`getSessionDetailById` 仅按 `session.messageIds` 回查消息，未补齐 run 级消息与 run metadata 的 system 快照。
 - 深层原因：会话存储从 `messages[]` 迁移为 `messageIds[]` 引用后，查询侧缺少“兼容补全层”，导致前端读取维度收窄。
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+  - `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
   - `frontend/src/pages/AgentDetail.tsx`
 
 ## 4. 修复动作
@@ -41,7 +41,7 @@
 - 验证步骤：
   - 静态检查 `runtime-persistence.service.ts` 变更，确认补全来源与去重逻辑生效。
   - 执行 `npx eslint "apps/agents/src/modules/runtime/runtime-persistence.service.ts"`。
-  - 执行 `npx tsc -p tsconfig.json --noEmit`（在 `backend/`）。
+  - 执行 `npx tsc -p tsconfig.json --noEmit`（在 `app/backend/`）。
 - 验证结论：部分通过
 - 测试与检查：
   - eslint 通过；

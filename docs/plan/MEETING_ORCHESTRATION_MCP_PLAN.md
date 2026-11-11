@@ -23,8 +23,8 @@
 
 ## 关键影响点
 
-- 后端（agents）：`backend/apps/agents/src/modules/tools/*`、`backend/apps/agents/src/modules/agents/agent.service.ts`
-- 后端（legacy）：`backend/src/modules/orchestration/orchestration.controller.ts`
+- 后端（agents）：`app/backend/apps/agents/src/modules/tools/*`、`app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- 后端（legacy）：`app/backend/src/modules/orchestration/orchestration.controller.ts`
 - 文档：`docs/api/agents-api.md`、`docs/api/legacy-api.md`、`docs/architecture/*`
 
 ## 风险与依赖

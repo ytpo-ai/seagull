@@ -1,6 +1,6 @@
 # EI Service 拆分计划
 
-> 目标：将 `backend/apps/ei/src/services/ei.service.ts`（1963 行、71 个方法）拆分为多个领域服务，消除 God Service。
+> 目标：将 `app/backend/apps/ei/src/services/ei.service.ts`（1963 行、71 个方法）拆分为多个领域服务，消除 God Service。
 
 ## 1. 现状分析
 

@@ -11,13 +11,13 @@
 
 ### 1) 会议任务描述补全最新发言
 
-- 文件：`backend/src/modules/meetings/meeting.service.ts`
+- 文件：`app/backend/src/modules/meetings/meeting.service.ts`
 - 在构建会议响应任务时，将 `triggerMessage.content` 提炼为摘要并拼入 `task.description`。
 - 效果：session 中可直接看到“最新发言”摘要，降低“请回应什么”不明确问题。
 
 ### 2) 会议响应触发去重
 
-- 文件：`backend/src/modules/meetings/meeting.service.ts`
+- 文件：`app/backend/src/modules/meetings/meeting.service.ts`
 - 实现两层去重：
   - responder 列表按 `participantId` 去重，避免单轮重复调度。
   - 新增 `meetingId + agentId + triggerMessageId` 的短窗口去重（15s），拦截近实时重复触发。
@@ -25,21 +25,21 @@
 
 ### 3) Session 系统提示去重
 
-- 文件：`backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 - 在 `appendSystemMessagesToSession` 写入前读取 session 近窗口系统消息，按“内容完全一致”去重。
 - 效果：避免同内容 system prompt 在同一 session 内反复堆叠。
 
 ### 4) Runtime userContent 对齐真实用户输入
 
-- 文件：`backend/apps/agents/src/modules/agents/agent.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - 将 run 启动时的 `userContent` 从固定 `task.description` 改为“最近 user 消息优先”。
 - 效果：运行轨迹与会议真实发言更一致，便于问题定位和审计。
 
 ## 验证结果
 
 - 构建验证：
-  - `cd backend && npm run build`
-  - `cd backend && npm run build:agents`
+  - `cd app/backend && npm run build`
+  - `cd app/backend && npm run build:agents`
 - 结果：均通过。
 
 ## 风险与后续建议

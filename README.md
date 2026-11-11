@@ -44,8 +44,8 @@ npm run install:all
 
 3. **配置环境变量**
 ```bash
-cp backend/.env.example backend/.env
-# 编辑 backend/.env，配置数据库密码和AI模型API密钥
+cp app/backend/.env.example app/backend/.env
+# 编辑 app/backend/.env，配置数据库密码和AI模型API密钥
 ```
 
 4. **启动数据库服务**
@@ -61,19 +61,19 @@ redis-server
 5. **启动项目**
 ```bash
 # 方式一：使用启动脚本（推荐）
-./start.sh development
+./app/start.sh development
 
 # test 环境（前端会 build 后部署到 /var/www/html/）
-./start.sh test
+./app/start.sh test
 
 # 停止前后端服务
-./stop.sh development
+./app/stop.sh development
 
 # 重启前后端服务
-./reload.sh development
+./app/reload.sh development
 
 # 方式二：手动逐个启动
-cd backend
+cd app/backend
 pnpm run start:legacy -- --watch   # legacy (3001)
 pnpm run start:gateway -- --watch  # gateway (3100)
 pnpm run start:agents -- --watch   # agents (3002)
@@ -92,12 +92,12 @@ pnpm dev  # frontend (3000)
 
 | 服务 | 端口 | 说明 | 启动命令 |
 |------|------|------|----------|
-| Frontend | 3000 | 前端界面 | `cd frontend && pnpm dev` |
-| Legacy | 3001 | 主服务（未拆分模块） | `cd backend && pnpm run start:legacy -- --watch` |
-| Agents | 3002 | Agent管理服务 | `cd backend && pnpm run start:agents -- --watch` |
-| WS | 3003 | WebSocket服务 | `cd backend && pnpm run start:ws -- --watch` |
-| Gateway | 3100 | API网关入口 | `cd backend && pnpm run start:gateway -- --watch` |
-| EI | 3004 | 研发智能服务 | `cd backend && pnpm run start:ei -- --watch` |
+| Frontend | 3000 | 前端界面 | `cd app/frontend && pnpm dev` |
+| Legacy | 3001 | 主服务（未拆分模块） | `cd app/backend && pnpm run start:legacy -- --watch` |
+| Agents | 3002 | Agent管理服务 | `cd app/backend && pnpm run start:agents -- --watch` |
+| WS | 3003 | WebSocket服务 | `cd app/backend && pnpm run start:ws -- --watch` |
+| Gateway | 3100 | API网关入口 | `cd app/backend && pnpm run start:gateway -- --watch` |
+| EI | 3004 | 研发智能服务 | `cd app/backend && pnpm run start:ei -- --watch` |
 | MongoDB | 27017 | 数据库 | `docker-compose up -d mongodb` |
 | Redis | 6379 | 缓存 | `docker-compose up -d redis` |
 
@@ -155,19 +155,19 @@ API 已按微服务拆分，详细接口请查看：
 ### 开发命令
 ```bash
 # 开发环境启动（使用脚本，推荐）
-./start.sh development
+./app/start.sh development
 
 # 停止前后端服务
-./stop.sh development
+./app/stop.sh development
 
 # 一键重启前后端服务
-./reload.sh development
+./app/reload.sh development
 
 # test 环境重启（前端会 build 后部署到 /var/www/html/）
-./reload.sh test
+./app/reload.sh test
 
 # 手动启动所有后端服务
-cd backend
+cd app/backend
 pnpm run start:legacy -- --watch  # legacy (3001)
 pnpm run start:gateway -- --watch # gateway (3100)
 pnpm run start:agents -- --watch  # agents (3002)
@@ -197,21 +197,21 @@ npm run test:e2e:headed
 npm run test:e2e:ui
 
 # 创建初始管理员账号（如首次启动）
-cd backend
+cd app/backend
 pnpm run seed:initial-admin -- --email=admin@example.com --name="System Admin" --password="StrongPass123"
 ```
 
 ### Playwright E2E 说明
 
-- 配置文件：`playwright.config.ts`
-- 测试目录：`tests/`
-- 运行机制：执行 E2E 时会自动启动 `frontend`（Vite）测试服务，无需手动先起前端
+- 配置文件：`app/playwright.config.ts`
+- 测试目录：`app/tests/`
+- 运行机制：执行 E2E 时会自动启动 `app/frontend`（Vite）测试服务，无需手动先起前端
 - 首次执行需要安装浏览器：`npx playwright install chromium`
 - 真实后端 smoke 用例需要提供 `E2E_AUTH_TOKEN`，并确保 gateway(3100) 可访问
 - Demo 用例：
-  - `tests/login-page.demo.spec.ts`
-  - `tests/login-success.demo.spec.ts`
-  - `tests/auth-smoke.real.spec.ts`
+  - `app/tests/login-page.demo.spec.ts`
+  - `app/tests/login-success.demo.spec.ts`
+  - `app/tests/auth-smoke.real.spec.ts`
 
 ### 环境变量配置
 
@@ -219,22 +219,22 @@ pnpm run seed:initial-admin -- --email=admin@example.com --name="System Admin" -
 
 ```bash
 # 终端1：legacy monolith（未迁移模块）- 端口 3001
-cd backend && pnpm run start:legacy -- --watch
+cd app/backend && pnpm run start:legacy -- --watch
 
 # 终端2：agents service（已拆分）- 端口 3002
-cd backend && pnpm run start:agents -- --watch
+cd app/backend && pnpm run start:agents -- --watch
 
 # 终端3：gateway（统一入口）- 端口 3100
-cd backend && pnpm run start:gateway -- --watch
+cd app/backend && pnpm run start:gateway -- --watch
 
 # 终端4：ws service（流式推送）- 端口 3003
-cd backend && pnpm run start:ws -- --watch
+cd app/backend && pnpm run start:ws -- --watch
 
 # 终端5：ei（研发智能）- 端口 3004
-cd backend && pnpm run start:ei -- --watch
+cd app/backend && pnpm run start:ei -- --watch
 
 # 终端6：frontend - 端口 3000
-cd frontend && pnpm dev
+cd app/frontend && pnpm dev
 ```
 
 - 前端 HTTP 统一走 Gateway: `http://localhost:3100/api`
@@ -269,10 +269,10 @@ mongod --dbpath /data/db
 redis-server
 
 # 启动后端服务
-cd backend && pnpm run start:prod
+cd app/backend && pnpm run start:prod
 
 # 启动前端
-cd frontend && pnpm build && pnpm preview
+cd app/frontend && pnpm build && pnpm preview
 ```
 
 ### 生产环境配置

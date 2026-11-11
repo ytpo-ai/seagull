@@ -17,8 +17,8 @@
 
 ## 3. 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/tools/tool.service.ts`
-- 测试：`backend/apps/agents/src/modules/tools/tool.service.spec.ts`
+- 后端：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- 测试：`app/backend/apps/agents/src/modules/tools/tool.service.spec.ts`
 - 功能文档：`docs/feature/AGENT_TOOL.md`
 - API 文档：`docs/api/agents-api.md`
 - 日常进度：`docs/dailylog/day/2026-03-11.md`

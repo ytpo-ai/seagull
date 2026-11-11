@@ -105,7 +105,7 @@ docker-compose up -d
 
 ### 2.2 配置后端环境变量
 
-创建 `backend/.env`:
+创建 `app/backend/.env`:
 
 ```env
 # MongoDB (注意 authSource=admin)
@@ -126,7 +126,7 @@ REDIS_PASSWORD=YOUR_REDIS_PASSWORD_ENCODED
 ### 3.1 安装依赖
 
 ```bash
-cd backend
+cd app/backend
 npm run install:all
 ```
 
@@ -137,7 +137,7 @@ npm run install:all
 ./start.sh development
 
 # 方式二：手动启动各个服务
-cd backend
+cd app/backend
 
 # Legacy (端口 3001)
 pnpm run start:legacy -- --watch &
@@ -172,7 +172,7 @@ curl http://localhost:3100
 ### 4.1 安装依赖
 
 ```bash
-cd frontend
+cd app/frontend
 npm install
 ```
 
@@ -199,7 +199,7 @@ export default defineConfig({
 ### 4.3 启动前端
 
 ```bash
-cd frontend
+cd app/frontend
 pnpm dev &
 ```
 
@@ -298,7 +298,7 @@ docker-compose up -d
 sleep 5
 
 # 启动后端服务
-cd backend
+cd app/backend
 pnpm run start:legacy -- --watch &
 pnpm run start:gateway -- --watch &
 pnpm run start:agents -- --watch &

@@ -22,7 +22,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents/src/modules/agents/agent.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 ## 风险与依赖
 

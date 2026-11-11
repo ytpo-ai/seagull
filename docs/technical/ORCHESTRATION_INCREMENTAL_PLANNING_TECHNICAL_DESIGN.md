@@ -70,7 +70,7 @@ plan-management       incremental-planning        plan-execution
 ### 2.1 OrchestrationPlan — 新增字段
 
 ```typescript
-// backend/src/shared/schemas/orchestration-plan.schema.ts
+// app/backend/src/shared/schemas/orchestration-plan.schema.ts
 
 // 新增: 编排生成模式
 @Prop({ enum: ['batch', 'incremental'], default: 'incremental' })
@@ -114,7 +114,7 @@ generationState: {
 ### 2.2 OrchestrationTask — 新增字段
 
 ```typescript
-// backend/src/shared/schemas/orchestration-task.schema.ts
+// app/backend/src/shared/schemas/orchestration-task.schema.ts
 
 // 新增: 合并来源追踪
 @Prop({ type: [String], default: [] })
@@ -124,7 +124,7 @@ mergedFromTaskIds: string[];
 ### 2.3 CreatePlanFromPromptDto — 新增字段
 
 ```typescript
-// backend/src/modules/orchestration/dto/index.ts
+// app/backend/src/modules/orchestration/dto/index.ts
 
 @IsOptional()
 @IsBoolean()
@@ -143,7 +143,7 @@ autoGenerate?: boolean; // 默认 false; "创建并生成" 时为 true
 
 ### 3.1 IncrementalPlanningService — 增量编排引擎
 
-**文件**: `backend/src/modules/orchestration/services/incremental-planning.service.ts`
+**文件**: `app/backend/src/modules/orchestration/services/incremental-planning.service.ts`
 
 #### 3.1.1 类定义
 
@@ -390,7 +390,7 @@ private extractKeywords(text: string): string[] {
 
 ### 3.2 PlannerService — 重构为增量指令引擎
 
-**文件**: `backend/src/modules/orchestration/planner.service.ts`
+**文件**: `app/backend/src/modules/orchestration/planner.service.ts`
 
 #### 3.2.1 新增方法: `generateNextTask()`
 
@@ -530,7 +530,7 @@ private async buildIncrementalPlannerPrompt(
 
 ### 3.3 PlanManagementService — 创建流程适配
 
-**文件**: `backend/src/modules/orchestration/services/plan-management.service.ts`
+**文件**: `app/backend/src/modules/orchestration/services/plan-management.service.ts`
 
 #### 3.3.1 `createPlanFromPrompt()` 改造
 

@@ -3,8 +3,8 @@ node_modules
 */dist
 
 # .gitignore 至少包含
-backend/.env
-backend/.env.development
+app/backend/.env
+app/backend/.env.development
 backups/
 
 data/
@@ -13,8 +13,8 @@ workspace/
 workspace/*
 
 # Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+app/test-results/
+app/playwright-report/
+app/blob-report/
+app/playwright/.cache/
+app/playwright/.auth/

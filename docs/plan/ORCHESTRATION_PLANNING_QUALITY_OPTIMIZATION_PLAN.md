@@ -55,7 +55,7 @@
 #### 步骤
 
 1. **新增 `PlanningContextService`**
-   - 路径：`backend/src/modules/orchestration/services/planning-context.service.ts`
+   - 路径：`app/backend/src/modules/orchestration/services/planning-context.service.ts`
    - 方法：`buildPlanningContext(prompt, requirementId?, plannerAgentId?)`
    - 聚合以下上下文：
      - Agent Manifest：可用 agent 列表 + 能力/工具摘要
@@ -64,13 +64,13 @@
    - 输出结构化 context string
 
 2. **改造 Planner Prompt 模板**
-   - 路径：`backend/src/modules/orchestration/planner.service.ts`
+   - 路径：`app/backend/src/modules/orchestration/planner.service.ts`
    - 新增模板变量：`{{agentManifest}}`、`{{requirementDetail}}`、`{{planningConstraints}}`
    - 默认 prompt 增加"可用执行者"和"需求详情"区块
    - `renderPlannerPromptTemplate` 适配新变量
 
 3. **改造 `generatePlanTasksAsync`**
-   - 路径：`backend/src/modules/orchestration/orchestration.service.ts:210-414`
+   - 路径：`app/backend/src/modules/orchestration/orchestration.service.ts:210-414`
    - 在调用 `planFromPrompt` 前，先调用 `planningContextService.buildPlanningContext()`
    - 将 context 传入 planner
 
@@ -86,7 +86,7 @@
 #### 步骤
 
 1. **Skill Schema 扩展**
-   - 路径：`backend/apps/agents/src/schemas/agent-skill.schema.ts`
+   - 路径：`app/backend/apps/agents/src/schemas/agent-skill.schema.ts`
    - 新增可选字段 `planningRules?: PlanningRule[]`
    - `PlanningRule` 类型：`{ type: 'task_count' | 'forbidden_task_pattern' | 'required_task_pattern' | 'dependency_rule', rule: string, validate?: string }`
 
@@ -96,7 +96,7 @@
    - 作为硬约束注入 planner prompt（而非背景知识）
 
 3. **输出后校验 `validateAgainstSkillConstraints()`**
-   - 路径：`backend/src/modules/orchestration/planner.service.ts`
+   - 路径：`app/backend/src/modules/orchestration/planner.service.ts`
    - planner 输出 JSON 后，逐条 task 检查是否违反 skill constraints
    - 违反时：自动修剪违规 task 或带校验错误重提交 planner
 

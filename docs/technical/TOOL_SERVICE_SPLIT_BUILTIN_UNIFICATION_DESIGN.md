@@ -4,7 +4,7 @@
 
 ### 1.1 当前文件职责分布
 
-`backend/apps/agents/src/modules/tools/tool.service.ts`（2664 行 / 87 方法）承担了 6 类职责：
+`app/backend/apps/agents/src/modules/tools/tool.service.ts`（2664 行 / 87 方法）承担了 6 类职责：
 
 | 职责域 | 方法数 | 行数 | 典型方法 |
 |--------|--------|------|----------|
@@ -50,7 +50,7 @@
 ## 2. 目标目录结构
 
 ```
-backend/apps/agents/src/modules/tools/
+app/backend/apps/agents/src/modules/tools/
 ├── builtin/                                     # ← 所有内部工具 handler 统一放入
 │   ├── index.ts                                 # barrel export
 │   │

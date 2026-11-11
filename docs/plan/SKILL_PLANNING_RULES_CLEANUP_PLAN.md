@@ -16,10 +16,10 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents/src/schemas/agent-skill.schema.ts`
-- 后端：`backend/apps/agents/src/modules/skills/skill-doc-loader.service.ts`
-- 后端：`backend/apps/agents/src/modules/skills/skill.service.ts`
-- 脚本：`backend/scripts/seed/*skill-planning-rules*`、`backend/scripts/migrate/*`
+- 后端：`app/backend/apps/agents/src/schemas/agent-skill.schema.ts`
+- 后端：`app/backend/apps/agents/src/modules/skills/skill-doc-loader.service.ts`
+- 后端：`app/backend/apps/agents/src/modules/skills/skill.service.ts`
+- 脚本：`app/backend/scripts/seed/*skill-planning-rules*`、`app/backend/scripts/migrate/*`
 - 文档：`docs/guide/SKILL_LOAD.md`
 
 ## 风险与回滚

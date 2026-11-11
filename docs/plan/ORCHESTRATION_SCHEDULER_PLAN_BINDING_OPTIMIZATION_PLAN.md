@@ -19,7 +19,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/src/modules/orchestration/scheduler/dto/index.ts`、`backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+- 后端：`app/backend/src/modules/orchestration/scheduler/dto/index.ts`、`app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
 - 前端：`frontend/src/pages/Scheduler.tsx`、`frontend/src/services/schedulerService.ts`
 - 文档：`docs/feature/ORCHETRATION_SCHEDULER.md`、`docs/dailylog/day/`
 - API：`POST/PUT /orchestration/schedules` 入参约束变化（`planId` 必填，移除 `target`）

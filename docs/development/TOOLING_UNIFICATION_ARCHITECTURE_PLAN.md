@@ -12,16 +12,16 @@
 
 - 工具主键语义切到 canonical toolId（`provider.namespace.resource/action` 风格）。
 - 删除 legacy 映射实现文件：
-  - `backend/apps/agents/src/modules/tools/tool-id-mapping.ts`
+  - `app/backend/apps/agents/src/modules/tools/tool-id-mapping.ts`
 - 删除 alias 映射相关运行时开关与统计逻辑，工具查询/执行不再走 legacy 分支。
 
 ### 2.2 Tool + Toolkit 双实体落地
 
 - 已有 `Tool` 扩展字段持续沿用（provider/namespace/toolkitId/resource/action 等）。
 - 新增 `Toolkit` 独立实体：
-  - `backend/src/shared/schemas/toolkit.schema.ts`
+  - `app/backend/src/shared/schemas/toolkit.schema.ts`
 - `ToolModule` 注入 `Toolkit` model：
-  - `backend/apps/agents/src/modules/tools/tool.module.ts`
+  - `app/backend/apps/agents/src/modules/tools/tool.module.ts`
 - `ToolService` 增加 Toolkit 同步能力：
   - 基于工具集合自动 upsert Toolkit
   - 无效 Toolkit 标记 `deprecated`

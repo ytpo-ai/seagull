@@ -44,7 +44,7 @@
 
 ### 影响范围
 
-- **后端**：`backend/src/modules/discussions/discussion.controller.ts`、`backend/src/modules/discussions/services/discussion-knowledge.service.ts`、`backend/src/modules/discussions/discussion.types.ts`
+- **后端**：`app/backend/src/modules/discussions/discussion.controller.ts`、`app/backend/src/modules/discussions/services/discussion-knowledge.service.ts`、`app/backend/src/modules/discussions/discussion.types.ts`
 - **前端页面/组件**：`frontend/src/pages/discussions/DiscussionDetail.tsx`、`frontend/src/components/discussion/MessageBubble.tsx`
 - **前端服务**：`frontend/src/services/discussionService.ts`
 

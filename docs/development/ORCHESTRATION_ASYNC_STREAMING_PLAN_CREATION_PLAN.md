@@ -15,17 +15,17 @@
 
 ### 后端
 
-- `backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
   - 创建计划改为占位落库（`status=drafting`）后立即返回。
   - 新增后台异步编排流程：逐条创建任务、逐条更新 `planSession` 与 `stats`。
   - 新增计划事件流内存通道，支持推送计划状态与任务生成事件。
   - 重新编排链路同步改异步：开始先删除历史任务并重置 session/统计，再通过 SSE 逐条回灌新任务。
-- `backend/src/modules/orchestration/orchestration.controller.ts`
+- `app/backend/src/modules/orchestration/orchestration.controller.ts`
   - 新增 `GET /orchestration/plans/:id/events`（SSE）接口。
   - SSE 鉴权支持 `authorization` 头和 `access_token` 查询参数兜底。
-- `backend/src/shared/schemas/orchestration-plan.schema.ts`
+- `app/backend/src/shared/schemas/orchestration-plan.schema.ts`
   - 计划状态新增 `drafting`。
-- `backend/src/shared/types.ts`
+- `app/backend/src/shared/types.ts`
   - 增加 `export type Task = AgentExecutionTask` 兼容导出，修复 agents app 对旧 `Task` 类型引用的编译错误。
 
 ### 前端

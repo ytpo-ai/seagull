@@ -7,7 +7,7 @@
 
 ## 执行步骤
 
-1. 在 `backend/apps/agents/src/modules/tools/` 新增 `web-tools.service.ts`，迁移三类工具实现及其依赖的私有辅助方法。
+1. 在 `app/backend/apps/agents/src/modules/tools/` 新增 `web-tools.service.ts`，迁移三类工具实现及其依赖的私有辅助方法。
 2. 在 `tool.module.ts` 注册新服务 provider，确保 Nest DI 可注入。
 3. 在 `tool.service.ts` 注入 `WebToolsService`，将 `executeToolImplementation` 中对应分支改为委托调用。
 4. 从 `tool.service.ts` 清理已迁移的方法与不再需要的 import，避免重复实现与无效依赖。

@@ -44,7 +44,7 @@ REQ-001 已完成讨论空间基础模型与分叉能力，但缺少多角色协
 
 ### 影响范围
 
-- **后端**：`backend/src/modules/discussions/` 新增 3 个服务并扩展 controller 路由
+- **后端**：`app/backend/src/modules/discussions/` 新增 3 个服务并扩展 controller 路由
 - **数据库**：复用 `discussion_knowledge_entries`、`discussion_spaces.sedimentHistory`
 - **消息中心**：复用 `MessageCenterService.createSystemMessage`
 

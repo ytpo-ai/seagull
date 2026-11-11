@@ -34,10 +34,10 @@
 
 | 文件 | 改动 |
 |------|------|
-| `backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` | 增加 `projectId?: string`、`localProjectPath?: string` |
-| `backend/apps/agents/src/modules/tools/tool-execution.service.ts` | 构建 context 时从 `collaborationContext` 提取项目信息 |
-| `backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts` | `createRequirement` 增加 `projectId` context fallback |
-| `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | 确认 `executionContext` 传递完整性 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` | 增加 `projectId?: string`、`localProjectPath?: string` |
+| `app/backend/apps/agents/src/modules/tools/tool-execution.service.ts` | 构建 context 时从 `collaborationContext` 提取项目信息 |
+| `app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts` | `createRequirement` 增加 `projectId` context fallback |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | 确认 `executionContext` 传递完整性 |
 
 ### 影响范围
 

@@ -12,7 +12,7 @@
 
 ### 2.1 Tools 模块
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - 注册 `skill-master` 两个内置工具（list/create）。
   - 执行分发新增 skill-master 分支。
   - 新增 `listSkillsByTitle`：
@@ -22,12 +22,12 @@
     - 校验 `title|name` 与 `description`。
     - 复用 `SkillService.createSkill` 完成落库。
 
-- `backend/apps/agents/src/modules/tools/tool.module.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.module.ts`
   - 引入 `SkillModule`，保证 `ToolService` 可注入 `SkillService`。
 
 ### 2.2 测试
 
-- `backend/apps/agents/src/modules/tools/tool.service.spec.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.spec.ts`
   - 新增 skill-master 用例：
     - `list-skills` title 模糊检索映射
     - `create-skill` 成功创建
@@ -46,7 +46,7 @@
 
 ## 4. 验证
 
-- 执行：`npm test -- backend/apps/agents/src/modules/tools/tool.service.spec.ts`（backend）
+- 执行：`npm test -- app/backend/apps/agents/src/modules/tools/tool.service.spec.ts`（backend）
 - 结果：通过（6 passed）
 
 - 执行：`npm run build:agents`（backend）

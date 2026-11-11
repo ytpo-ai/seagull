@@ -12,12 +12,12 @@
 
 ### 2.1 类型与模型
 
-- 文件：`backend/apps/agents/src/schemas/agent-memo.schema.ts`
+- 文件：`app/backend/apps/agents/src/schemas/agent-memo.schema.ts`
 - 变更：扩展 `MemoKind` 与 schema enum，纳入 `achievement`、`criticism`。
 
 ### 2.2 业务规则与权限
 
-- 文件：`backend/apps/agents/src/modules/memos/memo.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/memos/memo.service.ts`
 - 新增：
   - `MemoActorContext` / `MemoMutationOptions`
   - `assertMemoWritePermission`（集中写权限校验）
@@ -26,14 +26,14 @@
 
 ### 2.3 控制器上下文透传
 
-- 文件：`backend/apps/agents/src/modules/memos/memo.controller.ts`
+- 文件：`app/backend/apps/agents/src/modules/memos/memo.controller.ts`
 - 变更：
   - create/update 接口接收 `@Req`。
   - 从 `req.userContext` 提取 `employeeId`、`role` 并传入 memoService。
 
 ### 2.4 Topic 聚合暂停
 
-- 文件：`backend/apps/agents/src/modules/memos/memo.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/memos/memo.service.ts`
 - 变更：
   - 增加 `topicAggregationEnabled`（默认 `false`）。
   - `flushEventQueue` 在聚合关闭时仅丢弃事件，不执行 `mergeTopicEvents`。
@@ -48,7 +48,7 @@
 
 ## 3. 测试与验证
 
-- 文件：`backend/apps/agents/src/modules/memos/memo.service.spec.ts`
+- 文件：`app/backend/apps/agents/src/modules/memos/memo.service.spec.ts`
 - 新增测试：
   - agent 写 `achievement` 被拒绝。
   - agent 写 `criticism` 允许。

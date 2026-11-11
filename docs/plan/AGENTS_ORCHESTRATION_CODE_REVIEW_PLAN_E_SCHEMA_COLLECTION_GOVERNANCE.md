@@ -14,9 +14,9 @@
 
 ### 范围
 
-- `backend/src/shared/schemas/**`
-- `backend/apps/agents/src/schemas/**`
-- `backend/apps/engineering-intelligence/src/schemas/**`
+- `app/backend/src/shared/schemas/**`
+- `app/backend/apps/agents/src/schemas/**`
+- `app/backend/apps/engineering-intelligence/src/schemas/**`
 - 迁移脚本、兼容策略、CI 校验规则
 
 ### 非目标
@@ -60,8 +60,8 @@
 
 | 问题 | 解决动作 | 核心文件 |
 |---|---|---|
-| N-28 | 全量 schema 显式 collection + CI 校验 | `backend/src/shared/schemas/**`, `backend/apps/**/schemas/**` |
-| N-29 | AgentSession 单一定义收敛 | `backend/src/shared/schemas/agent-session.schema.ts`, `backend/apps/agents/src/schemas/agent-session.schema.ts` |
+| N-28 | 全量 schema 显式 collection + CI 校验 | `app/backend/src/shared/schemas/**`, `app/backend/apps/**/schemas/**` |
+| N-29 | AgentSession 单一定义收敛 | `app/backend/src/shared/schemas/agent-session.schema.ts`, `app/backend/apps/agents/src/schemas/agent-session.schema.ts` |
 
 ## 7. 验收标准（量化）
 
@@ -72,7 +72,7 @@
 
 ## 8. 验证命令
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -158,7 +158,7 @@ npm run test -- --runInBand
 ### 11.1 目标
 
 - 统一 schema 文件命名为 kebab-case，消除 camelCase 文件名（例如 `api-key.schema.ts`）。
-- 将仅由 agents 领域使用的 schema 下沉到 `backend/apps/agents/src/schemas/`，明确领域归属（如 tools 相关 schema）。
+- 将仅由 agents 领域使用的 schema 下沉到 `app/backend/apps/agents/src/schemas/`，明确领域归属（如 tools 相关 schema）。
 
 ### 11.2 执行步骤
 
@@ -172,16 +172,16 @@ npm run test -- --runInBand
 
 文件改名（仅命名规范化）：
 
-- `backend/src/shared/schemas/apiKey.schema.ts` -> `backend/src/shared/schemas/api-key.schema.ts`
-- `backend/apps/agents/src/schemas/skill.schema.ts` -> `backend/apps/agents/src/schemas/agent-skill.schema.ts`
-- `backend/src/shared/schemas/message.schema.ts` -> `backend/src/shared/schemas/chat.schema.ts`
-- `backend/src/shared/schemas/rd-project.schema.ts` -> `backend/src/shared/schemas/ei-project.schema.ts`
-- `backend/src/shared/schemas/rd-task.schema.ts` -> `backend/src/shared/schemas/ei-task.schema.ts`
+- `app/backend/src/shared/schemas/apiKey.schema.ts` -> `app/backend/src/shared/schemas/api-key.schema.ts`
+- `app/backend/apps/agents/src/schemas/skill.schema.ts` -> `app/backend/apps/agents/src/schemas/agent-skill.schema.ts`
+- `app/backend/src/shared/schemas/message.schema.ts` -> `app/backend/src/shared/schemas/chat.schema.ts`
+- `app/backend/src/shared/schemas/rd-project.schema.ts` -> `app/backend/src/shared/schemas/ei-project.schema.ts`
+- `app/backend/src/shared/schemas/rd-task.schema.ts` -> `app/backend/src/shared/schemas/ei-task.schema.ts`
 
 文件迁移（下沉到 agents 领域）：
 
-- `backend/src/shared/schemas/tool.schema.ts` -> `backend/apps/agents/src/schemas/tool.schema.ts`
-- `backend/src/shared/schemas/toolkit.schema.ts` -> `backend/apps/agents/src/schemas/toolkit.schema.ts`
-- `backend/src/shared/schemas/toolExecution.schema.ts` -> `backend/apps/agents/src/schemas/tool-execution.schema.ts`
-- `backend/src/shared/schemas/agent-tool-credential.schema.ts` -> `backend/apps/agents/src/schemas/agent-tool-credential.schema.ts`
-- `backend/src/shared/schemas/agent-tool-token-revocation.schema.ts` -> `backend/apps/agents/src/schemas/agent-tool-token-revocation.schema.ts`
+- `app/backend/src/shared/schemas/tool.schema.ts` -> `app/backend/apps/agents/src/schemas/tool.schema.ts`
+- `app/backend/src/shared/schemas/toolkit.schema.ts` -> `app/backend/apps/agents/src/schemas/toolkit.schema.ts`
+- `app/backend/src/shared/schemas/toolExecution.schema.ts` -> `app/backend/apps/agents/src/schemas/tool-execution.schema.ts`
+- `app/backend/src/shared/schemas/agent-tool-credential.schema.ts` -> `app/backend/apps/agents/src/schemas/agent-tool-credential.schema.ts`
+- `app/backend/src/shared/schemas/agent-tool-token-revocation.schema.ts` -> `app/backend/apps/agents/src/schemas/agent-tool-token-revocation.schema.ts`

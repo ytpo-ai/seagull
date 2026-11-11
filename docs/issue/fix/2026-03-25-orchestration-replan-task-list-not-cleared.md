@@ -21,8 +21,8 @@
 - 直接原因 1：`replanPlanAsync` 在后端先返回 `accepted`，再异步执行真实 replan；前置校验失败（如计划运行中、计划锁定、prompt 为空）会在后台抛错并被吞掉，导致“受理成功但未真正删除任务”
 - 直接原因 2：前端 `onMutate` 先乐观清空任务，若服务端实际失败，界面会出现“已清空”的错觉，刷新后旧任务回显
 - 深层原因：异步受理链路缺少“受理前硬校验 + 失败回填机制”
-- 相关模块/文件：`backend/src/modules/orchestration/services/plan-management.service.ts`、`frontend/src/hooks/useReplanMutation.ts`
-- 相关模块/文件：`backend/src/modules/orchestration/services/plan-management.service.ts`、`frontend/src/hooks/useReplanMutation.ts`、`frontend/src/components/orchestration/constants.ts`、`frontend/src/pages/Orchestration.tsx`
+- 相关模块/文件：`app/backend/src/modules/orchestration/services/plan-management.service.ts`、`frontend/src/hooks/useReplanMutation.ts`
+- 相关模块/文件：`app/backend/src/modules/orchestration/services/plan-management.service.ts`、`frontend/src/hooks/useReplanMutation.ts`、`frontend/src/components/orchestration/constants.ts`、`frontend/src/pages/Orchestration.tsx`
 
 ## 4. 修复动作
 

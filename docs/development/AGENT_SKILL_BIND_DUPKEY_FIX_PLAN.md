@@ -13,7 +13,7 @@
 
 ## 3. 修复方案
 
-- 文件：`backend/apps/agents/src/modules/skills/skill.service.ts`
+- 文件：`app/backend/apps/agents/src/modules/skills/skill.service.ts`
 - 方法：`assignSkillToAgent`
 - 调整要点：
   1. 使用 `$set` 更新可变业务字段（`proficiencyLevel` / `assignedBy` / `enabled` / `note`）。

@@ -24,7 +24,7 @@
 
 - Frontend: `frontend/src/pages/Meetings.tsx`
 - Frontend service: `frontend/src/services/meetingService.ts`
-- Backend: `backend/src/modules/meetings/*`（视现状可能涉及 controller/service/schema）
+- Backend: `app/backend/src/modules/meetings/*`（视现状可能涉及 controller/service/schema）
 - Docs: `docs/feature/MEETING_CHAT.md`（如有 API/交互变更同步）
 
 ## Risks / Dependencies

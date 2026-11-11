@@ -25,7 +25,7 @@
 
 **影响点**：后端 / 配置
 
-- 在 `backend/apps/channel/` 下创建 NestJS 独立应用
+- 在 `app/backend/apps/channel/` 下创建 NestJS 独立应用
 - 注册到 `nest-cli.json` monorepo 配置
 - 创建 `main.ts`、`app.module.ts`、`health.controller.ts`
 - 配置独立端口（环境变量 `CHANNEL_PORT`，默认 `3006`）
@@ -190,7 +190,7 @@ export interface ChannelEventEnvelope {
 
 #### 5b. message-center 消费后转发
 
-修改 `backend/src/modules/message-center/message-center-event-consumer.service.ts`：
+修改 `app/backend/src/modules/message-center/message-center-event-consumer.service.ts`：
 - 在成功写入 system_messages 并 WebSocket 推送之后
 - 判断事件类型是否需要转发（初期硬编码白名单，后续可配置化）
 - 调用 `RedisService.xadd(CHANNEL_EVENTS_STREAM, envelope)` 转发
@@ -221,7 +221,7 @@ export interface ChannelEventEnvelope {
 
 **影响点**：配置 / 运维
 
-- 创建 `backend/scripts/channel-config-seed.ts`：
+- 创建 `app/backend/scripts/channel-config-seed.ts`：
   - 提供示例 seed 数据（飞书群 Webhook 配置模板）
   - 支持通过环境变量 `FEISHU_WEBHOOK_URL` 快速配置
 - 更新 `.env.example`：

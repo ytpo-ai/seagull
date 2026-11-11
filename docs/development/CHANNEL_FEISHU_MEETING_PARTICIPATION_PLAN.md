@@ -15,8 +15,8 @@
 - 保留一级全局命令：`/help`、`/bind`、纯文本 `chat`。
 
 对应文件：
-- `backend/apps/channel/src/modules/inbound/command-parser.service.ts`
-- `backend/apps/channel/src/modules/inbound/command-parser.service.spec.ts`
+- `app/backend/apps/channel/src/modules/inbound/command-parser.service.ts`
+- `app/backend/apps/channel/src/modules/inbound/command-parser.service.spec.ts`
 
 ### 2.2 入站路由切换到会议消息链路
 
@@ -26,7 +26,7 @@
 - `/help` 文案更新为新命令体系，并新增 `unknown_command` 统一提示。
 
 对应文件：
-- `backend/apps/channel/src/modules/inbound/channel-inbound.service.ts`
+- `app/backend/apps/channel/src/modules/inbound/channel-inbound.service.ts`
 
 ### 2.3 Channel Session 扩展
 
@@ -34,8 +34,8 @@
 - `ChannelSessionService` 增加 `setActiveMeeting/getActiveMeeting/clearActiveMeeting` 等接口，支持按会议批量清理与启动恢复查询。
 
 对应文件：
-- `backend/apps/channel/src/modules/inbound/schemas/channel-session.schema.ts`
-- `backend/apps/channel/src/modules/inbound/channel-session.service.ts`
+- `app/backend/apps/channel/src/modules/inbound/schemas/channel-session.schema.ts`
+- `app/backend/apps/channel/src/modules/inbound/channel-session.service.ts`
 
 ### 2.4 1:1 自动会议管理服务
 
@@ -46,7 +46,7 @@
 - 服务内通过签名 Header 访问 Gateway 的 Meeting API，不直接依赖 meeting module。
 
 对应文件：
-- `backend/apps/channel/src/modules/inbound/channel-meeting-auto.service.ts`
+- `app/backend/apps/channel/src/modules/inbound/channel-meeting-auto.service.ts`
 
 ### 2.5 会议 Relay 双向同步服务
 
@@ -57,8 +57,8 @@
 - 服务启动时从 `channel_sessions` 恢复活跃 relay。
 
 对应文件：
-- `backend/apps/channel/src/modules/inbound/channel-meeting-relay.service.ts`
-- `backend/apps/channel/src/modules/inbound/inbound.module.ts`
+- `app/backend/apps/channel/src/modules/inbound/channel-meeting-relay.service.ts`
+- `app/backend/apps/channel/src/modules/inbound/inbound.module.ts`
 
 ### 2.6 会议类型与前端 source 标记
 
@@ -66,7 +66,7 @@
 - 前端会议发送消息时补充 `metadata.source = 'web'`，用于 relay 来源识别。
 
 对应文件：
-- `backend/src/shared/schemas/meeting.schema.ts`
+- `app/backend/src/shared/schemas/meeting.schema.ts`
 - `frontend/src/services/meetingService.ts`
 - `frontend/src/pages/meetings/constants.ts`
 - `frontend/src/pages/meetings/hooks/useMeetingMutations.ts`

@@ -35,7 +35,7 @@
 
 ### 2.1 新增 `apps/agents` 侧 AgentSession 模型
 
-路径：`backend/apps/agents/src/schemas/agent-session.schema.ts`
+路径：`app/backend/apps/agents/src/schemas/agent-session.schema.ts`
 
 新增统一容器字段：
 
@@ -46,7 +46,7 @@
 
 ### 2.2 新增 `orchestration` 侧 PlanSession 模型
 
-路径：`backend/src/shared/schemas/orchestration-plan-session.schema.ts`
+路径：`app/backend/src/shared/schemas/orchestration-plan-session.schema.ts`
 
 按 `planId` 聚合任务快照：
 
@@ -63,9 +63,9 @@
 
 涉及文件：
 
-- `backend/apps/agents/src/modules/runtime/runtime.module.ts`
-- `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
-- `backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime.module.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
 
 主要改动：
 
@@ -78,9 +78,9 @@
 
 涉及文件：
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.controller.ts`
-- `backend/src/modules/agents-client/agent-client.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.controller.ts`
+- `app/backend/src/modules/agents-client/agent-client.service.ts`
 
 主要改动：
 
@@ -93,9 +93,9 @@
 
 涉及文件：
 
-- `backend/src/modules/orchestration/orchestration.module.ts`
-- `backend/src/modules/orchestration/orchestration.controller.ts`
-- `backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.module.ts`
+- `app/backend/src/modules/orchestration/orchestration.controller.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
 
 主要改动：
 
@@ -151,14 +151,14 @@
 
 实施内容：
 
-- `backend/apps/agents/src/schemas/agent-session.schema.ts`
+- `app/backend/apps/agents/src/schemas/agent-session.schema.ts`
   - 新增 `messages[]` 字段，结构包含：
     - `id/runId/taskId`
     - `role`（`system/user/assistant/tool`）
     - `content`
     - `status`（`pending/streaming/completed/error`）
     - `metadata/timestamp`
-- `backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+- `app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
   - 在 `createMessage(...)` 写入 runtime 消息集合后，同步 `appendMessageToSession(...)`。
   - 新增 `AGENT_SESSION_MAX_MESSAGES`（默认 `1200`）用于消息条数裁剪，避免 session 文档无上限增长。
 
@@ -175,7 +175,7 @@
 
 实施内容：
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - 新增工具：
     - `orchestration_create_plan`
     - `orchestration_run_plan`
@@ -186,9 +186,9 @@
   - 新增服务间调用封装：使用 `x-user-context + x-user-signature` 调用 legacy orchestration API。
   - 新增会议上下文约束：上述工具仅允许会议上下文使用。
   - 高风险动作增加确认门槛：`confirm=true`。
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
   - 工具执行链路透传 `teamContext/taskType/teamId` 到 ToolService，支持会议场景识别。
-- `backend/src/modules/orchestration/orchestration.controller.ts`
+- `app/backend/src/modules/orchestration/orchestration.controller.ts`
   - 鉴权兼容内部签名上下文（无 Bearer Token 的服务调用场景）。
 
 效果：
@@ -205,7 +205,7 @@
 - 会议中 Agent 即使具备 `orchestration_*` 工具，也可能只返回自然语言承诺，不生成 `<tool_call>`。
 - 原因是工具调用是“可调用”而非“必须调用”，模型可能直接结束回合。
 
-修复实现（`backend/apps/agents/src/modules/agents/agent.service.ts`）：
+修复实现（`app/backend/apps/agents/src/modules/agents/agent.service.ts`）：
 
 - 新增会议编排意图识别：在会议上下文中识别 `创建计划/执行计划/查询计划/改派/人工完成` 等指令。
 - 命中后走确定性分支，直接触发对应 MCP 工具（`orchestration_*`），不依赖模型先输出 `<tool_call>`。
@@ -245,7 +245,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/apps/agents`、`backend/src/modules/orchestration`、`backend/src/modules/agents-client`
+- 后端：`app/backend/apps/agents`、`app/backend/src/modules/orchestration`、`app/backend/src/modules/agents-client`
 - 数据库：新增 `PlanSession` 集合；扩展 `AgentSession` 结构
 - API：`agents/:id/execute` 请求上下文与响应结构会扩展（session/run 元信息）
 - 前端：编排详情读取 `planSession` 信息（如需可后续分阶段接入）

@@ -312,7 +312,7 @@ import { OrchestrationTask, OrchestrationTaskDocument } from '../../../../../src
 
 ### 3.13 环境变量与启动脚本
 
-`backend/.env.example` — 删除以下变量（EI + PLANNER 编排相关）：
+`app/backend/.env.example` — 删除以下变量（EI + PLANNER 编排相关）：
 
 ```
 ENGINEERING_INTELLIGENCE_PORT=3201
@@ -331,7 +331,7 @@ PLANNER_SESSION_ISOLATION_MODE=shared
 
 > `CHANNEL_FORWARD_EVENT_TYPES` 中可移除 `orchestration.task.completed`（可选，保留无害）。
 
-`backend/start.sh` / `backend/reload.sh` — 删除 `ei` 服务与 `3004` 端口相关行。
+`app/backend/start.sh` / `app/backend/reload.sh` — 删除 `ei` 服务与 `3004` 端口相关行。
 
 ---
 
@@ -518,7 +518,7 @@ show collections
 # db.discussionmessages.drop()
 ```
 
-> ⚠️ 数据清理为不可逆操作，建议先备份（`backend/scripts/maintenance/backup-db.ts`）再执行。
+> ⚠️ 数据清理为不可逆操作，建议先备份（`app/backend/scripts/maintenance/backup-db.ts`）再执行。
 
 ---
 

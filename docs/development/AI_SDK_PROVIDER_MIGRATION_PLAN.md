@@ -38,7 +38,7 @@
 
 ### 2.4 V1 Provider 目录归档
 
-- 将旧 Provider 统一归档到 `backend/libs/models/src/v1/`：
+- 将旧 Provider 统一归档到 `app/backend/libs/models/src/v1/`：
   - `base-provider.ts`
   - `openai-provider.ts`
   - `anthropic-provider.ts`
@@ -50,27 +50,27 @@
 ## 3. 关键文件变更
 
 - 后端迁移与路由：
-  - `backend/libs/models/src/aiv2-provider.ts`
-  - `backend/libs/models/src/index.ts`
-  - `backend/libs/models/src/v1/base-provider.ts`
-  - `backend/libs/models/src/v1/openai-provider.ts`
-  - `backend/libs/models/src/v1/anthropic-provider.ts`
-  - `backend/libs/models/src/v1/google-provider.ts`
-  - `backend/libs/models/src/v1/moonshot-provider.ts`
-  - `backend/apps/agents/src/modules/models/model.service.ts`
-  - `backend/.env.example`
+  - `app/backend/libs/models/src/aiv2-provider.ts`
+  - `app/backend/libs/models/src/index.ts`
+  - `app/backend/libs/models/src/v1/base-provider.ts`
+  - `app/backend/libs/models/src/v1/openai-provider.ts`
+  - `app/backend/libs/models/src/v1/anthropic-provider.ts`
+  - `app/backend/libs/models/src/v1/google-provider.ts`
+  - `app/backend/libs/models/src/v1/moonshot-provider.ts`
+  - `app/backend/apps/agents/src/modules/models/model.service.ts`
+  - `app/backend/.env.example`
 - 后端模型管理与数据结构：
-  - `backend/libs/contracts/src/model.types.ts`
-  - `backend/apps/agents/src/schemas/model-registry.schema.ts`
-  - `backend/apps/agents/src/modules/models/model-management.service.ts`
-  - `backend/src/shared/schemas/agent.schema.ts`
-  - `backend/apps/agents/src/modules/agents/agent.service.ts`
+  - `app/backend/libs/contracts/src/model.types.ts`
+  - `app/backend/apps/agents/src/schemas/model-registry.schema.ts`
+  - `app/backend/apps/agents/src/modules/models/model-management.service.ts`
+  - `app/backend/src/shared/schemas/agent.schema.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - 前端：
   - `frontend/src/types/index.ts`
   - `frontend/src/pages/Models.tsx`
 - 依赖与计划文档：
-  - `backend/package.json`
-  - `backend/pnpm-lock.yaml`
+  - `app/backend/package.json`
+  - `app/backend/pnpm-lock.yaml`
   - `docs/plan/AI_SDK_PROVIDER_MIGRATION_PLAN.md`
 
 ## 4. 验证结果

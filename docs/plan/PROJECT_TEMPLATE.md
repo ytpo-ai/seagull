@@ -7,7 +7,7 @@
 ## 目标
 
 提取以下经验到模板：
-1. backend/frontend/docs 的目录结构
+1. app/backend/frontend/docs 的目录结构
 2. AGENTS.md 和 docs/feature/RULES.md 等文档规范
 3. NestJS + React 基础项目骨架
 
@@ -67,7 +67,7 @@ data/template/
 ├── README.md
 ├── .gitignore
 ├── docker-compose.yml
-├── backend/
+├── app/backend/
 │   ├── package.json, tsconfig.json, nest-cli.json, .eslintrc.cjs, .env.example
 │   ├── src/main.ts, app.module.ts, config/app.config.ts, config/database.config.ts
 │   └── libs/common/src/index.ts

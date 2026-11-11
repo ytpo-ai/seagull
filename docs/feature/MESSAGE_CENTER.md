@@ -60,24 +60,24 @@
 
 | 路径 | 功能 |
 |------|------|
-| `backend/src/modules/message-center/message-center.controller.ts` | 系统消息/内部消息查询与已读操作 |
-| `backend/src/modules/message-center/message-center.service.ts` | 系统消息查询聚合、已读逻辑、幂等写入 |
-| `backend/src/modules/message-center/message-center-event-consumer.service.ts` | Redis Streams 事件消费与消息入库 |
-| `backend/src/modules/message-center/message-center.module.ts` | 模块装配 |
-| `backend/src/shared/schemas/system-message.schema.ts` | `system_messages` 模型与索引 |
-| `backend/src/shared/schemas/inner-message.schema.ts` | `inner_messages` 模型与索引 |
+| `app/backend/src/modules/message-center/message-center.controller.ts` | 系统消息/内部消息查询与已读操作 |
+| `app/backend/src/modules/message-center/message-center.service.ts` | 系统消息查询聚合、已读逻辑、幂等写入 |
+| `app/backend/src/modules/message-center/message-center-event-consumer.service.ts` | Redis Streams 事件消费与消息入库 |
+| `app/backend/src/modules/message-center/message-center.module.ts` | 模块装配 |
+| `app/backend/src/shared/schemas/system-message.schema.ts` | `system_messages` 模型与索引 |
+| `app/backend/src/shared/schemas/inner-message.schema.ts` | `inner_messages` 模型与索引 |
 
 ### 后端（EI）
 
 | 路径 | 功能 |
 |------|------|
-| `backend/apps/ei/src/services/statistics.service.ts` | 工程工具完成后发布 `engineering.tool.completed` 事件 |
+| `app/backend/apps/ei/src/services/statistics.service.ts` | 工程工具完成后发布 `engineering.tool.completed` 事件 |
 
 ### 后端（Meeting）
 
 | 路径 | 功能 |
 |------|------|
-| `backend/src/modules/meetings/services/meeting-message-center-event.service.ts` | 会议结束后发布 `meeting.session.ended` 事件 |
+| `app/backend/src/modules/meetings/services/meeting-message-center-event.service.ts` | 会议结束后发布 `meeting.session.ended` 事件 |
 
 ### 前端
 

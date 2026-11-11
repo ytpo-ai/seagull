@@ -11,35 +11,35 @@
 
 ### 2.1 Schema 与类型
 
-- `backend/src/shared/schemas/agent.schema.ts`
+- `app/backend/src/shared/schemas/agent.schema.ts`
   - 删除 `type` 字段。
-- `backend/src/shared/types.ts`
+- `app/backend/src/shared/types.ts`
   - 删除 `Agent.type`。
 - `frontend/src/types/index.ts`
   - 删除 `Agent.type`。
 - `shared/types.d.ts`
   - 删除 `Agent.type`，补齐 `roleId`。
-- `backend/src/shared/schemas/agent-profile.schema.ts`
+- `app/backend/src/shared/schemas/agent-profile.schema.ts`
   - `agentType` 字段重命名为 `roleCode`。
 
 ### 2.2 业务逻辑
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
   - 删除创建/更新流程中的 `type` 处理逻辑。
   - 工具白名单校验仅按 `role.code` 获取 profile。
   - MCP profile 读写查询键切换为 `roleCode`。
   - MCP seed 由“类型键”调整为“角色码键”。
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - `list-agents` 改为按 `roleId -> role.code` 查 profile 与 `exposed`。
   - `create-agent` MCP 入参移除 `type`。
-- `backend/src/modules/meetings/meeting.service.ts`
+- `app/backend/src/modules/meetings/meeting.service.ts`
   - 移除会议隐藏判断中的 `agent.type` 依赖。
-- `backend/src/modules/employees/employee.service.ts`
+- `app/backend/src/modules/employees/employee.service.ts`
   - 创建专属助理不再传 `type`。
 
 ### 2.3 API 与文档
 
-- `backend/apps/agents/src/modules/agents/agent.controller.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.controller.ts`
   - MCP profile 接口路由参数改为 `:roleCode`。
 - `frontend/src/services/agentService.ts`
   - 对应前端 API 客户端参数改为 `roleCode`。

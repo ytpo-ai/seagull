@@ -8,40 +8,40 @@
 
 ### 2.1 新增 Schema
 
-- `backend/apps/ei/src/schemas/ei-data-source.schema.ts`
+- `app/backend/apps/ei/src/schemas/ei-data-source.schema.ts`
   - 新增 `ei_data_sources` 集合
   - 支持 `sourceType/config/collectFrequency/cronExpression/scheduleId/statistics` 等字段
   - 增加索引：`{ projectId: 1, status: 1 }`、`{ scheduleId: 1 }`、`{ collectFrequency: 1, status: 1 }`
 
-- `backend/apps/ei/src/schemas/ei-data-record.schema.ts`
+- `app/backend/apps/ei/src/schemas/ei-data-record.schema.ts`
   - 新增 `ei_data_records` 集合
   - 支持 `data/rawData/collectedAt/dataCategory/tags/status` 等字段
   - 增加索引：按 `dataSourceId/projectId/outlineSectionId` 的时间序查询优化
 
 ### 2.2 新增 DTO / Service / Controller
 
-- DTO：`backend/apps/ei/src/dto/data-collection.dto.ts`
+- DTO：`app/backend/apps/ei/src/dto/data-collection.dto.ts`
   - 数据源 CRUD、测试采集、手动采集、数据记录查询/聚合/清理的参数定义
 
 - Service：
-  - `backend/apps/ei/src/services/ei-data-sources.service.ts`
+  - `app/backend/apps/ei/src/services/ei-data-sources.service.ts`
     - 数据源 CRUD
     - `POST /ei/data-sources/:id/test` 在线测试（api 类型）
     - `POST /ei/data-sources/:id/collect` 手动采集并落库数据记录
     - 创建数据源时自动创建 `orchestration_schedules` 并回写 `scheduleId`
     - 创建数据源要求 `executorAgentId`，调度执行时将任务投递给指定 Agent
-  - `backend/apps/ei/src/services/ei-data-records.service.ts`
+  - `app/backend/apps/ei/src/services/ei-data-records.service.ts`
     - 数据记录列表查询
     - 聚合统计（`day/dataCategory/tag`）
     - 单条删除与批量清理
 
 - Controller：
-  - `backend/apps/ei/src/controllers/data-sources.controller.ts`
-  - `backend/apps/ei/src/controllers/data-records.controller.ts`
+  - `app/backend/apps/ei/src/controllers/data-sources.controller.ts`
+  - `app/backend/apps/ei/src/controllers/data-records.controller.ts`
 
 ### 2.3 模块注册
 
-- 更新 `backend/apps/ei/src/app.module.ts`
+- 更新 `app/backend/apps/ei/src/app.module.ts`
   - 注册 `EiDataSource/EiDataRecord` schema
   - 注册 `EiDataSourcesController/EiDataRecordsController`
   - 注册 `EiDataSourcesService/EiDataRecordsService`
@@ -78,7 +78,7 @@
   - `builtin.sys-mg.mcp.data-collection.get-source-config`
   - `builtin.sys-mg.mcp.data-collection.write-record`
 - 代码位置：
-  - `backend/apps/agents/src/modules/tools/builtin/data-collection-tool-handler.service.ts`
-  - `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
-  - `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
-  - `backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`
+  - `app/backend/apps/agents/src/modules/tools/builtin/data-collection-tool-handler.service.ts`
+  - `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts`
+  - `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts`
+  - `app/backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts`

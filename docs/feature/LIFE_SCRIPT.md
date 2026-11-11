@@ -46,9 +46,9 @@ LifeScript（人生剧本）是 Harbin 平台孵化的独立项目，位于 `wor
 
 | 文件 | 说明 |
 |------|------|
-| `backend/apps/gateway/src/gateway-proxy.service.ts` | 路由规则（新增 life-script） |
-| `backend/apps/gateway/src/gateway-auth.guard.ts` | 白名单 + LS token 验证 |
-| `backend/apps/gateway/src/main.ts` | CORS 配置 |
-| `backend/src/modules/auth/auth.controller.ts` | redirect-token 签发接口 |
-| `backend/src/modules/auth/auth.service.ts` | redirect-token Redis 存取 |
+| `app/backend/apps/gateway/src/gateway-proxy.service.ts` | 路由规则（新增 life-script） |
+| `app/backend/apps/gateway/src/gateway-auth.guard.ts` | 白名单 + LS token 验证 |
+| `app/backend/apps/gateway/src/main.ts` | CORS 配置 |
+| `app/backend/src/modules/auth/auth.controller.ts` | redirect-token 签发接口 |
+| `app/backend/src/modules/auth/auth.service.ts` | redirect-token Redis 存取 |
 | `frontend/src/components/Layout.tsx` | 侧边栏跳转入口 |

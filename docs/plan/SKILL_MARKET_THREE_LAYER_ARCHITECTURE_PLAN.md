@@ -99,13 +99,13 @@ agent_skills 写入（Layer 3，repoId 指向 Layer 2）
 ### Step 1 — 新增 Schema
 
 **文件**：
-- `backend/apps/agents/src/schemas/skill-market-platform.schema.ts`
-- `backend/apps/agents/src/schemas/skill-github-repo.schema.ts`
-- `backend/apps/agents/src/schemas/agent-skill.schema.ts`（新增 `repoId` 字段）
+- `app/backend/apps/agents/src/schemas/skill-market-platform.schema.ts`
+- `app/backend/apps/agents/src/schemas/skill-github-repo.schema.ts`
+- `app/backend/apps/agents/src/schemas/agent-skill.schema.ts`（新增 `repoId` 字段）
 
 ### Step 2 — 新增 SkillMarketService
 
-**文件**：`backend/apps/agents/src/modules/skills/skill-market.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/skills/skill-market.service.ts`
 
 核心方法：
 - `createPlatform(payload)` — 添加平台
@@ -120,7 +120,7 @@ agent_skills 写入（Layer 3，repoId 指向 Layer 2）
 
 ### Step 3 — 新增 SkillMarketController
 
-**文件**：`backend/apps/agents/src/modules/skills/skill-market.controller.ts`
+**文件**：`app/backend/apps/agents/src/modules/skills/skill-market.controller.ts`
 
 接口清单：
 

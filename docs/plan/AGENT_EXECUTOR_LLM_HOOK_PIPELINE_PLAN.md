@@ -19,9 +19,9 @@
 
 ## 关键影响点
 
-- 后端执行链路：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-- 新增 Hook 模块：`backend/apps/agents/src/modules/agents/`（新增 hook 相关文件）
-- 测试：`backend/apps/agents/src/modules/agents/**` 对应单测
+- 后端执行链路：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+- 新增 Hook 模块：`app/backend/apps/agents/src/modules/agents/`（新增 hook 相关文件）
+- 测试：`app/backend/apps/agents/src/modules/agents/**` 对应单测
 - 功能文档：`docs/feature/AGENT_RUNTIME.md`
 
 ## 风险与依赖

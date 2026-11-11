@@ -23,9 +23,9 @@
 - 直接原因：`toolset-context.builder.ts` 与 `agent-executor.service.ts` 对长文本采用 `slice(0, max)` 直接截断，只保留首段内容。
 - 深层原因：原实现以 token 防护为优先，没有提供“保留完整语义”的分片注入策略。
 - 相关模块/文件：
-  - `backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts`
-  - `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
-  - `backend/apps/agents/src/modules/agents/agent.constants.ts`
+  - `app/backend/apps/agents/src/modules/agents/context/toolset-context.builder.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+  - `app/backend/apps/agents/src/modules/agents/agent.constants.ts`
 
 ## 4. 修复动作
 

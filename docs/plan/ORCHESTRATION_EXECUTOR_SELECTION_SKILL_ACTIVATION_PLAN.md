@@ -25,7 +25,7 @@ CTO Orchestrator 编排任务时发现 6 个问题：
 
 ### 主线一：ExecutorSelectionService 重构 — 多维能力路由
 
-**文件**: `backend/src/modules/orchestration/services/executor-selection.service.ts`
+**文件**: `app/backend/src/modules/orchestration/services/executor-selection.service.ts`
 
 #### 1.1 扩展输入接口
 
@@ -110,7 +110,7 @@ async selectExecutor(ctx: ExecutorSelectionContext): Promise<ExecutorSelectionRe
 
 ### 主线二：Skill 渐进式激活
 
-**文件**: `backend/apps/agents/src/modules/agents/agent.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/agent.service.ts`
 
 #### 2.1 设计原则
 
@@ -140,13 +140,13 @@ content 加载失败时仅 warn 日志，不阻断任务执行。
 
 #### 3.1 Prompt 去重
 
-**文件**: `backend/apps/agents/src/modules/agents/agent.service.ts` L1328-1333
+**文件**: `app/backend/apps/agents/src/modules/agents/agent.service.ts` L1328-1333
 
 在 buildMessages() 中检测 task.description 是否已存在于 previousMessages 的 user 消息中，若重复则只注入 title/type/priority 元信息。
 
 #### 3.2 orchestration.service.ts 调用方适配
 
-**文件**: `backend/src/modules/orchestration/orchestration.service.ts` L264
+**文件**: `app/backend/src/modules/orchestration/orchestration.service.ts` L264
 
 修改 generatePlanTasksAsync 中的 selectExecutor 调用，传入 ExecutorSelectionContext 结构，包含 plannerAgentId 和 assignmentPolicy。
 
@@ -154,7 +154,7 @@ content 加载失败时仅 warn 日志，不阻断任务执行。
 
 #### 3.3 Planner prompt 增加汇总输出指引
 
-**文件**: `backend/src/modules/orchestration/planner.service.ts` L72
+**文件**: `app/backend/src/modules/orchestration/planner.service.ts` L72
 
 在输出规则中追加：
 ```
@@ -163,7 +163,7 @@ content 加载失败时仅 warn 日志，不阻断任务执行。
 
 #### 3.4 清理 dead code
 
-**文件**: `backend/src/modules/orchestration/orchestration.service.ts` L2149-2256
+**文件**: `app/backend/src/modules/orchestration/orchestration.service.ts` L2149-2256
 
 移除旧版 `private selectExecutor` 方法（历史残留，与 ExecutorSelectionService 重复）。
 
@@ -171,11 +171,11 @@ content 加载失败时仅 warn 日志，不阻断任务执行。
 
 | # | 文件 | 修改内容 | 优先级 |
 |---|------|---------|--------|
-| 1 | `backend/src/modules/orchestration/services/executor-selection.service.ts` | 重构：多维能力路由 + 接口扩展 + 向后兼容 | 高 |
-| 2 | `backend/apps/agents/src/modules/agents/agent.service.ts` | Skill 渐进式激活 + prompt 去重 | 高 |
-| 3 | `backend/src/modules/orchestration/orchestration.service.ts` | 调用方适配 + detectAssignmentPolicy + 清理 dead code | 高 |
-| 4 | `backend/src/modules/orchestration/planner.service.ts` | planner prompt 增加输出规则 | 中 |
-| 5 | `backend/src/modules/orchestration/orchestration.module.ts` | 新增 AgentRole model 注入 | 高 |
+| 1 | `app/backend/src/modules/orchestration/services/executor-selection.service.ts` | 重构：多维能力路由 + 接口扩展 + 向后兼容 | 高 |
+| 2 | `app/backend/apps/agents/src/modules/agents/agent.service.ts` | Skill 渐进式激活 + prompt 去重 | 高 |
+| 3 | `app/backend/src/modules/orchestration/orchestration.service.ts` | 调用方适配 + detectAssignmentPolicy + 清理 dead code | 高 |
+| 4 | `app/backend/src/modules/orchestration/planner.service.ts` | planner prompt 增加输出规则 | 中 |
+| 5 | `app/backend/src/modules/orchestration/orchestration.module.ts` | 新增 AgentRole model 注入 | 高 |
 
 ## 风险评估
 

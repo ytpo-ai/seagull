@@ -26,8 +26,8 @@
 
 ## 关键影响点
 
-- 后端（agents）：`backend/apps/agents/src/modules/tools/tool.service.ts`
-- 后端（agents）：`backend/apps/agents/src/modules/agents/agent.service.ts`
+- 后端（agents）：`app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- 后端（agents）：`app/backend/apps/agents/src/modules/agents/agent.service.ts`
 - 文档：`docs/api/agents-api.md`、`docs/feature/ORCHETRATION_SCHEDULER.md`
 
 ## 风险与依赖

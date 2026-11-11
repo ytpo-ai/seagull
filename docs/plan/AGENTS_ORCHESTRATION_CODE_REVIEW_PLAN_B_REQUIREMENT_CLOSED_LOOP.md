@@ -14,7 +14,7 @@
 
 ### 范围
 
-- `backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
 - Plan/Task 与 requirement 状态回写逻辑
 - 编排入口一致性与状态机集成测试
 
@@ -68,9 +68,9 @@
 
 | 问题 | 解决动作 | 核心文件 |
 |---|---|---|
-| 1.1 | requirementId 提升为一级字段 + 统一类型 | `backend/src/modules/orchestration/orchestration.service.ts` |
-| N-10 | `review` 审批门控，禁止自动 done | `backend/src/modules/orchestration/orchestration.service.ts` |
-| N-11 | `retry/debug/human/standalone` 全入口补同步 | `backend/src/modules/orchestration/orchestration.service.ts` |
+| 1.1 | requirementId 提升为一级字段 + 统一类型 | `app/backend/src/modules/orchestration/orchestration.service.ts` |
+| N-10 | `review` 审批门控，禁止自动 done | `app/backend/src/modules/orchestration/orchestration.service.ts` |
+| N-11 | `retry/debug/human/standalone` 全入口补同步 | `app/backend/src/modules/orchestration/orchestration.service.ts` |
 
 ## 7. 验收标准（量化）
 
@@ -81,7 +81,7 @@
 
 ## 8. 验证命令
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

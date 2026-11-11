@@ -3,12 +3,12 @@
 ## 背景
 
 - 当前 MCP Profile 的 seed 数据与写库逻辑位于 `agent-mcp-profile.service.ts`，属于运行时 service 职责。
-- 目标是将 seed 完全迁移到 `backend/scripts`，让 service 仅保留运行时读写与权限推导能力。
+- 目标是将 seed 完全迁移到 `app/backend/scripts`，让 service 仅保留运行时读写与权限推导能力。
 - 用户额外要求删除 `resetToolPermissionSetsBySystemRoles` 功能。
 
 ## 执行步骤
 
-1. 在 `backend/scripts` 新增 MCP Profile seed 数据与执行逻辑，支持 `sync/append`。
+1. 在 `app/backend/scripts` 新增 MCP Profile seed 数据与执行逻辑，支持 `sync/append`。
 2. 调整 `manual-seed.ts` 中 `mcp-profiles` 的执行入口，改为调用脚本实现，不再走 `AgentService`。
 3. 从 `agent-mcp-profile.service.ts` 中移除 seed 常量与 `ensureMcpProfileSeeds` 实现。
 4. 从 `agent.service.ts`、`agent-role.service.ts`、`agent.controller.ts` 中移除 `resetToolPermissionSetsBySystemRoles` 相关 API 与方法。

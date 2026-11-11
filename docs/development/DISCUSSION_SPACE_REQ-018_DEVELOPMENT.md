@@ -24,15 +24,15 @@
 
 | 文件 | 改动说明 |
 |------|----------|
-| `backend/apps/agents/src/modules/tools/builtin/discussion-outline-tool-handler.service.ts` | 新增讨论大纲 MCP handler，封装动作路由、边界校验、enrich 验收和统一返回结构 |
-| `backend/apps/agents/src/modules/tools/builtin/discussion-outline-tool-handler.service.spec.ts` | 新增单测，覆盖成功、跨项目拒绝、fallback 分支、验收拒绝分支 |
-| `backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts` | 新增工具 ID：`builtin.engineering.mcp.discussion-outline.manage` |
-| `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts` | 注册工具定义、参数契约与提示词 |
-| `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | 新增工具分发逻辑 |
-| `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.spec.ts` | 新增 dispatcher 路由单测 |
-| `backend/apps/agents/src/modules/tools/internal-api-client.service.ts` | 新增 Discussion API 内部调用方法 |
-| `backend/apps/agents/src/modules/tools/builtin/index.ts` | 导出新 handler |
-| `backend/apps/agents/src/modules/tools/tool.module.ts` | 注册新 handler 到 module providers/exports |
+| `app/backend/apps/agents/src/modules/tools/builtin/discussion-outline-tool-handler.service.ts` | 新增讨论大纲 MCP handler，封装动作路由、边界校验、enrich 验收和统一返回结构 |
+| `app/backend/apps/agents/src/modules/tools/builtin/discussion-outline-tool-handler.service.spec.ts` | 新增单测，覆盖成功、跨项目拒绝、fallback 分支、验收拒绝分支 |
+| `app/backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts` | 新增工具 ID：`builtin.engineering.mcp.discussion-outline.manage` |
+| `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts` | 注册工具定义、参数契约与提示词 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | 新增工具分发逻辑 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.spec.ts` | 新增 dispatcher 路由单测 |
+| `app/backend/apps/agents/src/modules/tools/internal-api-client.service.ts` | 新增 Discussion API 内部调用方法 |
+| `app/backend/apps/agents/src/modules/tools/builtin/index.ts` | 导出新 handler |
+| `app/backend/apps/agents/src/modules/tools/tool.module.ts` | 注册新 handler 到 module providers/exports |
 
 ### 前端
 

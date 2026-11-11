@@ -14,7 +14,7 @@
 
 ### 1. 添加 MCP 工具定义
 
-在 `backend/apps/agents/src/modules/tools/tool.service.ts` 中添加 3 个工具定义：
+在 `app/backend/apps/agents/src/modules/tools/tool.service.ts` 中添加 3 个工具定义：
 
 - `builtin.mcp.meeting.list` - 查询当前会议列表
 - `builtin.mcp.meeting.sendMessage` - 向会议发送消息  

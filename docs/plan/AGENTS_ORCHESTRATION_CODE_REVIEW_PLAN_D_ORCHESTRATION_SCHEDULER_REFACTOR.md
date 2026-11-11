@@ -14,8 +14,8 @@
 
 ### 范围
 
-- `backend/src/modules/orchestration/orchestration.service.ts`
-- `backend/src/modules/orchestration/scheduler/scheduler.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.service.ts`
+- `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts`
 - 调度失败重试、退避、告警链路
 
 ### 非目标
@@ -69,11 +69,11 @@
 
 | 问题 | 解决动作 | 核心文件 |
 |---|---|---|
-| N-4 | 提取共享任务创建流程 | `backend/src/modules/orchestration/orchestration.service.ts` |
-| N-6 | 提取 system schedule bootstrap | `backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
-| N-12 | memo timer 迁出 scheduler | `backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
-| N-13 | 增加重试/退避/死信/告警 | `backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
-| N-27 | 拆解 dispatchSchedule 多职责 | `backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
+| N-4 | 提取共享任务创建流程 | `app/backend/src/modules/orchestration/orchestration.service.ts` |
+| N-6 | 提取 system schedule bootstrap | `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
+| N-12 | memo timer 迁出 scheduler | `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
+| N-13 | 增加重试/退避/死信/告警 | `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
+| N-27 | 拆解 dispatchSchedule 多职责 | `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` |
 
 ## 7. 验收标准（量化）
 
@@ -84,7 +84,7 @@
 
 ## 8. 验证命令
 
-在 `backend/` 执行：
+在 `app/backend/` 执行：
 
 ```bash
 export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

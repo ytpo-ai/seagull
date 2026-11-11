@@ -48,13 +48,13 @@
   - `orchestration_schedule.lastRun.attempts`
   - `orchestration_schedule.deadLetters[]`
 - 新增文件：
-  - `backend/src/modules/orchestration/services/task-classification.service.ts`
-  - `backend/src/modules/orchestration/services/task-output-validation.service.ts`
-  - `backend/src/modules/orchestration/services/executor-selection.service.ts`
-  - `backend/src/modules/orchestration/scheduler/memo-scheduler.service.ts`
-  - `backend/src/modules/orchestration/scheduler/system-schedule-bootstrap.service.ts`
-  - `backend/test/orchestration/task-classification.service.spec.ts`
-  - `backend/test/orchestration/task-output-validation.service.spec.ts`
+  - `app/backend/src/modules/orchestration/services/task-classification.service.ts`
+  - `app/backend/src/modules/orchestration/services/task-output-validation.service.ts`
+  - `app/backend/src/modules/orchestration/services/executor-selection.service.ts`
+  - `app/backend/src/modules/orchestration/scheduler/memo-scheduler.service.ts`
+  - `app/backend/src/modules/orchestration/scheduler/system-schedule-bootstrap.service.ts`
+  - `app/backend/test/orchestration/task-classification.service.spec.ts`
+  - `app/backend/test/orchestration/task-output-validation.service.spec.ts`
 
 ## 4. 验证结果
 

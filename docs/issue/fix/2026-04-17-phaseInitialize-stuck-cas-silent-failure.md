@@ -50,10 +50,10 @@ if (!advanced) {
 
 | 文件 | 位置 | 问题 |
 |------|------|------|
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | `phaseInitialize()` 第 343-349 行 | CAS 失败后静默退出，不调用 autoAdvance |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | `phaseInitialize()` 第 343-349 行 | CAS 失败后静默退出，不调用 autoAdvance |
 | 同上 | `phaseInitialize()` 第 315-337 行 | 失败路径同样存在 CAS 静默退出 |
 | 同上 | `phaseInitialize()` 第 273 行 | `initializePlan()` 未 try/catch，异常穿透 |
-| `backend/src/modules/orchestration/services/plan-management.service.ts` | `generateNext()` 第 410-412 行 | `needsReset` 不覆盖 `initialize` 卡住状态 |
+| `app/backend/src/modules/orchestration/services/plan-management.service.ts` | `generateNext()` 第 410-412 行 | `needsReset` 不覆盖 `initialize` 卡住状态 |
 
 ## 4. 修复动作
 

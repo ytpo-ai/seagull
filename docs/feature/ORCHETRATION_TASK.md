@@ -13,7 +13,7 @@
 
 ### 2.1 后端模块
 
-路径：`backend/src/modules/orchestration/`
+路径：`app/backend/src/modules/orchestration/`
 
 | 组件 | 文件 | 职责 |
 |---|---|---|
@@ -43,7 +43,7 @@
 
 ## 3. 数据模型与状态
 
-核心 Schema 路径：`backend/src/shared/schemas/`
+核心 Schema 路径：`app/backend/src/shared/schemas/`
 
 | 集合 | 文件 | 说明 |
 |---|---|---|

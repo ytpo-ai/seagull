@@ -15,7 +15,7 @@
 ### 3.1 Memo 核心模型
 
 ```typescript
-// backend/apps/agents/src/schemas/agent-memo.schema.ts
+// app/backend/apps/agents/src/schemas/agent-memo.schema.ts
 
 type MemoKind = 'identity' | 'todo' | 'topic' | 'history' | 'draft' | 'custom';
 type MemoType = 'knowledge' | 'standard';
@@ -120,7 +120,7 @@ class AgentMemo {
 ## 6. IdentityAggregationService 设计
 
 ```typescript
-// backend/apps/agents/src/modules/memos/identity-aggregation.service.ts
+// app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts
 
 @Injectable()
 export class IdentityAggregationService implements OnModuleInit, OnModuleDestroy {
@@ -199,7 +199,7 @@ export class IdentityAggregationService implements OnModuleInit, OnModuleDestroy
 ## 7. 事件触发对接
 
 ```typescript
-// backend/apps/agents/src/modules/memos/memo-aggregation.service.ts
+// app/backend/apps/agents/src/modules/memos/memo-aggregation.service.ts
 
 @Injectable()
 export class MemoAggregationService implements OnModuleInit, OnModuleDestroy {
@@ -252,7 +252,7 @@ export class MemoAggregationService implements OnModuleInit, OnModuleDestroy {
 ### 8.1 MemoKind 枚举
 
 ```typescript
-// backend/apps/agents/src/schemas/agent-memo.schema.ts
+// app/backend/apps/agents/src/schemas/agent-memo.schema.ts
 
 export type MemoKind = 'identity' | 'todo' | 'topic' | 'history' | 'draft' | 'custom' | 'evaluation';
 ```

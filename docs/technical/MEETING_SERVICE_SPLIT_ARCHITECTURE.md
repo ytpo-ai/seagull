@@ -9,7 +9,7 @@
 
 | 指标 | 值 |
 |------|-----|
-| 文件 | `backend/src/modules/meetings/meeting.service.ts` |
+| 文件 | `app/backend/src/modules/meetings/meeting.service.ts` |
 | 总行数 | 2313 |
 | 文件大小 | 77KB |
 | 方法总数 | 78（13 public + 65 private） |

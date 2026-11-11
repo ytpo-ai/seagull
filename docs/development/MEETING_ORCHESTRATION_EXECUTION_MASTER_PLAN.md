@@ -34,10 +34,10 @@
 
 ## 关键文件
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
-- `backend/src/modules/meetings/meeting.service.ts`
-- `backend/src/modules/orchestration/orchestration.controller.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/src/modules/meetings/meeting.service.ts`
+- `app/backend/src/modules/orchestration/orchestration.controller.ts`
 
 ## 实现细节迁移说明
 

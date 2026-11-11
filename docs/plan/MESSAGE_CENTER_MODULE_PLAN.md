@@ -15,7 +15,7 @@
 
 ## 3. 范围
 
-> 约束更新（本 Session 确认）：消息中心能力落在 legacy 主 backend（`backend/src`）实现，不放在 Engineering Intelligence 独立服务中。
+> 约束更新（本 Session 确认）：消息中心能力落在 legacy 主 backend（`app/backend/src`）实现，不放在 Engineering Intelligence 独立服务中。
 
 ### 3.1 前端
 

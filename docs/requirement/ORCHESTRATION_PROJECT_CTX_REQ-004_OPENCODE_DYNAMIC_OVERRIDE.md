@@ -44,8 +44,8 @@ projectBinding.opencodeProjectPath       → project_binding  ← 新增
 
 | 文件 | 改动 |
 |------|------|
-| `backend/apps/agents/src/modules/agents/executor-engines/opencode-streaming-agent-executor.engine.ts` | `projectDirectory` 读取增加 `projectBinding.opencodeProjectPath` fallback |
-| `backend/apps/agents/src/modules/agents/executor-engines/opencode-agent-executor.engine.ts` | 同上 |
+| `app/backend/apps/agents/src/modules/agents/executor-engines/opencode-streaming-agent-executor.engine.ts` | `projectDirectory` 读取增加 `projectBinding.opencodeProjectPath` fallback |
+| `app/backend/apps/agents/src/modules/agents/executor-engines/opencode-agent-executor.engine.ts` | 同上 |
 
 ### 影响范围
 

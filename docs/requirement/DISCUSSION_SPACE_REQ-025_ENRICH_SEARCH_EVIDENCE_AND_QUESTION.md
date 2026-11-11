@@ -32,6 +32,6 @@
 - 前端：`frontend/src/pages/discussions/DiscussionDetail.tsx`
 - 前端：`frontend/src/components/discussion/MessageBubble.tsx`
 - 前端：`frontend/src/services/discussionService.ts`
-- 后端：`backend/src/modules/discussions/services/discussion-message.service.ts`
-- 后端：`backend/src/modules/discussions/services/discussion-outline.service.ts`
-- 后端：`backend/src/shared/schemas/discussion-message.schema.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-message.service.ts`
+- 后端：`app/backend/src/modules/discussions/services/discussion-outline.service.ts`
+- 后端：`app/backend/src/shared/schemas/discussion-message.schema.ts`

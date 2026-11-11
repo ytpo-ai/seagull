@@ -46,7 +46,7 @@
 
 ## 6. 关键影响点
 
-- **后端**：`backend/src/modules/discussions/`（space service/controller、message service）
+- **后端**：`app/backend/src/modules/discussions/`（space service/controller、message service）
 - **前端**：`frontend/src/pages/Discussions.tsx`、`frontend/src/pages/discussions/DiscussionDetail.tsx`、`frontend/src/components/discussion/MessageInput.tsx`
 - **数据库**：`discussion_spaces` 归档审计字段与查询过滤策略
 - **API**：归档/取消归档端点与列表查询参数扩展

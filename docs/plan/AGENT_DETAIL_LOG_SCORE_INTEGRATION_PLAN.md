@@ -121,7 +121,7 @@ interface AgentRunScoreDeduction {
 
 #### Step 0.1：RuntimePersistence — 新增 `listRunsByAgent()` 分页查询
 
-**文件**：`backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`
 
 **改动**：
 ```typescript
@@ -145,7 +145,7 @@ async listRunsByAgent(
 
 #### Step 0.2：RuntimeOrchestrator — 新增 `listRuns()` + 补全 `getRun()` 返回字段
 
-**文件**：`backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
+**文件**：`app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`
 
 **改动**：
 
@@ -160,7 +160,7 @@ async listRunsByAgent(
 
 #### Step 0.3：RuntimeController — 新增 `GET /agents/runtime/runs` 列表端点
 
-**文件**：`backend/apps/agents/src/modules/runtime/runtime.controller.ts`
+**文件**：`app/backend/apps/agents/src/modules/runtime/runtime.controller.ts`
 
 **改动**：
 ```typescript
@@ -349,9 +349,9 @@ async listRuns(
 | 文件 | 改动类型 | 说明 |
 |---|---|---|
 | **后端** | | |
-| `backend/.../runtime-persistence.service.ts` | **[v2 新增]** 新增方法 | `listRunsByAgent()` 分页查询 |
-| `backend/.../runtime-orchestrator.service.ts` | **[v2 新增]** 修改 | `listRuns()` 新增 + `getRun()` 补全字段 |
-| `backend/.../runtime.controller.ts` | **[v2 新增]** 新增端点 | `GET /agents/runtime/runs?agentId=xxx` |
+| `app/backend/.../runtime-persistence.service.ts` | **[v2 新增]** 新增方法 | `listRunsByAgent()` 分页查询 |
+| `app/backend/.../runtime-orchestrator.service.ts` | **[v2 新增]** 修改 | `listRuns()` 新增 + `getRun()` 补全字段 |
+| `app/backend/.../runtime.controller.ts` | **[v2 新增]** 新增端点 | `GET /agents/runtime/runs?agentId=xxx` |
 | **前端** | | |
 | `frontend/src/services/agentService.ts` | 新增 | AgentRunListItem 类型 + listAgentRuns + AgentRunScore 类型 + getRunScore |
 | `frontend/src/components/agent-detail/constants.ts` | 新增 | 评分规则映射、分数颜色分段、详情 Tab 定义、RUN_STATUS_META |

@@ -61,6 +61,6 @@
 
 ## 4. 相关代码文件
 
-- 后端：`backend/src/modules/discussions/`、`backend/src/shared/schemas/discussion-*.schema.ts`
+- 后端：`app/backend/src/modules/discussions/`、`app/backend/src/shared/schemas/discussion-*.schema.ts`
 - 前端：`frontend/src/pages/Discussions.tsx`、`frontend/src/pages/discussions/DiscussionDetail.tsx`、`frontend/src/components/discussion/`
 - 前端服务/状态：`frontend/src/services/discussionService.ts`、`frontend/src/stores/discussionStore.ts`

@@ -224,14 +224,14 @@ requiredPermissions: [{ id: 'prompt_write', name: 'Prompt Registry Write', level
 
 | 文件 | 操作 | 说明 |
 |------|------|------|
-| `backend/apps/agents/src/schemas/prompt-template.schema.ts` | 修改 | 新增 category/tags/source 字段 |
-| `backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts` | 修改 | 注册 2 个新 Tool 定义 |
-| `backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts` | 修改 | 新增 Tool ID 常量 |
-| `backend/apps/agents/src/modules/tools/repo-tool-handler.service.ts` | 修改 | 新增 executeRepoWriter() |
-| `backend/apps/agents/src/modules/tools/prompt-registry-tool-handler.service.ts` | **新建** | save-prompt-template 处理器 |
-| `backend/apps/agents/src/modules/tools/tool.service.ts` | 修改 | 新增路由分发 |
-| `backend/apps/agents/src/modules/tools/tool.module.ts` | 修改 | 注册新 Handler |
-| `backend/apps/agents/src/modules/prompt-registry/prompt-registry-admin.service.ts` | 可能修改 | 支持批量导入 |
+| `app/backend/apps/agents/src/schemas/prompt-template.schema.ts` | 修改 | 新增 category/tags/source 字段 |
+| `app/backend/apps/agents/src/modules/tools/builtin-tool-catalog.ts` | 修改 | 注册 2 个新 Tool 定义 |
+| `app/backend/apps/agents/src/modules/tools/builtin-tool-definitions.ts` | 修改 | 新增 Tool ID 常量 |
+| `app/backend/apps/agents/src/modules/tools/repo-tool-handler.service.ts` | 修改 | 新增 executeRepoWriter() |
+| `app/backend/apps/agents/src/modules/tools/prompt-registry-tool-handler.service.ts` | **新建** | save-prompt-template 处理器 |
+| `app/backend/apps/agents/src/modules/tools/tool.service.ts` | 修改 | 新增路由分发 |
+| `app/backend/apps/agents/src/modules/tools/tool.module.ts` | 修改 | 注册新 Handler |
+| `app/backend/apps/agents/src/modules/prompt-registry/prompt-registry-admin.service.ts` | 可能修改 | 支持批量导入 |
 
 ---
 

@@ -19,7 +19,7 @@
 
 ### 2.1 路由规则变更
 
-**文件**：`backend/apps/gateway/src/gateway-proxy.service.ts`
+**文件**：`app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 在 `resolveTarget()` 方法中新增（放在 agents 路由之后、legacy fallback 之前）：
 
@@ -36,7 +36,7 @@ if (path === '/api/auth/issue-redirect-token') {
 
 ### 2.2 Path Rewrite
 
-**文件**：`backend/apps/gateway/src/gateway-proxy.service.ts`
+**文件**：`app/backend/apps/gateway/src/gateway-proxy.service.ts`
 
 在 `forward()` 方法中，转发到 LifeScript 时剥离 `/life-script` 前缀：
 
@@ -67,7 +67,7 @@ async forward(req: Request, res: Response, userContext?: GatewayUserContext) {
 
 ### 2.3 CORS 配置
 
-**文件**：`backend/apps/gateway/src/main.ts`
+**文件**：`app/backend/apps/gateway/src/main.ts`
 
 ```typescript
 const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,http://localhost:3200')
@@ -90,7 +90,7 @@ CORS_ORIGINS=http://localhost:3000,http://localhost:3200
 
 ### 3.1 新增接口
 
-**文件**：`backend/src/modules/auth/auth.controller.ts`
+**文件**：`app/backend/src/modules/auth/auth.controller.ts`
 
 ```typescript
 @Post('issue-redirect-token')
@@ -103,7 +103,7 @@ async issueRedirectToken(@Req() req: Request) {
 
 ### 3.2 Service 实现
 
-**文件**：`backend/src/modules/auth/auth.service.ts`
+**文件**：`app/backend/src/modules/auth/auth.service.ts`
 
 ```typescript
 async generateRedirectToken(
@@ -154,7 +154,7 @@ async generateRedirectToken(
 
 ### 4.1 Auth Guard 扩展
 
-**文件**：`backend/apps/gateway/src/gateway-auth.guard.ts`
+**文件**：`app/backend/apps/gateway/src/gateway-auth.guard.ts`
 
 ```typescript
 // 白名单扩展
@@ -273,9 +273,9 @@ VITE_LIFE_SCRIPT_ADMIN_URL=http://localhost:3200
 
 | 变量 | 文件 | 默认值 | 说明 |
 |------|------|--------|------|
-| `LIFE_SCRIPT_BASE_URL` | `backend/.env` | `http://localhost:3101` | LifeScript 后端统一地址 |
-| `LS_JWT_SECRET` | `backend/.env` | — | LifeScript JWT 密钥（需与 LifeScript 一致） |
-| `CORS_ORIGINS` | `backend/.env` | `http://localhost:3000,http://localhost:3200` | 允许的 CORS origin 列表 |
+| `LIFE_SCRIPT_BASE_URL` | `app/backend/.env` | `http://localhost:3101` | LifeScript 后端统一地址 |
+| `LS_JWT_SECRET` | `app/backend/.env` | — | LifeScript JWT 密钥（需与 LifeScript 一致） |
+| `CORS_ORIGINS` | `app/backend/.env` | `http://localhost:3000,http://localhost:3200` | 允许的 CORS origin 列表 |
 | `VITE_LIFE_SCRIPT_ADMIN_URL` | `frontend/.env` | `http://localhost:3200` | 管理台前端地址 |
 
 ---

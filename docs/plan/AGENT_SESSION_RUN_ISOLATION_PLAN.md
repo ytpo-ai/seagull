@@ -56,6 +56,6 @@ Plan
 
 ## 影响范围
 
-- backend/apps/agents: schema + persistence + controller
-- backend/src/modules/orchestration: orchestration.service
-- backend/src/modules/agents-client: agent-client.service
+- app/backend/apps/agents: schema + persistence + controller
+- app/backend/src/modules/orchestration: orchestration.service
+- app/backend/src/modules/agents-client: agent-client.service

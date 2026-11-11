@@ -11,8 +11,8 @@
 ### 2.1 应用与项目标识
 
 - Nest 项目 key：`ei`
-- 应用目录：`backend/apps/ei`
-- 应用入口：`backend/apps/ei/src/app.module.ts`
+- 应用目录：`app/backend/apps/ei`
+- 应用入口：`app/backend/apps/ei/src/app.module.ts`
 - API 前缀：`/api`（应用内资源前缀为 `/ei`）
 
 ### 2.2 代码目录结构（已落地）
@@ -20,7 +20,7 @@
 当前 EI 后端已采用“顶层扁平目录 + 资源化 controller/service”结构，而非“每个资源独立 module 目录”：
 
 ```text
-backend/apps/ei/src/
+app/backend/apps/ei/src/
   app.module.ts
   main.ts
   controllers/

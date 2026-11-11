@@ -19,7 +19,7 @@
 
 ## 3. 关键影响点
 
-- 后端：`backend/scripts/system-schedule-seed.ts`。
+- 后端：`app/backend/scripts/system-schedule-seed.ts`。
 - 调度：`orchestration_schedules` 内置计划新增 1 条 cron 任务。
 - 需求治理：通过 CTO Prompt 驱动需求整理与分发闭环。
 - 文档：`docs/feature/ORCHETRATION_SCHEDULER.md`、`docs/feature/ENGINEERING_INTELLIGENCE.md`、`docs/dailylog/day/2026-03-15.md`。

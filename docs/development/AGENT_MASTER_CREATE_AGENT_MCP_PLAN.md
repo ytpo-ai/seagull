@@ -12,7 +12,7 @@
 
 ### 2.1 Tools 模块
 
-- `backend/apps/agents/src/modules/tools/tool.service.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.ts`
   - 新增常量：`AGENT_LIST_TOOL_ID`、`LEGACY_AGENT_LIST_TOOL_ID`、`AGENT_CREATE_TOOL_ID`。
   - 内置工具注册新增 `agent-master.create-agent`。
   - 执行分发新增 `createAgentByMcp`，并为旧 `agent-admin.list-agents` 保留兼容分支。
@@ -20,22 +20,22 @@
   - 新增参数规范化：`normalizeStringArray`。
   - 新增角色解析：`resolveRoleIdForCreate`（先按 id，再按 code 解析并映射到 role id）。
 
-- `backend/apps/agents/src/modules/tools/tool.module.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.module.ts`
   - 注入 `ApiKey` schema，供 ToolService 查询默认 API Key。
 
 ### 2.2 Agent 模块
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
   - MCP profile seeds 中 Agent 列表工具 ID 更新为 `agent-master.list-agents`。
 
 ### 2.3 Seed 脚本
 
-- `backend/scripts/manual-seed.ts`
+- `app/backend/scripts/manual-seed.ts`
   - 将动态 `import()` 改为 `require()` 条件加载，修复 `ts-node` 在 NodeNext 环境下的模块解析失败。
 
 ### 2.4 测试
 
-- `backend/apps/agents/src/modules/tools/tool.service.spec.ts`
+- `app/backend/apps/agents/src/modules/tools/tool.service.spec.ts`
   - 新增 `agent master create agent mcp` 用例：
     - provider 默认 key 回退创建成功
     - 缺少 `name` 的报错校验

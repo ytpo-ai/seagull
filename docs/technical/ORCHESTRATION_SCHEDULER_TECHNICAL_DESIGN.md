@@ -26,7 +26,7 @@
 
 ### 2.1 `orchestration_schedule`
 
-建议新增 Schema：`backend/src/shared/schemas/orchestration-schedule.schema.ts`
+建议新增 Schema：`app/backend/src/shared/schemas/orchestration-schedule.schema.ts`
 
 ```typescript
 type ScheduleType = 'cron' | 'interval';
@@ -89,7 +89,7 @@ interface OrchestrationSchedule {
 
 ### 2.2 `orchestration_task` 增量字段
 
-在 `backend/src/shared/schemas/orchestration-task.schema.ts` 新增：
+在 `app/backend/src/shared/schemas/orchestration-task.schema.ts` 新增：
 
 ```typescript
 mode: 'plan' | 'schedule'; // default: 'plan'
@@ -105,7 +105,7 @@ scheduleId?: string;       // mode='schedule' 时必填
 ## 3.1 目录建议
 
 ```
-backend/src/modules/orchestration/scheduler/
+app/backend/src/modules/orchestration/scheduler/
 ├── scheduler.module.ts
 ├── scheduler.controller.ts
 ├── scheduler.service.ts

@@ -8,7 +8,7 @@
 
 1. 将 `AgentService` 内 `maxToolRounds` 从硬编码改为读取环境变量 `MAX_TOOL_ROUNDS`。
 2. 设置默认值为 `30`，并对非法值（非数字、非有限值、`<=0`）回退至默认值。
-3. 在 `backend/.env.example` 增加 `MAX_TOOL_ROUNDS=30` 示例配置。
+3. 在 `app/backend/.env.example` 增加 `MAX_TOOL_ROUNDS=30` 示例配置。
 4. 更新会议功能文档配置项，补充该变量对会议监控批量处理能力的影响说明。
 5. 运行一次类型/质量检查，确认改动可编译且无明显回归。
 

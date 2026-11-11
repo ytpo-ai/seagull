@@ -10,7 +10,7 @@
 
 ### 2.1 MCP 工具
 
-- 在 `backend/apps/agents/src/modules/tools/tool.service.ts` 新增：
+- 在 `app/backend/apps/agents/src/modules/tools/tool.service.ts` 新增：
   - `builtin.mcp.meeting.list`
   - `builtin.mcp.meeting.sendMessage`
   - `builtin.mcp.meeting.updateStatus`
@@ -18,7 +18,7 @@
 
 ### 2.2 定时监控（复用 Scheduler）
 
-- 在 `backend/src/modules/orchestration/scheduler/scheduler.service.ts` 中新增系统内置定时计划初始化逻辑。
+- 在 `app/backend/src/modules/orchestration/scheduler/scheduler.service.ts` 中新增系统内置定时计划初始化逻辑。
 - 定时检查 active 会议，按阈值执行提醒/结束。
 - 修复内置计划执行目标字段，确保符合 schema 约束并可在定时任务页展示：
   - `target.executorType = 'agent'`
@@ -30,7 +30,7 @@
 - 前端 Agent 类型配置增加 `ai-meeting-assistant`：
   - `frontend/src/config/agentType.json`
 - 角色种子补齐会议助理映射：
-  - `backend/src/modules/roles/roles.service.ts`
+  - `app/backend/src/modules/roles/roles.service.ts`
   - `agentType: ai-meeting-assistant`
   - `roleCode: meeting-assistant`
 

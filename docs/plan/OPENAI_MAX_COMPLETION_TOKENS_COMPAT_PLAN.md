@@ -17,7 +17,7 @@
 
 ## 关键影响点
 
-- 后端：`backend/libs/models` 的 OpenAI Provider 请求构造。
+- 后端：`app/backend/libs/models` 的 OpenAI Provider 请求构造。
 - API：模型测试连接、普通对话、流式对话返回稳定性。
 - 测试：模型连接回归验证（自定义 key 与系统 key）。
 - 文档：模型接入与参数兼容说明。

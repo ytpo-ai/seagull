@@ -40,7 +40,7 @@
 
 ## 6. 关键影响点
 
-- **后端**：`backend/src/modules/discussions/services/discussion-outline.service.ts` 章节补充清空流程
+- **后端**：`app/backend/src/modules/discussions/services/discussion-outline.service.ts` 章节补充清空流程
 - **前端**：`frontend/src/pages/discussions/DiscussionDetail.tsx`、`frontend/src/services/discussionService.ts`
 - **数据库**：`discussion_knowledge_entries` 按 `spaceId + outlineSectionId` 批量删除
 - **API**：新增 `DELETE /discussions/:spaceId/outline/sections/:sectionId/enrichments`

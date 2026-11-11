@@ -14,14 +14,14 @@
 
 ### 1) 数据模型与类型收敛
 
-- `Agent` 新增 `skills?: string[]` 字段：`backend/src/shared/schemas/agent.schema.ts`
-- 后端共享类型同步：`backend/src/shared/types.ts`
+- `Agent` 新增 `skills?: string[]` 字段：`app/backend/src/shared/schemas/agent.schema.ts`
+- 后端共享类型同步：`app/backend/src/shared/types.ts`
 - 前端类型同步：`frontend/src/types/index.ts`
 - 删除以下 schema：
-  - `backend/apps/agents/src/schemas/agent-skill.schema.ts`
-  - `backend/apps/agents/src/schemas/skill-suggestion.schema.ts`
-  - `backend/src/shared/schemas/agent-skill.schema.ts`
-  - `backend/src/shared/schemas/skill-suggestion.schema.ts`
+  - `app/backend/apps/agents/src/schemas/agent-skill.schema.ts`
+  - `app/backend/apps/agents/src/schemas/skill-suggestion.schema.ts`
+  - `app/backend/src/shared/schemas/agent-skill.schema.ts`
+  - `app/backend/src/shared/schemas/skill-suggestion.schema.ts`
 
 ### 2) Skills 后端逻辑重构
 
@@ -34,9 +34,9 @@
 
 核心文件：
 
-- `backend/apps/agents/src/modules/skills/skill.service.ts`
-- `backend/apps/agents/src/modules/skills/skill.controller.ts`
-- `backend/apps/agents/src/modules/skills/skill.module.ts`
+- `app/backend/apps/agents/src/modules/skills/skill.service.ts`
+- `app/backend/apps/agents/src/modules/skills/skill.controller.ts`
+- `app/backend/apps/agents/src/modules/skills/skill.module.ts`
 
 #### 查询逻辑
 
@@ -51,9 +51,9 @@
 
 核心文件：
 
-- `backend/apps/agents/src/modules/skills/skill.service.ts`
-- `backend/apps/agents/src/modules/skills/skill.controller.ts`
-- `backend/apps/agents/src/modules/skills/skill-doc-sync.service.ts`
+- `app/backend/apps/agents/src/modules/skills/skill.service.ts`
+- `app/backend/apps/agents/src/modules/skills/skill.controller.ts`
+- `app/backend/apps/agents/src/modules/skills/skill-doc-sync.service.ts`
 
 ### 4) Agent 运行时与 Memo 聚合同步
 
@@ -62,11 +62,11 @@
 
 核心文件：
 
-- `backend/apps/agents/src/modules/agents/agent.service.ts`
-- `backend/apps/agents/src/modules/agents/agent.module.ts`
-- `backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
-- `backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts`
-- `backend/apps/agents/src/modules/memos/memo.module.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.service.ts`
+- `app/backend/apps/agents/src/modules/agents/agent.module.ts`
+- `app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
+- `app/backend/apps/agents/src/modules/memos/evaluation-aggregation.service.ts`
+- `app/backend/apps/agents/src/modules/memos/memo.module.ts`
 
 ### 5) 前端同步
 

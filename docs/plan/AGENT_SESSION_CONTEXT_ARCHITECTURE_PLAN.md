@@ -77,15 +77,15 @@ Plan
 
 ## 关键影响点
 
-- **AgentSession Schema**：`backend/apps/agents/src/schemas/agent-session.schema.ts`（字段重构）
-- **Session 持久化层**：`backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`（新增 `getOrCreatePlanSession`，调整 `getOrCreateTaskSession`）
-- **Runtime 编排层**：`backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`（session 路由逻辑调整）
-- **Context 组装模块（新增）**：`backend/apps/agents/src/modules/agents/context/`（独立目录，包含 ContextAssembler + 6 个 Builder + 接口定义 + 通用工具）
-- **Context 组装核心**：`backend/apps/agents/src/modules/agents/agent-executor.service.ts`（`buildMessages` 简化为调用 `ContextAssembler.assemble()`，迁出组装逻辑）
-- **编排服务**：`backend/src/modules/orchestration/orchestration.service.ts`（sessionId 生成规则、domainContext 透传）
-- **Planner 服务**：`backend/src/modules/orchestration/planner.service.ts`（teamContext 重构为 collaborationContext）
-- **会议服务**：`backend/src/modules/meetings/meeting.service.ts`（teamContext 构建逻辑调整）
-- **Agent Client**：`backend/src/modules/agents-client/agent-client.service.ts`（新增 `getOrCreatePlanSession` 远程调用）
+- **AgentSession Schema**：`app/backend/apps/agents/src/schemas/agent-session.schema.ts`（字段重构）
+- **Session 持久化层**：`app/backend/apps/agents/src/modules/runtime/runtime-persistence.service.ts`（新增 `getOrCreatePlanSession`，调整 `getOrCreateTaskSession`）
+- **Runtime 编排层**：`app/backend/apps/agents/src/modules/runtime/runtime-orchestrator.service.ts`（session 路由逻辑调整）
+- **Context 组装模块（新增）**：`app/backend/apps/agents/src/modules/agents/context/`（独立目录，包含 ContextAssembler + 6 个 Builder + 接口定义 + 通用工具）
+- **Context 组装核心**：`app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`（`buildMessages` 简化为调用 `ContextAssembler.assemble()`，迁出组装逻辑）
+- **编排服务**：`app/backend/src/modules/orchestration/orchestration.service.ts`（sessionId 生成规则、domainContext 透传）
+- **Planner 服务**：`app/backend/src/modules/orchestration/planner.service.ts`（teamContext 重构为 collaborationContext）
+- **会议服务**：`app/backend/src/modules/meetings/meeting.service.ts`（teamContext 构建逻辑调整）
+- **Agent Client**：`app/backend/src/modules/agents-client/agent-client.service.ts`（新增 `getOrCreatePlanSession` 远程调用）
 - **功能文档**：`docs/feature/AGENT_RUNTIME.md`（Session 与上下文协同章节全面更新）
 
 ## 风险与处理

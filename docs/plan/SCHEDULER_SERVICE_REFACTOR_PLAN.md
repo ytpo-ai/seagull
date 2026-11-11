@@ -6,7 +6,7 @@
 
 ## 一、重构目标
 
-1. **Scheduler 从编排模块迁出** → 成为 legacy app 下的独立一级模块 `backend/src/modules/scheduler/`
+1. **Scheduler 从编排模块迁出** → 成为 legacy app 下的独立一级模块 `app/backend/src/modules/scheduler/`
 2. **统一触发方式** → Scheduler 只做一件事：按时向指定 Agent 发送 inner-message，Agent 自己决定如何执行
 3. **解除对 OrchestrationService 的直接依赖**
 
@@ -14,7 +14,7 @@
 
 ### Phase 1：模块目录迁移 + 重命名（预估 0.5 天）
 
-- [x] 将 `backend/src/modules/orchestration/scheduler/` 整体迁移到 `backend/src/modules/scheduler/`
+- [x] 将 `app/backend/src/modules/orchestration/scheduler/` 整体迁移到 `app/backend/src/modules/scheduler/`
 - [x] 模块类名 `OrchestrationSchedulerModule` → `SchedulerModule`
 - [x] Controller 路由 `orchestration/schedules` → `schedules`
 - [x] `AppModule` 中替换 import

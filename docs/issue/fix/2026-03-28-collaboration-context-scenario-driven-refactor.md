@@ -25,12 +25,12 @@
 - 直接原因：JSON 格式约束散落在多处（`orchestration-context.service.ts` 的 pre/post task、`planner.service.ts` 的 incremental prompt、`collaboration-context.builder.ts`），措辞不一致且互相冲突；无 API 级别强制
 - 深层原因：`collaborationContext` 作为核心场景载体缺乏类型系统，导致各处手动拼字段无法统一管控输出格式策略；场景推导依赖字段存在性猜测（`meetingId` → meeting、`planId` → orchestration）而非显式标识
 - 相关模块/文件（10 个 Gap 详见技术设计文档 §2.2）：
-  - `backend/libs/contracts/src/` — 无 CollaborationContext 类型定义
-  - `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` — JSON 注入点之一
-  - `backend/src/modules/orchestration/planner.service.ts` — JSON 注入点之二（4 处构建点）
-  - `backend/src/modules/orchestration/services/orchestration-context.service.ts` — JSON 注入点之三
-  - `backend/libs/models/src/v1/` — Provider 层不支持 `response_format`
-  - `backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` — collaborationContext 几乎为空
+  - `app/backend/libs/contracts/src/` — 无 CollaborationContext 类型定义
+  - `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` — JSON 注入点之一
+  - `app/backend/src/modules/orchestration/planner.service.ts` — JSON 注入点之二（4 处构建点）
+  - `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` — JSON 注入点之三
+  - `app/backend/libs/models/src/v1/` — Provider 层不支持 `response_format`
+  - `app/backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` — collaborationContext 几乎为空
 
 ## 4. 修复动作
 
@@ -42,7 +42,7 @@
 - `ScenarioMode = 'meeting' | 'orchestration' | 'inner-message' | 'chat'`
 - 5 个 type guard 函数
 
-**文件**：`backend/libs/contracts/src/collaboration-context.types.ts`（新增）
+**文件**：`app/backend/libs/contracts/src/collaboration-context.types.ts`（新增）
 
 ### 4.2 工厂函数（步骤 2）
 
@@ -52,7 +52,7 @@
 - `innerMessage()` → 根据 `requireJsonResponse` 参数决定
 - `chat()` → 自动设置 `responseDirective: 'text'`
 
-**文件**：`backend/libs/contracts/src/collaboration-context.factory.ts`（新增）
+**文件**：`app/backend/libs/contracts/src/collaboration-context.factory.ts`（新增）
 
 ### 4.3 LLM Provider 层 response_format（步骤 3）
 

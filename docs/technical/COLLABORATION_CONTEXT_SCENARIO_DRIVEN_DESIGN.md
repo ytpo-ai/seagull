@@ -61,7 +61,7 @@ inner-message bridge       │     另外消费:
 
 ### 3.1 新增类型文件
 
-**文件位置**: `backend/libs/contracts/src/collaboration-context.types.ts`
+**文件位置**: `app/backend/libs/contracts/src/collaboration-context.types.ts`
 
 ```typescript
 // ============================================================
@@ -234,7 +234,7 @@ export function isJsonOutputRequired(ctx: CollaborationContext): boolean {
 
 ### 3.2 ScenarioType 扩展
 
-**文件**: `backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts`
 
 ```typescript
 // 现有:
@@ -246,7 +246,7 @@ export type ScenarioType = 'orchestration' | 'meeting' | 'inner-message' | 'chat
 
 ### 3.3 AgentContext 类型更新
 
-**文件**: `backend/apps/agents/src/modules/agents/agent.types.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/agent.types.ts`
 
 ```typescript
 // 现有:
@@ -266,7 +266,7 @@ export interface AgentContext {
 
 ## 4. CollaborationContextFactory 设计
 
-**文件位置**: `backend/libs/contracts/src/collaboration-context.factory.ts`
+**文件位置**: `app/backend/libs/contracts/src/collaboration-context.factory.ts`
 
 > 放在 `@libs/contracts` 中，因为 backend 主应用和 agents app 都需要调用。
 
@@ -411,7 +411,7 @@ export class CollaborationContextFactory {
 
 ### 5.1 Options 类型扩展
 
-**文件**: `backend/libs/models/src/v1/base-provider.ts`
+**文件**: `app/backend/libs/models/src/v1/base-provider.ts`
 
 ```typescript
 // 新增 options 类型定义（当前为 any）
@@ -426,7 +426,7 @@ export interface LLMCallOptions {
 
 ### 5.2 OpenAI Provider 改造
 
-**文件**: `backend/libs/models/src/v1/openai-provider.ts`
+**文件**: `app/backend/libs/models/src/v1/openai-provider.ts`
 
 ```typescript
 // chatWithMeta() — L72-79 改为:
@@ -447,7 +447,7 @@ async chatWithMeta(messages: ChatMessage[], options?: LLMCallOptions): Promise<P
 
 ### 5.3 AIV2 Provider 改造
 
-**文件**: `backend/libs/models/src/aiv2-provider.ts`
+**文件**: `app/backend/libs/models/src/aiv2-provider.ts`
 
 ```typescript
 // buildCallOptions() — L119-140 扩展:
@@ -479,7 +479,7 @@ private buildCallOptions(options?: LLMCallOptions): Record<string, any> {
 
 ### 5.4 ModelService 透传
 
-**文件**: `backend/apps/agents/src/modules/models/model.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/models/model.service.ts`
 
 ```typescript
 // chat() 和 streamingChat() 的 options 参数已是 any，直接透传即可。
@@ -488,7 +488,7 @@ private buildCallOptions(options?: LLMCallOptions): Record<string, any> {
 
 ### 5.5 Agent Executor 推导 responseFormat
 
-**文件**: `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
 
 在 `executeWithToolCalling` 调用 `modelService.chat()` 处：
 
@@ -545,7 +545,7 @@ private resolveResponseFormat(
 
 ### 6.1 统一注入点
 
-**唯一注入文件**: `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts`
+**唯一注入文件**: `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts`
 
 ### 6.2 JSON 约束注入措辞
 
@@ -644,7 +644,7 @@ private buildInnerMessageBlock(input, ctx): ChatMessage[] {
 
 ### 7.1 核心推导函数
 
-**文件**: `backend/apps/agents/src/modules/agents/agent-executor.service.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts`
 
 ```typescript
 /**
@@ -677,7 +677,7 @@ private resolveScenarioType(
 
 ### 7.2 isMeetingLikeTask 修复
 
-**文件**: `backend/apps/agents/src/modules/agents/agent-executor.helpers.ts`
+**文件**: `app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts`
 
 ```typescript
 // 现有 (L20-28):
@@ -702,39 +702,39 @@ export function isMeetingLikeTask(task, context): boolean {
 
 | 文件 | 说明 |
 |------|------|
-| `backend/libs/contracts/src/collaboration-context.types.ts` | 类型定义 + type guards |
-| `backend/libs/contracts/src/collaboration-context.factory.ts` | 工厂函数 |
+| `app/backend/libs/contracts/src/collaboration-context.types.ts` | 类型定义 + type guards |
+| `app/backend/libs/contracts/src/collaboration-context.factory.ts` | 工厂函数 |
 
 ### 8.2 修改文件
 
 | 文件 | 改动说明 |
 |------|---------|
 | **类型层** | |
-| `backend/libs/contracts/src/index.ts` | 导出新类型 |
-| `backend/apps/agents/src/modules/agents/agent.types.ts` | `collaborationContext` 类型更新 |
-| `backend/apps/agents/src/schemas/agent-session.schema.ts` | `collaborationContext` 类型更新 |
-| `backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` | `collaborationContext` 类型更新 |
-| `backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts` | `ScenarioType` 扩展为 4 值 |
+| `app/backend/libs/contracts/src/index.ts` | 导出新类型 |
+| `app/backend/apps/agents/src/modules/agents/agent.types.ts` | `collaborationContext` 类型更新 |
+| `app/backend/apps/agents/src/schemas/agent-session.schema.ts` | `collaborationContext` 类型更新 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-context.type.ts` | `collaborationContext` 类型更新 |
+| `app/backend/apps/agents/src/modules/agents/context/context-block-builder.interface.ts` | `ScenarioType` 扩展为 4 值 |
 | **LLM Provider 层** | |
-| `backend/libs/models/src/v1/base-provider.ts` | 新增 `LLMCallOptions` 接口 |
-| `backend/libs/models/src/v1/openai-provider.ts` | `chatWithMeta()` / `streamingChat()` 透传 `response_format` |
-| `backend/libs/models/src/v1/moonshot-provider.ts` | 同 OpenAI |
-| `backend/libs/models/src/aiv2-provider.ts` | `buildCallOptions()` 支持 `responseFormat` |
+| `app/backend/libs/models/src/v1/base-provider.ts` | 新增 `LLMCallOptions` 接口 |
+| `app/backend/libs/models/src/v1/openai-provider.ts` | `chatWithMeta()` / `streamingChat()` 透传 `response_format` |
+| `app/backend/libs/models/src/v1/moonshot-provider.ts` | 同 OpenAI |
+| `app/backend/libs/models/src/aiv2-provider.ts` | `buildCallOptions()` 支持 `responseFormat` |
 | **Executor 层** | |
-| `backend/apps/agents/src/modules/agents/agent-executor.service.ts` | 新增 `resolveResponseFormat()` + `resolveScenarioType()` 重构 + LLM 调用透传 |
-| `backend/apps/agents/src/modules/agents/executor-engines/native-streaming-agent-executor.engine.ts` | `streamOnce()` 透传 `responseFormat` |
-| `backend/apps/agents/src/modules/agents/agent-executor.helpers.ts` | `isMeetingLikeTask()` 补充 collaborationContext 检查 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` | 新增 `resolveResponseFormat()` + `resolveScenarioType()` 重构 + LLM 调用透传 |
+| `app/backend/apps/agents/src/modules/agents/executor-engines/native-streaming-agent-executor.engine.ts` | `streamOnce()` 透传 `responseFormat` |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.helpers.ts` | `isMeetingLikeTask()` 补充 collaborationContext 检查 |
 | **Context Builder 层** | |
-| `backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` | 四分支重构 + 统一 JSON 约束注入 |
+| `app/backend/apps/agents/src/modules/agents/context/collaboration-context.builder.ts` | 四分支重构 + 统一 JSON 约束注入 |
 | **Orchestration 层** | |
-| `backend/src/modules/orchestration/planner.service.ts` | 4 处 collaborationContext 构建改为工厂 + 移除 `[SYSTEM OVERRIDE]` JSON 格式约束 |
-| `backend/src/modules/orchestration/services/orchestration-context.service.ts` | `buildOrchestrationCollaborationContext()` 改为工厂 + `buildPreTaskContext()` / `buildPostTaskContext()` 移除 JSON 格式约束 |
-| `backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | `ensurePlannerSession()` 改为工厂 |
-| `backend/src/modules/orchestration/services/plan-management.service.ts` | replan session 改为工厂 |
+| `app/backend/src/modules/orchestration/planner.service.ts` | 4 处 collaborationContext 构建改为工厂 + 移除 `[SYSTEM OVERRIDE]` JSON 格式约束 |
+| `app/backend/src/modules/orchestration/services/orchestration-context.service.ts` | `buildOrchestrationCollaborationContext()` 改为工厂 + `buildPreTaskContext()` / `buildPostTaskContext()` 移除 JSON 格式约束 |
+| `app/backend/src/modules/orchestration/services/orchestration-step-dispatcher.service.ts` | `ensurePlannerSession()` 改为工厂 |
+| `app/backend/src/modules/orchestration/services/plan-management.service.ts` | replan session 改为工厂 |
 | **Meeting 层** | |
-| `backend/src/modules/meetings/services/meeting-orchestration.service.ts` | `buildMeetingTeamContext()` 改为工厂 |
+| `app/backend/src/modules/meetings/services/meeting-orchestration.service.ts` | `buildMeetingTeamContext()` 改为工厂 |
 | **Inner Message 层** | |
-| `backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` | `processMessage()` 改为工厂 |
+| `app/backend/apps/agents/src/modules/inner-message/inner-message-agent-runtime-bridge.service.ts` | `processMessage()` 改为工厂 |
 
 ### 8.3 不修改的文件（本次范围外）
 

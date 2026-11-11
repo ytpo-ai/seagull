@@ -153,6 +153,6 @@ Error: ENCRYPTION_KEY environment variable is not set
 
 ## 代码参考
 
-- 加密工具类: `/backend/src/shared/utils/encryption.util.ts`
-- API Key服务: `/backend/src/modules/api-keys/api-key.service.ts`
-- API Key模型: `/backend/src/shared/schemas/apiKey.schema.ts`
+- 加密工具类: `/app/backend/src/shared/utils/encryption.util.ts`
+- API Key服务: `/app/backend/src/modules/api-keys/api-key.service.ts`
+- API Key模型: `/app/backend/src/shared/schemas/apiKey.schema.ts`

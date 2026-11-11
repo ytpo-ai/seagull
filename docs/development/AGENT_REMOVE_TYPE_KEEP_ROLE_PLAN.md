@@ -8,9 +8,9 @@
 ## 实施内容
 
 1. 后端契约兼容化（不再强依赖 `type`）
-   - Agent schema 的 `type` 调整为可选：`backend/src/shared/schemas/agent.schema.ts`。
-   - 共享类型同步为可选：`backend/src/shared/types.ts`、`frontend/src/types/index.ts`。
-   - 创建 Agent 时移除 `type` 必填校验；更新 Agent 时允许清空 `type`：`backend/apps/agents/src/modules/agents/agent.service.ts`。
+   - Agent schema 的 `type` 调整为可选：`app/backend/src/shared/schemas/agent.schema.ts`。
+   - 共享类型同步为可选：`app/backend/src/shared/types.ts`、`frontend/src/types/index.ts`。
+   - 创建 Agent 时移除 `type` 必填校验；更新 Agent 时允许清空 `type`：`app/backend/apps/agents/src/modules/agents/agent.service.ts`。
 
 2. MCP/工具权限映射改为角色优先
    - MCP profile 匹配 key 统一改为优先 `role.code`，`type` 仅兜底。
@@ -30,14 +30,14 @@
    - HR 页面同步按钮文案调整为“系统角色模板”语义：`frontend/src/pages/HRManagement.tsx`。
 
 5. Memo 与功能文档同步
-   - Identity 聚合内容改为“角色ID + 历史类型”：`backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`。
+   - Identity 聚合内容改为“角色ID + 历史类型”：`app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`。
    - 功能文档描述同步：`docs/feature/AGENT_MEMO.md`。
    - 计划文档：`docs/plan/AGENT_REMOVE_TYPE_KEEP_ROLE_PLAN.md`。
 
 ## 验证
 
 - `frontend/` 执行 `npm run build` 通过。
-- `backend/` 执行 `npm run build:agents` 通过。
+- `app/backend/` 执行 `npm run build:agents` 通过。
 
 ## 风险与后续建议
 

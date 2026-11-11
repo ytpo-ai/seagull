@@ -37,9 +37,9 @@
 
 | 文件 | 改动 |
 |------|------|
-| `backend/src/modules/orchestration/services/plan-execution.service.ts` | 创建 run 时从 `ei_projects` 查询 `localPath`，自动写入 `run.metadata.taskContext` |
-| `backend/apps/agents/src/modules/tools/builtin/engineering-repo-tool-handler.service.ts` | `resolveWorkspaceRoot` 增加 `executionContext.localProjectPath` 优先级；`executeRepoRead` 接受 `executionContext` 参数 |
-| `backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | `TOOL_ID__ENGINEERING_REPO_READ` dispatch 时传递 `executionContext` |
+| `app/backend/src/modules/orchestration/services/plan-execution.service.ts` | 创建 run 时从 `ei_projects` 查询 `localPath`，自动写入 `run.metadata.taskContext` |
+| `app/backend/apps/agents/src/modules/tools/builtin/engineering-repo-tool-handler.service.ts` | `resolveWorkspaceRoot` 增加 `executionContext.localProjectPath` 优先级；`executeRepoRead` 接受 `executionContext` 参数 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution-dispatcher.service.ts` | `TOOL_ID__ENGINEERING_REPO_READ` dispatch 时传递 `executionContext` |
 
 ### 影响范围
 

@@ -85,30 +85,30 @@
 
 | 文件路径 | 修改内容 |
 |----------|----------|
-| `backend/apps/agents/src/schemas/agent-profile.schema.ts` | **删除** |
-| `backend/apps/agents/src/schemas/agent-role.schema.ts` | 新增 permissions/permissionsManual/permissionsDerived/exposed 字段 |
-| `backend/src/shared/schemas/agent-role1.schema.ts` | 同步更新（orchestration 模块副本） |
-| `backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts` | **删除**，逻辑合并到 AgentRoleService |
-| `backend/apps/agents/src/modules/agents/agent-role.service.ts` | 合并 profile 相关逻辑，消除两次查询 |
-| `backend/apps/agents/src/modules/agents/agent.types.ts` | 移除 AgentMcpMapProfile，更新 AgentToolPermissionSet |
-| `backend/apps/agents/src/modules/agents/agent.service.ts` | 移除 AgentProfile model 注入 |
-| `backend/apps/agents/src/modules/agents/agent.controller.ts` | 合并 profile API 到 role API |
-| `backend/apps/agents/src/modules/agents/agent.module.ts` | 移除 AgentProfile schema 注册 |
-| `backend/apps/agents/src/modules/agents/agent-executor.service.ts` | 更新 allowed tools 获取方式 |
-| `backend/apps/agents/src/modules/tools/tool.module.ts` | 移除 AgentProfile schema 注册 |
-| `backend/apps/agents/src/modules/tools/tool-execution.service.ts` | 改为从 AgentRole 获取权限 |
-| `backend/apps/agents/src/modules/tools/builtin/agent-tool-handler.service.ts` | 改为从 AgentRole 获取 profile 信息 |
-| `backend/src/modules/orchestration/orchestration.module.ts` | 检查是否需要同步 |
-| `backend/src/modules/orchestration/services/executor-selection.service.ts` | 检查是否需要同步 |
+| `app/backend/apps/agents/src/schemas/agent-profile.schema.ts` | **删除** |
+| `app/backend/apps/agents/src/schemas/agent-role.schema.ts` | 新增 permissions/permissionsManual/permissionsDerived/exposed 字段 |
+| `app/backend/src/shared/schemas/agent-role1.schema.ts` | 同步更新（orchestration 模块副本） |
+| `app/backend/apps/agents/src/modules/agents/agent-mcp-profile.service.ts` | **删除**，逻辑合并到 AgentRoleService |
+| `app/backend/apps/agents/src/modules/agents/agent-role.service.ts` | 合并 profile 相关逻辑，消除两次查询 |
+| `app/backend/apps/agents/src/modules/agents/agent.types.ts` | 移除 AgentMcpMapProfile，更新 AgentToolPermissionSet |
+| `app/backend/apps/agents/src/modules/agents/agent.service.ts` | 移除 AgentProfile model 注入 |
+| `app/backend/apps/agents/src/modules/agents/agent.controller.ts` | 合并 profile API 到 role API |
+| `app/backend/apps/agents/src/modules/agents/agent.module.ts` | 移除 AgentProfile schema 注册 |
+| `app/backend/apps/agents/src/modules/agents/agent-executor.service.ts` | 更新 allowed tools 获取方式 |
+| `app/backend/apps/agents/src/modules/tools/tool.module.ts` | 移除 AgentProfile schema 注册 |
+| `app/backend/apps/agents/src/modules/tools/tool-execution.service.ts` | 改为从 AgentRole 获取权限 |
+| `app/backend/apps/agents/src/modules/tools/builtin/agent-tool-handler.service.ts` | 改为从 AgentRole 获取 profile 信息 |
+| `app/backend/src/modules/orchestration/orchestration.module.ts` | 检查是否需要同步 |
+| `app/backend/src/modules/orchestration/services/executor-selection.service.ts` | 检查是否需要同步 |
 
 ### 需要修改的种子/迁移脚本
 
 | 文件路径 | 修改内容 |
 |----------|----------|
-| `backend/scripts/seed/role.ts` | 合并 mcp-profile.ts 的数据 |
-| `backend/scripts/seed/mcp-profile.ts` | **删除**，数据合并到 role.ts |
-| `backend/scripts/seed/hr-agent-role-master.ts` | 更新引用 |
-| `backend/scripts/seed/seed-runner.ts` | 移除 mcp-profile 种子步骤 |
+| `app/backend/scripts/seed/role.ts` | 合并 mcp-profile.ts 的数据 |
+| `app/backend/scripts/seed/mcp-profile.ts` | **删除**，数据合并到 role.ts |
+| `app/backend/scripts/seed/hr-agent-role-master.ts` | 更新引用 |
+| `app/backend/scripts/seed/seed-runner.ts` | 移除 mcp-profile 种子步骤 |
 | **新增** 迁移脚本 | 将现有 agent_profiles 数据 merge 到 agent_roles |
 
 ### 需要修改的前端文件
@@ -122,10 +122,10 @@
 
 | 文件路径 | 说明 |
 |----------|------|
-| `backend/src/shared/types.ts` (Line 124-139) | 过时的 AgentRole 接口（含 title/department/level/salaryRange） |
-| `backend/scripts/migrate/migrate-agent-profile-permissions.ts` | profile 权限迁移脚本，合并后可归档 |
-| `backend/scripts/migrate/migrate-schema-collection-governance.ts` | 含 `agentprofiles -> agent_profiles` 迁移逻辑，合并后可归档 |
-| `backend/scripts/migrate/cleanup-removed-requirement-tools.ts` | 含 profile 工具清理逻辑，需更新 |
+| `app/backend/src/shared/types.ts` (Line 124-139) | 过时的 AgentRole 接口（含 title/department/level/salaryRange） |
+| `app/backend/scripts/migrate/migrate-agent-profile-permissions.ts` | profile 权限迁移脚本，合并后可归档 |
+| `app/backend/scripts/migrate/migrate-schema-collection-governance.ts` | 含 `agentprofiles -> agent_profiles` 迁移逻辑，合并后可归档 |
+| `app/backend/scripts/migrate/cleanup-removed-requirement-tools.ts` | 含 profile 工具清理逻辑，需更新 |
 
 ---
 
@@ -179,7 +179,7 @@
 2. **删除 agent-mcp-profile.service.ts**
 3. **删除 mcp-profile.ts 种子脚本**，更新 seed-runner.ts
 4. **编写集合清理迁移脚本**: drop `agent_profiles` 集合（或标记为废弃）
-5. **清理历史遗留类型**: `backend/src/shared/types.ts` 中的过时 AgentRole 接口
+5. **清理历史遗留类型**: `app/backend/src/shared/types.ts` 中的过时 AgentRole 接口
 6. **归档旧迁移脚本**: `migrate-agent-profile-permissions.ts` 等
 7. **更新 cleanup-removed-requirement-tools.ts**: 移除 profile 引用
 

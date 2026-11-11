@@ -30,15 +30,15 @@
 
 ## 3. 关键代码改动
 
-- `backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
+- `app/backend/apps/agents/src/modules/memos/identity-aggregation.service.ts`
   - 精简工具聚合逻辑，仅基于 `agent.tools` 解析工具描述。
   - 在 Identity Markdown 生成中新增 `Agent 名称` 与 `能力域/工具描述`。
   - 元信息 `sources` 更新为：`[agent, agent_skills, tool_registry]`。
 
-- `backend/apps/agents/src/modules/memos/memo.module.ts`
+- `app/backend/apps/agents/src/modules/memos/memo.module.ts`
   - Memo 模块注册 `Tool` schema（供 identity 聚合读取工具描述）。
 
-- `backend/apps/agents/src/modules/memos/identity-aggregation.service.spec.ts`
+- `app/backend/apps/agents/src/modules/memos/identity-aggregation.service.spec.ts`
   - 新增并校验两类场景：
     - 工具元数据存在时，正确输出描述。
     - 工具元数据缺失时，输出兜底描述。

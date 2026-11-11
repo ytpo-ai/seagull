@@ -27,8 +27,8 @@
   2. **项目过滤字段不兼容**：后端只按 `localProjectId` 精确匹配，而 Agent 创建的需求只有 `projectId`，按项目过滤时被排除
 - 深层原因：Agent 工具层 (`engineering-requirement-tool-handler.service.ts`) 创建需求时同时写入 `localProjectId` 和 `projectId`，但两者的值来源不同，部分场景下 `localProjectId` 为空
 - 相关模块/文件：
-  - `backend/apps/ei/src/services/requirements.service.ts` 第 404-461 行（listRequirements 方法）
-  - `backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts` 第 206 行（createRequirement 写入逻辑）
+  - `app/backend/apps/ei/src/services/requirements.service.ts` 第 404-461 行（listRequirements 方法）
+  - `app/backend/apps/agents/src/modules/tools/builtin/engineering-requirement-tool-handler.service.ts` 第 206 行（createRequirement 写入逻辑）
 
 ## 4. 修复动作
 
@@ -37,7 +37,7 @@
   2. 将 `localProjectId` 过滤逻辑改为 `$or: [{ localProjectId: value }, { projectId: value }]`，同时匹配两个字段
   3. 重构多个 `$or` 条件的组合逻辑，使用 `$and` 避免 `localProjectId` 过滤和 `search` 过滤互相覆盖
 - 代码改动点：
-  - `backend/apps/ei/src/services/requirements.service.ts`：`listRequirements` 方法
+  - `app/backend/apps/ei/src/services/requirements.service.ts`：`listRequirements` 方法
 - 兼容性处理：
   - `projectId` 过滤同样做了 `$or` 双字段匹配
   - 当只有单个 `$or` 条件时直接 `Object.assign`，多个时用 `$and` 组合，无多余嵌套
