@@ -143,4 +143,23 @@ export class AuthController {
 
     return this.authService.generateLifeScriptRedirectToken(employee.id);
   }
+
+  /**
+   * 签发通用跳转一次性 token（用于项目外部链接）
+   */
+  @Post('issue-generic-redirect-token')
+  async issueGenericRedirectToken(@Headers('authorization') authHeader: string): Promise<RedirectTokenResponse> {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      throw new UnauthorizedException('无效的Token');
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const employee = await this.authService.getEmployeeFromToken(token);
+
+    if (!employee) {
+      throw new UnauthorizedException('Token已过期或无效');
+    }
+
+    return this.authService.generateGenericRedirectToken(employee.id);
+  }
 }

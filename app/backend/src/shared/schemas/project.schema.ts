@@ -22,6 +22,10 @@ export class Project {
   @Prop({ default: true })
   isActive: boolean;
 
+  /** 外部链接地址 */
+  @Prop()
+  externalLink?: string;
+
   @Prop()
   createdAt?: Date;
 

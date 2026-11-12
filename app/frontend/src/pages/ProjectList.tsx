@@ -8,9 +8,11 @@ import {
   PlusIcon,
   TrashIcon,
   PencilIcon,
+  ArrowTopRightOnSquareIcon,
   MapPinIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline';
+import { authService } from '../services/authService';
 
 const ProjectList: React.FC = () => {
   const navigate = useNavigate();
@@ -53,6 +55,19 @@ const ProjectList: React.FC = () => {
   const handleDelete = (id: string, name: string) => {
     if (window.confirm(`确定要删除项目 "${name}" 吗？此操作不可撤销。`)) {
       deleteMutation.mutate(id);
+    }
+  };
+
+  const handleExternalLinkClick = async (e: React.MouseEvent, externalLink: string) => {
+    e.stopPropagation();
+    try {
+      const result = await authService.generateGenericRedirectToken();
+      const baseUrl = externalLink.replace(/\/$/, '');
+      const separator = baseUrl.includes('?') ? '&' : '?';
+      const targetUrl = `${baseUrl}${separator}token=${encodeURIComponent(result.redirectToken)}`;
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    } catch {
+      // silently fail
     }
   };
 
@@ -121,6 +136,15 @@ const ProjectList: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {project.externalLink && (
+                    <button
+                      onClick={(e) => handleExternalLinkClick(e, project.externalLink!)}
+                      className="p-1.5 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                      title={`打开外部链接: ${project.externalLink}`}
+                    >
+                      <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+                    </button>
+                  )}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -215,6 +239,18 @@ const ProjectList: React.FC = () => {
                   value={newProject.localDirectory || ''}
                   onChange={(e) => setNewProject({ ...newProject, localDirectory: e.target.value })}
                   placeholder="项目在本地的目录路径"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  外部链接
+                </label>
+                <input
+                  type="text"
+                  value={newProject.externalLink || ''}
+                  onChange={(e) => setNewProject({ ...newProject, externalLink: e.target.value })}
+                  placeholder="例如 https://example.com/project"
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>

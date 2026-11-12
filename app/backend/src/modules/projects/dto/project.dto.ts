@@ -16,6 +16,10 @@ export class CreateProjectDto {
   @IsArray()
   @IsString({ each: true })
   adminIds?: string[];
+
+  @IsOptional()
+  @IsString()
+  externalLink?: string;
 }
 
 export class UpdateProjectDto {
@@ -39,6 +43,10 @@ export class UpdateProjectDto {
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
+
+  @IsOptional()
+  @IsString()
+  externalLink?: string;
 }
 
 export class CreateApiKeyDto {

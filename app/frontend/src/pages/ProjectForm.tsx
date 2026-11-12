@@ -15,6 +15,7 @@ const ProjectForm: React.FC = () => {
     name: '',
     description: '',
     localDirectory: '',
+    externalLink: '',
     adminIds: [],
     isActive: true,
   });
@@ -33,6 +34,7 @@ const ProjectForm: React.FC = () => {
         name: project.name,
         description: project.description || '',
         localDirectory: project.localDirectory || '',
+        externalLink: project.externalLink || '',
         adminIds: project.adminIds || [],
         isActive: project.isActive,
       });
@@ -139,6 +141,20 @@ const ProjectForm: React.FC = () => {
               onChange={(e) => setForm({ ...form, localDirectory: e.target.value })}
               placeholder="例如 /Users/van/Projects/my-app"
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* External Link */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              外部链接
+            </label>
+            <input
+              type="text"
+              value={form.externalLink || ''}
+              onChange={(e) => setForm({ ...form, externalLink: e.target.value })}
+              placeholder="例如 https://example.com/project"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
 

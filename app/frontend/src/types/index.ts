@@ -285,6 +285,7 @@ export interface Project {
   localDirectory?: string;
   adminIds: string[];
   isActive: boolean;
+  externalLink?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -306,6 +307,7 @@ export interface CreateProjectDto {
   description?: string;
   localDirectory?: string;
   adminIds?: string[];
+  externalLink?: string;
 }
 
 export interface UpdateProjectDto {
@@ -314,6 +316,7 @@ export interface UpdateProjectDto {
   localDirectory?: string;
   adminIds?: string[];
   isActive?: boolean;
+  externalLink?: string;
 }
 
 export interface CreateApiKeyDto {

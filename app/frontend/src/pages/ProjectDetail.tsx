@@ -6,6 +6,7 @@ import { agentService } from '../services/agentService';
 import type { ProjectApiKey, CreateApiKeyResponse, Agent } from '../types';
 import {
   ArrowLeftIcon,
+  ArrowTopRightOnSquareIcon,
   KeyIcon,
   PlusIcon,
   TrashIcon,
@@ -15,6 +16,7 @@ import {
   CheckIcon,
   CommandLineIcon,
 } from '@heroicons/react/24/outline';
+import { authService } from '../services/authService';
 
 type TabType = 'info' | 'agents' | 'api-keys';
 
@@ -118,6 +120,19 @@ const ProjectDetail: React.FC = () => {
     setCopyFeedback(false);
   };
 
+  const handleExternalLinkClick = async () => {
+    if (!project?.externalLink) return;
+    try {
+      const result = await authService.generateGenericRedirectToken();
+      const baseUrl = project.externalLink.replace(/\/$/, '');
+      const separator = baseUrl.includes('?') ? '&' : '?';
+      const targetUrl = `${baseUrl}${separator}token=${encodeURIComponent(result.redirectToken)}`;
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    } catch {
+      // silently fail
+    }
+  };
+
   const handleDelete = () => {
     if (window.confirm(`确定要删除项目 "${project?.name}" 吗？此操作不可撤销。`)) {
       deleteMutation.mutate(id!);
@@ -189,6 +204,16 @@ const ProjectDetail: React.FC = () => {
               <span>{project.localDirectory}</span>
             </div>
           )}
+          {project.externalLink && (
+            <button
+              onClick={handleExternalLinkClick}
+              className="flex items-center space-x-1 text-primary-600 hover:text-primary-700 hover:underline"
+              title={`打开外部链接: ${project.externalLink}`}
+            >
+              <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+              <span>外部链接</span>
+            </button>
+          )}
           <div className="flex items-center space-x-1">
             <UserGroupIcon className="w-4 h-4" />
             <span>{project.adminIds?.length || 0} 位管理员</span>
@@ -240,6 +265,20 @@ const ProjectDetail: React.FC = () => {
             <div>
               <dt className="text-sm text-gray-500">本地目录</dt>
               <dd className="text-sm text-gray-900 dark:text-white mt-1 font-mono">{project.localDirectory || '—'}</dd>
+            </div>
+            <div>
+              <dt className="text-sm text-gray-500">外部链接</dt>
+              <dd className="text-sm text-gray-900 dark:text-white mt-1">
+                {project.externalLink ? (
+                  <button
+                    onClick={handleExternalLinkClick}
+                    className="text-primary-600 hover:text-primary-700 hover:underline inline-flex items-center gap-1"
+                  >
+                    <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5" />
+                    {project.externalLink}
+                  </button>
+                ) : '—'}
+              </dd>
             </div>
             <div>
               <dt className="text-sm text-gray-500">管理员 ID 列表</dt>

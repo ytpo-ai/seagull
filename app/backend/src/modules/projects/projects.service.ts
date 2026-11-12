@@ -26,6 +26,7 @@ export interface ProjectResponse {
   name: string;
   description?: string;
   localDirectory?: string;
+  externalLink?: string;
   adminIds: string[];
   isActive: boolean;
   createdAt?: Date;
@@ -115,6 +116,7 @@ export class ProjectsService {
       name: dto.name,
       description: dto.description,
       localDirectory: dto.localDirectory,
+      externalLink: dto.externalLink,
       adminIds: dto.adminIds || [],
       isActive: true,
     });
@@ -355,6 +357,7 @@ export class ProjectsService {
       name: project.name,
       description: project.description,
       localDirectory: project.localDirectory,
+      externalLink: project.externalLink,
       adminIds: project.adminIds || [],
       isActive: project.isActive,
       createdAt: project.createdAt,

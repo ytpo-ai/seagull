@@ -124,6 +124,11 @@ class AuthService {
     return this.unwrapApiData<LifeScriptRedirectTokenResponse>(response.data);
   }
 
+  async generateGenericRedirectToken(): Promise<LifeScriptRedirectTokenResponse> {
+    const response = await api.post('/auth/issue-generic-redirect-token');
+    return this.unwrapApiData<LifeScriptRedirectTokenResponse>(response.data);
+  }
+
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }

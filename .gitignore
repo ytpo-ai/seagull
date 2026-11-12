@@ -1,6 +1,8 @@
 */node_modules
 node_modules
 */dist
+app/backend/dist
+app/frontend/dist
 
 # .gitignore 至少包含
 app/backend/.env
